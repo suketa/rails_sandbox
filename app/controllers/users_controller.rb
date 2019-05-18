@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.avatar_file = user_params[:avatar] # この行を追加
 
     respond_to do |format|
       if @user.save
