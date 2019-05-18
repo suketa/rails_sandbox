@@ -12,8 +12,8 @@ class User < ApplicationRecord
   private
 
   def avatar_file_format
-    if @avatar_file.present?
-      header = File.read @avatar_file, 8 # ちょい足し機能の確認
+    avatar.blob.open do |file|
+      header = File.read file, 8
       if header != PNG_FORMAT_HEADER
         errors.add(:avatar, 'is not png format file')
       end
