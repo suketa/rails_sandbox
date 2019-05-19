@@ -1,0 +1,2 @@
+module HtmlSafeHelper
+end
