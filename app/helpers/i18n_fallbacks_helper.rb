@@ -1,0 +1,2 @@
+module I18nFallbacksHelper
+end

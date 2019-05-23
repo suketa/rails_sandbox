@@ -1,0 +1,16 @@
+<% I18n.with_locale(:de) do %>
+  <h1>I18n Fallbacks Test</h1>
+  <h2>I18n settings</h2>
+  <ul>
+    <li>I18n.default_locale = <%= I18n.default_locale %></li>
+    <li>I18n.locale = <%= I18n.locale %></li>
+    <li>I18n.fallbacks = <%= I18n.fallbacks %></li>
+  </ul>
+
+  <h2>I18n translations</h2>
+  <ul>
+    <li>morning=<%= t(:morning) %></li>
+    <li>afternoon=<%= t(:afternoon) %></li>
+    <li>night=<%= t(:night) %></li>
+  </ul>
+<% end %>
