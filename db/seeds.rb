@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Author.create_with(
+  books_attributes: [{ title: 'Programming Ruby' }]
+).find_or_create_by!(
+  name: 'Dave Thomas'
+)
