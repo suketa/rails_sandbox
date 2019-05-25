@@ -15,6 +15,7 @@ RUN apk update && \
       libxml2-dev \
       libxslt-dev \
       postgresql-dev \
+      mysql-dev \
       ruby-dev \
       yaml-dev \
       zlib-dev && \
@@ -25,6 +26,7 @@ RUN apk update && \
       git \
       openssh \
       postgresql-client \
+      mysql-client \
       tzdata \
       yaml && \
     gem install bundler && \
