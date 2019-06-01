@@ -12,39 +12,65 @@ $ docker-compose exec web bash
 ## feature: [Store newly-uploaded files on save rather than assignment](https://github.com/rails/rails/pull/33303)
 
 * branch: try015_active_storage
-* article: https://qiita.com/suketa/items/2daad87d8c22737f5582 (Japanese)
+* article: https://qiita.com/suketa/items/2daad87d8c22737f5582 (日本語)
 
 ## feature: [Add implicit to path conversion to uploaded file](https://github.com/rails/rails/pull/28676)
 
 * branch: try016_uploaded_file_path
-* article: https://qiita.com/suketa/items/c06068518ae0ba283b2b (Japanese)
+* article: https://qiita.com/suketa/items/c06068518ae0ba283b2b (日本語)
 
 ## feature: [Use public_send in value_for_collection](https://github.com/rails/rails/pull/33547)
 
 * branch: try018
-* article: https://qiita.com/suketa/items/8e238df881b2c55b24f9 (Japanese)
+* article: https://qiita.com/suketa/items/8e238df881b2c55b24f9 (日本語)
 
 ## feature: [Emit warning for unknown inflection rule when generating model](https://github.com/rails/rails/pull/33766)
 
 * branch try019_db_singular_and_plural_warning
-* article: https://qiita.com/suketa/items/82da66f61c9a0f337126 (Japanese)
+* article: https://qiita.com/suketa/items/82da66f61c9a0f337126 (日本語)
 
 ## feature: [Fail more gracefully from ActiveStorage missing file exceptions](https://github.com/rails/rails/pull/33666)
 
 * branch try020_active_storage_missing_file
-* article: https://qiita.com/suketa/items/97bbfa3626ea542e9e0b (Japanese)
+* article: https://qiita.com/suketa/items/97bbfa3626ea542e9e0b (日本語)
 
 ## feature: [Maintain html_safe? on sliced HTML safe strings](https://github.com/rails/rails/pull/33808)
 
 * branch try021_html_safe
-* article: https://qiita.com/suketa/items/bf4f422d7797fae97406 (Japanese)
+* article: https://qiita.com/suketa/items/bf4f422d7797fae97406 (日本語)
 
 ## feature: [Configuration item config.filter_parameters could also filter out sensitive values of database columns when call #inspect](https://github.com/rails/rails/pull/33756)
 
 * branch try022_filter_parameters
-* article: https://qiita.com/suketa/items/ce5d3e6439086b5e86f9 (Japanese)
+* article: https://qiita.com/suketa/items/ce5d3e6439086b5e86f9 (日本語)
 
 ## feature: [update I18n fallbacks configuration to be compatible with i18n 1.1.0](https://github.com/rails/rails/pull/33574)
 
 * branch try023_i18n_fallbacks
-* article: https://qiita.com/suketa/items/27251aeef4fac8cc5262 (Japanese)
+* article: https://qiita.com/suketa/items/27251aeef4fac8cc5262 (日本語)
+
+## feature: [Add #unfreeze_time to ActiveSupport::Testing::TimeHelpers](https://github.com/rails/rails/pull/33813)
+
+* branch: try024_unfreeze_time
+* article: https://qiita.com/suketa/items/9830f814ee824ca4e681 (日本語)
+
+## feature: [Make sure there are no duplicated nested records with create_with](https://github.com/rails/rails/pull/33639)
+
+* branch: try025_fix_create_with
+* article: https://qiita.com/suketa/items/ac35fafb422cd8c672dd (日本語)
+
+## feature: [Use utf8mb4 character set by default for MySQL database](https://github.com/rails/rails/pull/33608)
+
+* branch: try026_mysql_utf8mb4
+* article: https://qiita.com/suketa/items/d7dabe31decff87e26e6 (日本語)
+
+## feature: [Skip delivery notification when perform_deliveries is false.](https://github.com/rails/rails/pull/33824)
+
+* branch: try027_perform_deliveries
+* article: https://qiita.com/suketa/items/4daf2767071ab0a70176 (日本語)
+
+## feature: [TaggedLogging to return a new logger instance](https://github.com/rails/rails/pull/27792)
+
+* branch: try028_tagged_logging
+* article: https://qiita.com/suketa/items/dfff84951cc251df834e (日本語)
+
