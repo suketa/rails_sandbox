@@ -74,3 +74,12 @@ $ docker-compose exec web bash
 * branch: try028_tagged_logging
 * article: https://qiita.com/suketa/items/dfff84951cc251df834e (日本語)
 
+## feature: [Deprecate ActiveRecord::Result#to_hash in favor of #to_a](https://github.com/rails/rails/pull/33912)
+
+* branch: try029_activerecord_result_to_a
+* article:
+
+## feature: [Allow subclasses to redefine autosave callbacks for associated records](https://github.com/rails/rails/pull/33378)
+
+* branch: try030_subclass
+* article:
