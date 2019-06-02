@@ -83,3 +83,8 @@ $ docker-compose exec web bash
 
 * branch: try030_subclass
 * article:
+
+## feature: [Configure Active Storage route prefix](https://github.com/rails/rails/pull/33883)
+
+* branch: try031_active_storage_route_prefix
+* article:
