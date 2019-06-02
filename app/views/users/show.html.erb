@@ -9,6 +9,10 @@
   <strong>Avatar:</strong>
   <% if @user.avatar.attached? %>
     <%= image_tag @user.avatar %>
+    <p>
+      <%= link_to 'download image', rails_blob_path(@user.avatar, disposition: 'attachment') %> 
+      from <%= rails_blob_path(@user.avatar, disposition: 'attachment').sub(/\/blobs\/.*/, '/blobs/') %>
+    </p>
   <% end %>
 </p>
 
