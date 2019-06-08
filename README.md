@@ -77,14 +77,24 @@ $ docker-compose exec web bash
 ## feature: [Deprecate ActiveRecord::Result#to_hash in favor of #to_a](https://github.com/rails/rails/pull/33912)
 
 * branch: try029_activerecord_result_to_a
-* article:
+* article: https://qiita.com/suketa/items/812882409bd4e44d586a (日本語)
 
 ## feature: [Allow subclasses to redefine autosave callbacks for associated records](https://github.com/rails/rails/pull/33378)
 
 * branch: try030_subclass
-* article:
+* article: https://qiita.com/suketa/items/7ccd1b64d9934867ff33 (日本語)
 
 ## feature: [Configure Active Storage route prefix](https://github.com/rails/rails/pull/33883)
 
 * branch: try031_active_storage_route_prefix
+* article: https://qiita.com/suketa/items/bca2efe9df7c1d3496ee (日本語)
+
+## feature: [index option added for change_table migrations](https://github.com/rails/rails/pull/23593)
+
+* branch: try032_index_option
+* article:
+
+## feature: [Error when using "recyclable" cache keys with a store that does not support it](https://github.com/rails/rails/pull/33932)
+
+* branch: try033_cache_error
 * article:
