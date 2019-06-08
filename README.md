@@ -98,3 +98,8 @@ $ docker-compose exec web bash
 
 * branch: try033_cache_error
 * article:
+
+## feature: [Encode Content-Disposition filenames on send_data and send_file](https://github.com/rails/rails/pull/33829)
+
+* branch: try034_send_data_filename
+* article:
