@@ -19,6 +19,9 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+  memcached:
+    image: memcached:1.5.16-alpine
+
 
 volumes:
   pgsqldb:
