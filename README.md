@@ -103,3 +103,8 @@ $ docker-compose exec web bash
 
 * branch: try034_send_data_filename
 * article:
+
+## feature: [Refactor migrations_path command option to database](https://github.com/rails/rails/pull/34021)
+
+* branch: try035_database_option
+* article
