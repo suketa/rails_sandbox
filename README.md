@@ -107,4 +107,9 @@ $ docker-compose exec web bash
 ## feature: [Refactor migrations_path command option to database](https://github.com/rails/rails/pull/34021)
 
 * branch: try035_database_option
-* article
+* article:
+
+## feature: [Added ActionController::Parameters.each_value methods](https://github.com/rails/rails/pull/33979)
+
+* branch: try036_params_each_values
+* article:
