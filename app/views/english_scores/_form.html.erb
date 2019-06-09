@@ -1,0 +1,42 @@
+<%= form_with(model: english_score, local: true) do |form| %>
+  <% if english_score.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(english_score.errors.count, "error") %> prohibited this english_score from being saved:</h2>
+
+      <ul>
+        <% english_score.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reading %>
+    <%= form.number_field :reading %>
+  </div>
+
+  <div class="field">
+    <%= form.label :writing %>
+    <%= form.number_field :writing %>
+  </div>
+
+  <div class="field">
+    <%= form.label :speaking %>
+    <%= form.number_field :speaking %>
+  </div>
+
+  <div class="field">
+    <%= form.label :listening %>
+    <%= form.number_field :listening %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @english_score.name %>
+</p>
+
+<p>
+  <strong>Reading:</strong>
+  <%= @english_score.reading %>
+</p>
+
+<p>
+  <strong>Writing:</strong>
+  <%= @english_score.writing %>
+</p>
+
+<p>
+  <strong>Speaking:</strong>
+  <%= @english_score.speaking %>
+</p>
+
+<p>
+  <strong>Listening:</strong>
+  <%= @english_score.listening %>
+</p>
+
+<p>
+  <strong>Passed:</strong>
+  <%= @english_score.passed %>
+</p>
+
+<%= link_to 'Edit', edit_english_score_path(@english_score) %> |
+<%= link_to 'Back', english_scores_path %>

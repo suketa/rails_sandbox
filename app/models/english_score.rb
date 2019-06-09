@@ -1,0 +1,2 @@
+class EnglishScore < ApplicationRecord
+end
