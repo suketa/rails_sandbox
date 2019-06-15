@@ -92,22 +92,22 @@ $ docker-compose exec web bash
 ## feature: [index option added for change_table migrations](https://github.com/rails/rails/pull/23593)
 
 * branch: try032_index_option
-* article:
+* article: https://qiita.com/suketa/items/253b654ceaeb7277faca (日本語)
 
 ## feature: [Error when using "recyclable" cache keys with a store that does not support it](https://github.com/rails/rails/pull/33932)
 
 * branch: try033_cache_error
-* article:
+* article: https://qiita.com/suketa/items/725e69fd6bbf45e344af (日本語)
 
 ## feature: [Encode Content-Disposition filenames on send_data and send_file](https://github.com/rails/rails/pull/33829)
 
 * branch: try034_send_data_filename
-* article:
+* article: https://qiita.com/suketa/items/b2efca0cfb24f97ae65b (日本語)
 
 ## feature: [Refactor migrations_path command option to database](https://github.com/rails/rails/pull/34021)
 
 * branch: try035_database_option
-* article:
+* article: https://qiita.com/suketa/items/98c0e5e7af310915205f (日本語)
 
 ## feature: [Added ActionController::Parameters.each_value methods](https://github.com/rails/rails/pull/33979)
 
