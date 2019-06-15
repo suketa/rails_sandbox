@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'active_support/core_ext'
+
+module Foo
+  class Bar
+  end
+end
+
+puts '-- DEPRECATION WARNING --'
+p Foo::Bar.parent
+p Foo::Bar.parents
+p Foo::Bar.parent_name
+
+puts '-- OK --'
+p Foo::Bar.module_parent
+p Foo::Bar.module_parents
+p Foo::Bar.module_parent_name
