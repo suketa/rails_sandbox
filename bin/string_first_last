@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'active_support/core_ext'
+
+puts 'Rails'.first(-1)
+puts 'Rails'.last(-1)
+
+puts 'Rails'.first(1)
+puts 'Rails'.last(1)

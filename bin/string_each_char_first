@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+puts 'Rails'.each_char.first(1).join
+puts 'Rails'.each_char.first(-1).join
