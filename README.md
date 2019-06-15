@@ -113,3 +113,8 @@ $ docker-compose exec web bash
 
 * branch: try036_params_each_values
 * article:
+
+## feature: [Add deprecation warning when String#first and String#last receive negative integers](https://github.com/rails/rails/pull/33058)
+
+* branch: try037_string_first_last
+* article:
