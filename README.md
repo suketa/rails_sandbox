@@ -123,3 +123,8 @@ $ docker-compose exec web bash
 
 * branch: try038_parent_deprecated
 * article:
+
+## feature: [Deprecate the `LoggerSilence` constant](https://github.com/rails/rails/pull/34045)
+
+* branch: try039_logger_silence
+* article:
