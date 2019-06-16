@@ -128,3 +128,13 @@ $ docker-compose exec web bash
 
 * branch: try039_logger_silence
 * article:
+
+## feature: [Make Webpacker the default JavaScript compiler for Rails 6 ](https://github.com/rails/rails/pull/33079)
+
+* branch: try040_webpacker_bootstrap
+* article:
+
+## feature: [Move MailDeliveryJob default to 6.0 defaults](https://github.com/rails/rails/pull/34692)
+
+* branch: try041_mail_delivery_job
+* article:
