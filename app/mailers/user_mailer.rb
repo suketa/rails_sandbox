@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+  self.delivery_job = MyMailDeliveryJob
   after_action :set_perform_deliveries
 
   def created_email
