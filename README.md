@@ -118,3 +118,8 @@ $ docker-compose exec web bash
 
 * branch: try037_string_first_last
 * article:
+
+## feature: [Prefix Module#parent, Module#parents, and Module#parent_name with module](https://github.com/rails/rails/pull/34051)
+
+* branch: try038_parent_deprecated
+* article:
