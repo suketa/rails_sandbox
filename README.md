@@ -112,17 +112,17 @@ $ docker-compose exec web bash
 ## feature: [Added ActionController::Parameters.each_value methods](https://github.com/rails/rails/pull/33979)
 
 * branch: try036_params_each_values
-* article:
+* article: https://qiita.com/suketa/items/6861e650f927c4e8e304 (日本語)
 
 ## feature: [Add deprecation warning when String#first and String#last receive negative integers](https://github.com/rails/rails/pull/33058)
 
 * branch: try037_string_first_last
-* article:
+* article: https://qiita.com/suketa/items/0b113959c8c0afcb5f5b (日本語)
 
 ## feature: [Prefix Module#parent, Module#parents, and Module#parent_name with module](https://github.com/rails/rails/pull/34051)
 
 * branch: try038_parent_deprecated
-* article:
+* article: https://qiita.com/suketa/items/f9c2dc61dad80f6f1a50 (日本語)
 
 ## feature: [Deprecate the `LoggerSilence` constant](https://github.com/rails/rails/pull/34045)
 
@@ -137,4 +137,9 @@ $ docker-compose exec web bash
 ## feature: [Move MailDeliveryJob default to 6.0 defaults](https://github.com/rails/rails/pull/34692)
 
 * branch: try041_mail_delivery_job
+* article:
+
+## feature: [Add multi-db support to rails db:migrate:status](https://github.com/rails/rails/pull/34137)
+
+* branch: try042_multidb_migrate_status
 * article:
