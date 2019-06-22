@@ -143,3 +143,13 @@ $ docker-compose exec web bash
 
 * branch: try042_multidb_migrate_status
 * article:
+
+## feature: [Fix inconsistent behavior by clearing QueryCache when reloading associations](https://github.com/rails/rails/pull/34094)
+
+* branch: try043_query_cache
+* article:
+
+## feature: [Enum raises on invalid definition values](https://github.com/rails/rails/pull/34110)
+
+* branch: try044_enum_validation
+* article:
