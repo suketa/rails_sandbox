@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require 'active_support/core_ext'
+
+puts '--- DEPRECATED WARNING ---'
+p ActiveSupport::Multibyte::Chars.consumes?('あ')
+
+puts '--- NO DEPRECATED WARNING ---'
+p 'あ'.is_utf8?
