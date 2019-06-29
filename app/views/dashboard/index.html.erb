@@ -1,0 +1,40 @@
+<h1>Dashboard#index</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        valiable
+      </th>
+      <th>
+        value
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        @books
+      </td>
+      <td>
+        <%= @books.map(&:title) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        @users
+      </td>
+      <td>
+        <%= @users.map(&:name) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        @users_in_library
+      </td>
+      <td>
+        <%= @users_in_library.map(&:name) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
