@@ -127,22 +127,22 @@ $ docker-compose exec web bash
 ## feature: [Deprecate the `LoggerSilence` constant](https://github.com/rails/rails/pull/34045)
 
 * branch: try039_logger_silence
-* article:
+* article: https://qiita.com/suketa/items/5b906ca9dcf716e4fc83 (日本語)
 
 ## feature: [Make Webpacker the default JavaScript compiler for Rails 6 ](https://github.com/rails/rails/pull/33079)
 
 * branch: try040_webpacker_bootstrap
-* article:
+* article: https://qiita.com/suketa/items/3f5ff1c7d0d7d215a532 (日本語)
 
 ## feature: [Move MailDeliveryJob default to 6.0 defaults](https://github.com/rails/rails/pull/34692)
 
 * branch: try041_mail_delivery_job
-* article:
+* article: https://qiita.com/suketa/items/7058785a8911c658c03c (日本語)
 
 ## feature: [Add multi-db support to rails db:migrate:status](https://github.com/rails/rails/pull/34137)
 
 * branch: try042_multidb_migrate_status
-* article:
+* article: https://qiita.com/suketa/items/aaa314d11ab6294afb70 (日本語)
 
 ## feature: [Fix inconsistent behavior by clearing QueryCache when reloading associations](https://github.com/rails/rails/pull/34094)
 
@@ -152,4 +152,19 @@ $ docker-compose exec web bash
 ## feature: [Enum raises on invalid definition values](https://github.com/rails/rails/pull/34110)
 
 * branch: try044_enum_validation
+* article:
+
+## feature: [Add allocations to template renderer subscription](https://github.com/rails/rails/pull/34136)
+
+* branch: master
+* article:
+
+## feature: [Part 4: Multi db improvements, Basic API for connection switching](https://github.com/rails/rails/pull/34052)
+
+* branch: try046_multidb_connection_switching
+* article:
+
+## feature: [Deprecate Unicode#downcase/upcase/swapcase](https://github.com/rails/rails/pull/34123)
+
+* branch: try047_unicode
 * article:
