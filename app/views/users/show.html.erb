@@ -9,6 +9,10 @@
   <strong>Avatar:</strong>
   <% if @user.avatar.attached? %>
     <%= image_tag @user.avatar %>
+    <p>
+      ActiveStorage::Blob#key: <%= @user.avatar.blob.key %>
+      (length: <%= @user.avatar.blob.key.length %>)
+    </p>
   <% end %>
 </p>
 
