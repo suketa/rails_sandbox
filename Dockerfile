@@ -20,6 +20,7 @@ RUN apk update && \
       zlib-dev && \
     apk add --update --no-cache \
       bash \
+      imagemagick \
       nodejs \
       nodejs-npm \
       git \
