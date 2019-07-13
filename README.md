@@ -147,24 +147,64 @@ $ docker-compose exec web bash
 ## feature: [Fix inconsistent behavior by clearing QueryCache when reloading associations](https://github.com/rails/rails/pull/34094)
 
 * branch: try043_query_cache
-* article:
+* article: https://qiita.com/suketa/items/42e8bd6c79b05e54c2e9 (日本語)
 
 ## feature: [Enum raises on invalid definition values](https://github.com/rails/rails/pull/34110)
 
 * branch: try044_enum_validation
-* article:
+* article: https://qiita.com/suketa/items/d007b5ebca5cf107ed87 (日本語)
 
 ## feature: [Add allocations to template renderer subscription](https://github.com/rails/rails/pull/34136)
 
 * branch: master
-* article:
+* article: https://qiita.com/suketa/items/835119ddc3e611e1b334 (日本語)
 
 ## feature: [Part 4: Multi db improvements, Basic API for connection switching](https://github.com/rails/rails/pull/34052)
 
 * branch: try046_multidb_connection_switching
-* article:
+* article: https://qiita.com/suketa/items/91ea3e6ebaac131d5d9d (日本語)
 
 ## feature: [Deprecate Unicode#downcase/upcase/swapcase](https://github.com/rails/rails/pull/34123)
 
 * branch: try047_unicode
+* article: https://qiita.com/suketa/items/a4f4c8b7a3dd21078de2 (日本語)
+
+## feature: [Fix issue where duration where always rounded up to a second](https://github.com/rails/rails/pull/34135)
+
+* branch: try048_duration
+* article: https://qiita.com/suketa/items/90a713787121e4400322 (日本語)
+
+## feature: [Deprecate ActiveSupport::Multibyte::Chars.consumes?](https://github.com/rails/rails/pull/34215)
+
+* branch: try049_deprecated_consumes
+* article: https://qiita.com/suketa/items/1a04fd7e18977d00e10d (日本語)
+
+## feature: [Issue #29200 scaffold an object with a reference displays an object memory address to user](https://github.com/rails/rails/pull/29204)
+
+* branch: try050_scaffold
+* article: https://qiita.com/suketa/items/98833dbf6eda211a4232 (日本語)
+
+## feature: [Support default expression and expression indexes for MySQL](https://github.com/rails/rails/pull/34307)
+
+* branch: try051_mysql_default_expression
+* article: https://qiita.com/suketa/items/00e40d38a5b3180a8b32 (日本語)
+
+## feature: [Rails6 のちょい足しな新機能を試す52（ActiveStorage::Blob#key編）](https://github.com/rails/rails/pull/34818)
+
+* branch: try052_active_storage_blob_keys
+* article: https://qiita.com/suketa/items/e39d2ffaa87bc7531344 (日本語)
+
+## feature: [[ActiveStorage] Allow `variant` method to be called by `TIFF` images](https://github.com/rails/rails/pull/34824)
+
+* branch: try053_accept_tiff_by_variant
+* article:
+
+## feature: [Allow strong params in ActiveRecord::Base#exists?](https://github.com/rails/rails/pull/34891)
+
+* branch: try054_exists_accept_strong_params
+* article:
+
+## feature: [Deprecate Unicode#downcase/upcase/swapcase](https://github.com/rails/rails/pull/34123)
+
+* branch: try055_enum_blank
 * article:
