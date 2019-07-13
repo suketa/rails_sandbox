@@ -208,3 +208,8 @@ $ docker-compose exec web bash
 
 * branch: try055_enum_blank
 * article:
+
+## feature: [Add an :if_not_exists option to create_table](https://github.com/rails/rails/pull/31382)
+
+* branch: try056_create_table_if_not_exists
+* article:
