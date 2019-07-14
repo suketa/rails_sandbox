@@ -218,3 +218,8 @@ $ docker-compose exec web bash
 
 * branch: try057_arel_null_safe_comparison
 * article:
+
+## feature: [Add `ActiveModel::Errors#of_kind?`](https://github.com/rails/rails/pull/34866)
+
+* branch: try058_errors_of_kind
+* article:
