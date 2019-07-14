@@ -228,3 +228,8 @@ $ docker-compose exec web bash
 
 * branch: try059_where_endless_range
 * article:
+
+## feature: [Prevent TextHelper#word_wrap from stripping white space on the left side of long lines; Fixes #34487](https://github.com/rails/rails/pull/34488)
+
+* branch: try060_word_wrap
+* article:
