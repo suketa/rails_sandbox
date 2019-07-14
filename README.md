@@ -213,3 +213,8 @@ $ docker-compose exec web bash
 
 * branch: try056_create_table_if_not_exists
 * article:
+
+## feature: [Arel: Implemented DB-aware NULL-safe comparison](https://github.com/rails/rails/pull/34451)
+
+* branch: try057_arel_null_safe_comparison
+* article:
