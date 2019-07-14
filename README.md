@@ -223,3 +223,8 @@ $ docker-compose exec web bash
 
 * branch: try058_errors_of_kind
 * article:
+
+## feature: [Support endless ranges in where](https://github.com/rails/rails/pull/34906)
+
+* branch: try059_where_endless_range
+* article:
