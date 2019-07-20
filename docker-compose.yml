@@ -19,9 +19,17 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+  db_mysql:
+    image: mysql:8.0.16
+    volumes:
+      - mysqldb:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
 volumes:
   pgsqldb:
+    driver: local
+  mysqldb:
     driver: local
   bundle:
     driver: local
