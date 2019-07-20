@@ -21,6 +21,7 @@ services:
       - POSTGRES_PASSWORD
   db_mysql:
     image: mysql:8.0.16
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysqldb:/var/lib/mysql
     environment:
