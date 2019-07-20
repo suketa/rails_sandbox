@@ -243,3 +243,8 @@ $ docker-compose exec web bash
 
 * branch: try062_nullify_polymorphic
 * article:
+
+## feature: [Add rails db:system:change command](https://github.com/rails/rails/pull/34832)
+
+* branch: try063_db_system_change, try063_db_system_change_to_mysql
+* article:
