@@ -197,22 +197,22 @@ $ docker-compose exec web bash
 ## feature: [[ActiveStorage] Allow `variant` method to be called by `TIFF` images](https://github.com/rails/rails/pull/34824)
 
 * branch: try053_accept_tiff_by_variant
-* article:
+* article: https://qiita.com/suketa/items/3f44636148afd26658bf (日本語)
 
 ## feature: [Allow strong params in ActiveRecord::Base#exists?](https://github.com/rails/rails/pull/34891)
 
 * branch: try054_exists_accept_strong_params
-* article:
+* article: https://qiita.com/suketa/items/34d2092f86a89e7665e3 (日本語)
 
 ## feature: [Deprecate Unicode#downcase/upcase/swapcase](https://github.com/rails/rails/pull/34123)
 
 * branch: try055_enum_blank
-* article:
+* article: https://qiita.com/suketa/items/f3047b2481217a0690d6 (日本語)
 
 ## feature: [Add an :if_not_exists option to create_table](https://github.com/rails/rails/pull/31382)
 
 * branch: try056_create_table_if_not_exists
-* article:
+* article: https://qiita.com/suketa/items/3e24bef571572b6f7231 (日本語)
 
 ## feature: [Arel: Implemented DB-aware NULL-safe comparison](https://github.com/rails/rails/pull/34451)
 
@@ -232,4 +232,9 @@ $ docker-compose exec web bash
 ## feature: [Prevent TextHelper#word_wrap from stripping white space on the left side of long lines; Fixes #34487](https://github.com/rails/rails/pull/34488)
 
 * branch: try060_word_wrap
+* article:
+
+## feature: [ActionMailer: support overriding template name in multipart](https://github.com/rails/rails/pull/22534)
+
+* branch: try061_mail_multi_part_template
 * article:
