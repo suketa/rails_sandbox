@@ -15,6 +15,7 @@ RUN apk update && \
       libxml2-dev \
       libxslt-dev \
       postgresql-dev \
+      mariadb-connector-c \
       mysql-dev \
       ruby-dev \
       yaml-dev \
