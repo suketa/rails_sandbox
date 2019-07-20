@@ -238,3 +238,8 @@ $ docker-compose exec web bash
 
 * branch: try061_mail_multi_part_template
 * article:
+
+## feature: [Refs #28025 nullify *_type column on polymorphic associations on :nulify polymorphic *_type column on dependent: :nullify strategy](https://github.com/rails/rails/pull/28078)
+
+* branch: try062_nullify_polymorphic
+* article:
