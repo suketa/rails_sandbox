@@ -248,3 +248,8 @@ $ docker-compose exec web bash
 
 * branch: try063_db_system_change, try063_db_system_change_to_mysql
 * article:
+
+## feature: [Seed database with inline ActiveJob job adapter](https://github.com/rails/rails/pull/34953)
+
+* branch: try064_seed_inline_active_job
+* article:
