@@ -217,17 +217,17 @@ $ docker-compose exec web bash
 ## feature: [Arel: Implemented DB-aware NULL-safe comparison](https://github.com/rails/rails/pull/34451)
 
 * branch: try057_arel_null_safe_comparison
-* article:
+* article: https://qiita.com/suketa/items/9d93a241bdb569933ff6 (日本語)
 
 ## feature: [Add `ActiveModel::Errors#of_kind?`](https://github.com/rails/rails/pull/34866)
 
 * branch: try058_errors_of_kind
-* article:
+* article: https://qiita.com/suketa/items/f86de3933978f249f9d8 (日本語)
 
 ## feature: [Support endless ranges in where](https://github.com/rails/rails/pull/34906)
 
 * branch: try059_where_endless_range
-* article:
+* article: https://qiita.com/suketa/items/058044547543ffea1849 (日本語)
 
 ## feature: [Prevent TextHelper#word_wrap from stripping white space on the left side of long lines; Fixes #34487](https://github.com/rails/rails/pull/34488)
 
@@ -252,4 +252,9 @@ $ docker-compose exec web bash
 ## feature: [Seed database with inline ActiveJob job adapter](https://github.com/rails/rails/pull/34953)
 
 * branch: try064_seed_inline_active_job
+* article:
+
+## feature: [Make `t.timestamps` with precision by default](https://github.com/rails/rails/pull/34970)
+
+* branch: try065_mysql_precision
 * article:
