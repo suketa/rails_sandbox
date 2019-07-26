@@ -258,3 +258,8 @@ $ docker-compose exec web bash
 
 * branch: try065_mysql_precision
 * article:
+
+## feature: [All of queries should return correct result even if including large number](https://github.com/rails/rails/pull/30000)
+
+* branch: try066_query_with_large_number
+* article:
