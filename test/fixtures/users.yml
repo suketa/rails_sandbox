@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  profile1: MyText
+  profile2: MyText
+  profile3: MyText
+  profile4: MyText
+  profile5: MyText
+  profile6: MyText
+
+two:
+  name: MyString
+  profile1: MyText
+  profile2: MyText
+  profile3: MyText
+  profile4: MyText
+  profile5: MyText
+  profile6: MyText

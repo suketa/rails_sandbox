@@ -12,18 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2019_07_26_231951) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "profile0"
-    t.text "profile1"
-    t.text "profile2"
-    t.text "profile3"
-    t.text "profile4"
-    t.text "profile5"
-    t.text "profile6"
+    t.text "profile1", size: :tiny
+    t.text "profile2", size: :medium
+    t.text "profile3", size: :long
+    t.text "profile4", size: :tiny
+    t.text "profile5", size: :medium
+    t.text "profile6", size: :long
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
