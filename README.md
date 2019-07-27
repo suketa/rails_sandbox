@@ -273,3 +273,8 @@ $ docker-compose exec web bash
 
 * branch: try068_current_attribute_before_reset
 * article:
+
+## feature: [Add 'Hash#deep_transform_values', and 'Hash#deep_transform_values!'](https://github.com/rails/rails/commit/b8dc06b8fdc16874160f61dcf58743fcc10e57db)
+
+* branch: try069_deep_transform_values
+* article:
