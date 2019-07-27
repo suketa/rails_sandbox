@@ -268,3 +268,8 @@ $ docker-compose exec web bash
 
 * branch: try067_text_size
 * article:
+
+## feature: [Support before_reset callback in CurrentAttributes](https://github.com/rails/rails/pull/35063)
+
+* branch: try068_current_attribute_before_reset
+* article:
