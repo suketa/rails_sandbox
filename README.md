@@ -263,3 +263,8 @@ $ docker-compose exec web bash
 
 * branch: try066_query_with_large_number
 * article:
+
+## feature: [MySQL: Support `:size` option to change text and blob size](https://github.com/rails/rails/pull/35071)
+
+* branch: try067_text_size
+* article:
