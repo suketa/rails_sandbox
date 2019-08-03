@@ -13,6 +13,11 @@ $ docker-compose exec web bash
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
 
+### feature: [Make it possible to override the implicit order column](https://github.com/rails/rails/pull/34480)
+
+* branch: try071_implicit_order_column
+* article:
+
 ### feature: [Add slice! method to ActiveModel::Errors](https://github.com/rails/rails/pull/34489)
 
 * branch: try070_active_model_errors_slice
