@@ -9,6 +9,15 @@ $ env POSTGRES_USER=xxxx POSTGRES_PASSWORD=yyyy docker-compose up -d
 $ docker-compose exec web bash
 ```
 
+## Try Rails features using Rails 6.0.0rc2
+
+Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
+
+### feature: [Add slice! method to ActiveModel::Errors](https://github.com/rails/rails/pull/34489)
+
+* branch: try070_active_model_errors_slice
+* article:
+
 ## Try Rails features using Rails 6.0.0rc1
 
 ### feature: [Store newly-uploaded files on save rather than assignment](https://github.com/rails/rails/pull/33303)
@@ -234,17 +243,17 @@ $ docker-compose exec web bash
 ### feature: [Prevent TextHelper#word_wrap from stripping white space on the left side of long lines; Fixes #34487](https://github.com/rails/rails/pull/34488)
 
 * branch: try060_word_wrap
-* article:
+* article: https://qiita.com/suketa/items/eed3e642e35f451d861c (日本語)
 
 ### feature: [ActionMailer: support overriding template name in multipart](https://github.com/rails/rails/pull/22534)
 
 * branch: try061_mail_multi_part_template
-* article:
+* article: https://qiita.com/suketa/items/52389aad5566c59e220c (日本語)
 
 ### feature: [Refs #28025 nullify *_type column on polymorphic associations on :nulify polymorphic *_type column on dependent: :nullify strategy](https://github.com/rails/rails/pull/28078)
 
 * branch: try062_nullify_polymorphic
-* article:
+* article: https://qiita.com/suketa/items/b8346f847513a5417505 (日本語)
 
 ### feature: [Add rails db:system:change command](https://github.com/rails/rails/pull/34832)
 
