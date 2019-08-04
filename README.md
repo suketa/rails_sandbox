@@ -13,6 +13,11 @@ $ docker-compose exec web bash
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
 
+### feature: [option to disable all scopes that `ActiveRecord.enum` generates](https://github.com/rails/rails/pull/34605)
+
+* branch: try072_enum_disable_scopes
+* article:
+
 ### feature: [Make it possible to override the implicit order column](https://github.com/rails/rails/pull/34480)
 
 * branch: try071_implicit_order_column
