@@ -12,15 +12,11 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-      - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
-  selenium_chrome:
-    # image: selenium/standalone-chrome-debug
-    image: selenium/standalone-chrome
+      - "SELENIUM_DRIVER_URL=http://chromedriver:4444"
+  chromedriver:
+    image: selenoid/chrome
     ports:
       - "4444:4444"
-      - "5900:5900"
-    # logging:
-    #   driver: none
   db:
     image: postgres:10.7-alpine
     volumes:

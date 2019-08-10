@@ -1,18 +1,17 @@
 require 'capybara/rspec'
 
 RSpec.configure do |config|
-  driven_by_args = [
-    :selenium,
-    using: :headless_chrome,
-    screen_size: [1400, 800]
-  ]
   config.before(:each, type: :system) do |example|
-    driver = driven_by(*driven_by_args) do |driver_option|
-      example.metadata[:device_name] && driver_option.add_emulation(device_name: example.metadata[:device_name])
+    driven_by :selenium, using: :headless_chrome, screen_size: [1024, 768], options: {
+      browser: :remote,
+      url: ENV.fetch('SELENIUM_DRIVER_URL'),
+      desired_capabilities: :chrome
+    } do |driver_option|
+      # driver_option.add_emulation(device_name: example.metadata[:device_name])
+      driver_option.add_emulation(device_name: ENV.fetch('DEVICE_NAME', nil))
       driver_option.add_argument('no-sandbox')
-      driver_option.add_argument('disable-dev-shm-usage')
-      driver_option.add_preference(:detach, true)
     end
-    driver.use
+    Capybara.server_host = 'web'
+    Capybara.app_host = 'http://web'
   end
 end
