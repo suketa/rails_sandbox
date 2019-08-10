@@ -10,8 +10,6 @@ RUN apk update && \
     apk upgrade && \
     apk add --update --no-cache --virtual=.build-dependencies \
       build-base \
-      chromium \
-      chromium-chromedriver\
       curl-dev \
       linux-headers \
       libxml2-dev \
