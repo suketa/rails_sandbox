@@ -13,6 +13,11 @@ $ docker-compose exec web bash
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
 
+### feature: [[UPDATED] Implement a way to add browser capabilities](https://github.com/rails/rails/pull/35081)
+
+* branch: try073_add_browser_capabilities
+* article:
+
 ### feature: [option to disable all scopes that `ActiveRecord.enum` generates](https://github.com/rails/rails/pull/34605)
 
 * branch: try072_enum_disable_scopes
