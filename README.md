@@ -13,6 +13,11 @@ $ docker-compose exec web bash
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
 
+### feature: [Allow using parsed_body in ActionController::TestCase](https://github.com/rails/rails/pull/34717) 
+
+* branch: try074_parsed_body
+* article:
+
 ### feature: [[UPDATED] Implement a way to add browser capabilities](https://github.com/rails/rails/pull/35081)
 
 * branch: try073_add_browser_capabilities
