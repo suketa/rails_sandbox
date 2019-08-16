@@ -13,7 +13,12 @@ $ docker-compose exec web bash
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
 
-### feature: [Allow using parsed_body in ActionController::TestCase](https://github.com/rails/rails/pull/34717) 
+### feature: [Adding enque time tracking and logging](https://github.com/rails/rails/pull/35238)
+
+* branch: try075_activejob_enqueued_at
+* article:
+
+### feature: [Allow using parsed_body in ActionController::TestCase](https://github.com/rails/rails/pull/34717)
 
 * branch: try074_parsed_body
 * article:
