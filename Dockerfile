@@ -30,7 +30,7 @@ RUN apk update && \
       tzdata \
       yaml && \
     gem install bundler && \
-    gem install rails -v 6.0.0rc2 --prerelease
+    gem install rails -v 6.0.0
 
 # for rails webpacker
 RUN npm install -g yarn
