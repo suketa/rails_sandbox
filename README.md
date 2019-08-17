@@ -13,6 +13,11 @@ $ docker-compose exec web bash
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
 
+### feature: [Introduce delete_by and destroy_by methods to ActiveRecord::Relation](https://github.com/rails/rails  /pull/35316)
+
+* branch: try076_delete_by_destroy_by
+* article:
+
 ### feature: [Adding enque time tracking and logging](https://github.com/rails/rails/pull/35238)
 
 * branch: try075_activejob_enqueued_at
