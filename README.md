@@ -9,6 +9,13 @@ $ env POSTGRES_USER=xxxx POSTGRES_PASSWORD=yyyy docker-compose up -d
 $ docker-compose exec web bash
 ```
 
+## Try Rails features using Rails 6.0.0
+
+### feature [Ensure `update_all` series cares about optimistic locking](https://github.com/rails/rails/pull/35352)
+
+* branch: try077_update_all
+* article:
+
 ## Try Rails features using Rails 6.0.0rc2
 
 Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are backported to Rails 5.x.x.
