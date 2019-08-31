@@ -11,6 +11,11 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Add negative scopes for all enum values](https://github.com/rails/rails/pull/35381)
+
+* branch: try077_update_all
+* article:
+
 ### feature [Ensure `update_all` series cares about optimistic locking](https://github.com/rails/rails/pull/35352)
 
 * branch: try077_update_all
