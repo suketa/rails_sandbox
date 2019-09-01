@@ -11,9 +11,19 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Add reselect method](https://github.com/rails/rails/pull/33611)
+
+* branch: try080_reselect
+* article:
+
 ### feature [Add negative scopes for all enum values](https://github.com/rails/rails/pull/35381)
 
-* branch: try077_update_all
+* branch: try079_enum_negative
+* article:
+
+### feature [Guard against DNS rebinding attacks by permitting hosts](https://github.com/rails/rails/pull/33145)
+
+* branch: try078_guard_dns_rebiding_attack
 * article:
 
 ### feature [Ensure `update_all` series cares about optimistic locking](https://github.com/rails/rails/pull/35352)
