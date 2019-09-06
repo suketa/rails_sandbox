@@ -48,37 +48,37 @@ Some features are included in Rails 6.0.0rc1. Some features (bug fixes) are back
 ### feature: [Introduce delete_by and destroy_by methods to ActiveRecord::Relation](https://github.com/rails/rails  /pull/35316)
 
 * branch: try076_delete_by_destroy_by
-* article:
+* article: https://qiita.com/suketa/items/d2886eac45064d18e282 (日本語)
 
 ### feature: [Adding enque time tracking and logging](https://github.com/rails/rails/pull/35238)
 
 * branch: try075_activejob_enqueued_at
-* article:
+* article: https://qiita.com/suketa/items/961f8be7944b5cd74d8f (日本語)
 
 ### feature: [Allow using parsed_body in ActionController::TestCase](https://github.com/rails/rails/pull/34717)
 
 * branch: try074_parsed_body
-* article:
+* article: https://qiita.com/suketa/items/0206bbcb1627e048cbce (日本語)
 
 ### feature: [[UPDATED] Implement a way to add browser capabilities](https://github.com/rails/rails/pull/35081)
 
 * branch: try073_add_browser_capabilities
-* article:
+* article: https://qiita.com/suketa/items/3ebb5bd0e6f617fb71ed (日本語)
 
 ### feature: [option to disable all scopes that `ActiveRecord.enum` generates](https://github.com/rails/rails/pull/34605)
 
 * branch: try072_enum_disable_scopes
-* article:
+* article: https://qiita.com/suketa/items/cbf3ef9cebaddf108344 (日本語)
 
 ### feature: [Make it possible to override the implicit order column](https://github.com/rails/rails/pull/34480)
 
 * branch: try071_implicit_order_column
-* article:
+* article: https://qiita.com/suketa/items/932f47dbbecd55d7f58d (日本語)
 
 ### feature: [Add slice! method to ActiveModel::Errors](https://github.com/rails/rails/pull/34489)
 
 * branch: try070_active_model_errors_slice
-* article:
+* article: https://qiita.com/suketa/items/75f417b5609971a2ba27 (日本語)
 
 ## Try Rails features using Rails 6.0.0rc1
 
