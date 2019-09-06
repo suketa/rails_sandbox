@@ -11,6 +11,16 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Allow `truncate` for SQLite3 adapter and add `rails db:seed:replant`](https://github.com/rails/rails/pull/34779)
+
+* branch: try082_db_seed_replant
+* article:
+
+### feature [Deprecate mismatched collation comparison for uniquness validator](https://github.com/rails/rails/pull/35350)
+
+* branch: try081_mysql_comparison
+* article:
+
 ### feature [Add reselect method](https://github.com/rails/rails/pull/33611)
 
 * branch: try080_reselect
