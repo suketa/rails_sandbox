@@ -11,6 +11,11 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Added Array#including, Array#excluding, Enumerable#including, Enumerable#excluding](https://github.com/rails/rails/commit/bfaa3091c3c32b5980a614ef0f7b39cbf83f6db3)
+
+* branch: try083_excluding
+* article:
+
 ### feature [Allow `truncate` for SQLite3 adapter and add `rails db:seed:replant`](https://github.com/rails/rails/pull/34779)
 
 * branch: try082_db_seed_replant
