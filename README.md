@@ -11,6 +11,11 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Add locale option to #parameterize](https://github.com/rails/rails/pull/35571)
+
+* branch: try084_parameterize_locale
+* article:
+
 ### feature [Added Array#including, Array#excluding, Enumerable#including, Enumerable#excluding](https://github.com/rails/rails/commit/bfaa3091c3c32b5980a614ef0f7b39cbf83f6db3)
 
 * branch: try083_excluding
