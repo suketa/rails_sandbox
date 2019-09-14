@@ -11,6 +11,11 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Add insert_many to ActiveRecord models](https://github.com/rails/rails/pull/35077)
+
+* branch: try085_insert_all
+* article:
+
 ### feature [Add locale option to #parameterize](https://github.com/rails/rails/pull/35571)
 
 * branch: try084_parameterize_locale
