@@ -1,7 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Emperor.create(
+  [
+    { name: '桓武天皇', enthroned_at: Time.utc(781, 4, 3) },
+    { name: '平城天皇', enthroned_at: Time.utc(806, 3, 17) },
+    { name: '嵯峨天皇', enthroned_at: Time.utc(809, 4, 1) },
+    { name: '淳和天皇', enthroned_at: Time.utc(823, 4, 16) },
+    { name: '仁明天皇', enthroned_at: Time.utc(833, 2, 28) }
+  ]
+)
