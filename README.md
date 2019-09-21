@@ -11,6 +11,16 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Fix Time#advance to work with dates before 1001-03-07](https://github.com/rails/rails/pull/35659)
+
+* branch try087_time_advance
+* article:
+
+### feature [Support Optimizer Hints](https://github.com/rails/rails/pull/35615)
+
+* branch try086_optimizer_hint
+* article:
+
 ### feature [Add insert_many to ActiveRecord models](https://github.com/rails/rails/pull/35077)
 
 * branch: try085_insert_all
@@ -29,32 +39,32 @@ $ docker-compose exec web bash
 ### feature [Allow `truncate` for SQLite3 adapter and add `rails db:seed:replant`](https://github.com/rails/rails/pull/34779)
 
 * branch: try082_db_seed_replant
-* article:
+* article: https://qiita.com/suketa/items/bce6f88360757fe31f99 (日本語)
 
 ### feature [Deprecate mismatched collation comparison for uniquness validator](https://github.com/rails/rails/pull/35350)
 
 * branch: try081_mysql_comparison
-* article:
+* article: https://qiita.com/suketa/items/29159070f240338b0f20 (日本語)
 
 ### feature [Add reselect method](https://github.com/rails/rails/pull/33611)
 
 * branch: try080_reselect
-* article:
+* article: https://qiita.com/suketa/items/203b0dd05c8963c5e097 (日本語)
 
 ### feature [Add negative scopes for all enum values](https://github.com/rails/rails/pull/35381)
 
 * branch: try079_enum_negative
-* article:
+* article: https://qiita.com/suketa/items/93fa8a1324b83cbe1504 (日本語)
 
 ### feature [Guard against DNS rebinding attacks by permitting hosts](https://github.com/rails/rails/pull/33145)
 
 * branch: try078_guard_dns_rebiding_attack
-* article:
+* article: https://qiita.com/suketa/items/f00570e6f171cb987ddd (日本語)
 
 ### feature [Ensure `update_all` series cares about optimistic locking](https://github.com/rails/rails/pull/35352)
 
 * branch: try077_update_all
-* article:
+* article: https://qiita.com/suketa/items/88c930dd911eec5d9a80 (日本語)
 
 ## Try Rails features using Rails 6.0.0rc2
 
