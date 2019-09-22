@@ -11,6 +11,10 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Instrument middleware processing](https://github.com/rails/rails/commit/04ae0b0b5e594e0bb99c5cd60892  1745977bcdcd)
+* branch try090_instrument_middleware
+* article:
+
 ### feature [Add event object subscriptions to AS::Notifications](https://github.com/rails/rails/pull/33451)
 * branch try089_subscriber_event
 * article:
