@@ -11,6 +11,10 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Add cpu time, idle time, and allocations features to log subscriber events](https://github.com/rails/rails/pull/33449)
+* branch try088_add_info_of_subscriber_events
+* article:
+
 ### feature [Fix Time#advance to work with dates before 1001-03-07](https://github.com/rails/rails/pull/35659)
 
 * branch try087_time_advance
