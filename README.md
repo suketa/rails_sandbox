@@ -11,6 +11,10 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Type cast falsy boolean symbols on boolean attribute as false](https://github.com/rails/rails/pull/35794)
+* branch try094_falsy_symbol
+* article:
+
 ### feature [Add `ActiveRecord::Relation#extract_associated` for extracting associated record](https://github.com/rails/rails/pull/35784)
 * branch try093_extract_associated
 * article:
