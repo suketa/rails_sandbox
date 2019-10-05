@@ -1,4 +1,4 @@
-FROM ruby:2.6.4-alpine3.10
+FROM ruby:2.6.5-alpine3.10
 
 ENV LANG C.UTF-8
 # ENV ROOTPATH /app
