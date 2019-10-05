@@ -11,6 +11,18 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Frozen truncate](https://github.com/rails/rails/pull/36109)
+* branch try097_truncate
+* article:
+
+### feature [Add `after_save_commit` callback shortcut](https://github.com/rails/rails/pull/35804)
+* branch try096_after_save_commit
+* article:
+
+### feature [Add db:prepare rake task](https://github.com/rails/rails/pull/35768)
+* branch try093_extract_associated
+* article:
+
 ### feature [Type cast falsy boolean symbols on boolean attribute as false](https://github.com/rails/rails/pull/35794)
 * branch try094_falsy_symbol
 * article:
@@ -35,37 +47,37 @@ $ docker-compose exec web bash
 
 ### feature [Add event object subscriptions to AS::Notifications](https://github.com/rails/rails/pull/33451)
 * branch try089_subscriber_event
-* article:
+* article: https://qiita.com/suketa/items/f536d23da4b4f31e1903 (日本語)
 
 ### feature [Fix Time#advance to work with dates before 1001-03-07](https://github.com/rails/rails/pull/35659)
 ### feature [Add cpu time, idle time, and allocations features to log subscriber events](https://github.com/rails/rails/pull/33449)
 * branch try088_add_info_of_subscriber_events
-* article:
+* article: https://qiita.com/suketa/items/2491490e3ad2a0141b7e (日本語)
 
 ### feature [Fix Time#advance to work with dates before 1001-03-07](https://github.com/rails/rails/pull/35659)
 
 * branch try087_time_advance
-* article:
+* article: https://qiita.com/suketa/items/c5e84349746ab0e9ae66 (日本語)
 
 ### feature [Support Optimizer Hints](https://github.com/rails/rails/pull/35615)
 
 * branch try086_optimizer_hint
-* article:
+* article: https://qiita.com/suketa/items/27493635a30352b6a003 (日本語)
 
 ### feature [Add insert_many to ActiveRecord models](https://github.com/rails/rails/pull/35077)
 
 * branch: try085_insert_all
-* article:
+* article: https://qiita.com/suketa/items/f848ac739b6ed58a8ea4 (日本語)
 
 ### feature [Add locale option to #parameterize](https://github.com/rails/rails/pull/35571)
 
 * branch: try084_parameterize_locale
-* article:
+* article: https://qiita.com/suketa/items/11a47048c2c8c7a31ce9 (日本語)
 
 ### feature [Added Array#including, Array#excluding, Enumerable#including, Enumerable#excluding](https://github.com/rails/rails/commit/bfaa3091c3c32b5980a614ef0f7b39cbf83f6db3)
 
 * branch: try083_excluding
-* article:
+* article: https://qiita.com/suketa/items/c793c11565882c76db2d (日本語)
 
 ### feature [Allow `truncate` for SQLite3 adapter and add `rails db:seed:replant`](https://github.com/rails/rails/pull/34779)
 
