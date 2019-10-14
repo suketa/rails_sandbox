@@ -1,0 +1,16 @@
+<h1>Author: <%= @author.name %> </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Publisher Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @publishers.each do |publisher| %>
+      <tr>
+        <td><%= publisher.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
