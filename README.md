@@ -11,6 +11,14 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Extract default log file open operation to method](https://github.com/rails/rails/pull/36407)
+* branch try104_default_log_file
+* article:
+
+### feature [Change `ActionDispatch::Response#content_type` returning Content-Type header as it is](https://github.com/rails/rails/pull/36034)
+* branch try103_response_content_type
+* article:
+
 ### feature [Fall back to type casting from the connection adapter](https://github.com/rails/rails/pull/36314)
 * branch try102_activerecord_typecasting
 * article:
@@ -33,15 +41,15 @@ $ docker-compose exec web bash
 
 ### feature [Frozen truncate](https://github.com/rails/rails/pull/36109)
 * branch try097_truncate
-* article:
+* article: https://qiita.com/suketa/items/421daa6b4553d235ca9d (日本語)
 
 ### feature [Add `after_save_commit` callback shortcut](https://github.com/rails/rails/pull/35804)
 * branch try096_after_save_commit
-* article:
+* article: https://qiita.com/suketa/items/b805c5404f8af7d0ea61 (日本語)
 
 ### feature [Add db:prepare rake task](https://github.com/rails/rails/pull/35768)
 * branch try093_extract_associated
-* article:
+* article: https://qiita.com/suketa/items/945792fad655ce0d3c38 (日本語)
 
 ### feature [Type cast falsy boolean symbols on boolean attribute as false](https://github.com/rails/rails/pull/35794)
 * branch try094_falsy_symbol
