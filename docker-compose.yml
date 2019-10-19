@@ -13,7 +13,7 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
   db:
-    image: postgres:10.7-alpine
+    image: postgres:12.0-alpine
     volumes:
       - pgsqldb:/var/lib/postgresql/data
     environment:
