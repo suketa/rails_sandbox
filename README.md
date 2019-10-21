@@ -11,6 +11,19 @@ $ docker-compose exec web bash
 
 ## Try Rails features using Rails 6.0.0
 
+### feature [Add missing file to require digest/uuid on active_support core ext](https://github.com/rails/rails/pull/36470)
+* branch try107_digest_uuid
+* article:
+
+### feature [Allow column name with function (e.g. `length(title)`) as safe SQL string](https://github.com/rails/rails/pull/36448)
+* branch try105_disallow_row_sql
+* article:
+
+### feature [Allow quoted identifier string as safe SQL string](https://github.com/rails/rails/pull/36420)
+* branch try105_disallow_row_sql
+* article:
+
+### feature [Extract default log file open operation to method](https://github.com/rails/rails/pull/36407)
 ### feature [Extract default log file open operation to method](https://github.com/rails/rails/pull/36407)
 * branch try104_default_log_file
 * article:
