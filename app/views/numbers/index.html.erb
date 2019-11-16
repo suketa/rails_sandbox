@@ -1,0 +1,22 @@
+<h1>Numbers#index</h1>
+<table>
+  <thead>
+    <tr>
+      <th>
+        Language
+      </th>
+      <th>
+        Number
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @locales.each do |locale| %>
+      <tr>
+        <td><%= locale %></td>
+        <td><%= locale_number_with_delimiter(@number, locale) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
