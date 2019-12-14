@@ -14,8 +14,17 @@ postgresql: &postgresql
   user: <%= ENV.fetch("POSTGRES_USER") %>
   password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
 
+default: &default
+  <% database = ENV.fetch("DB"){ 'postgresql' } %>
+  <% if database == 'postgresql' %>
+  <<: *postgresql
+  <% else %>
+  <<: *mysql
+  <% end %>
+
 development:
-  <<: *<%= ENV.fetch("DB") { 'postgresql' } %>
+  <<: *default
+  database: app_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -48,7 +57,7 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *<%= ENV.fetch("DB") { 'postgresql' } %>
+  <<: *default
   database: app_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -71,7 +80,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *<%= ENV.fetch("DB") { 'postgresql' } %>
+  <<: *default
   database: app_production
   username: app
   password: <%= ENV['APP_DATABASE_PASSWORD'] %>

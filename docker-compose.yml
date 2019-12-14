@@ -25,7 +25,7 @@ services:
     volumes:
       - mysqldb:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
   pgsqldb:
