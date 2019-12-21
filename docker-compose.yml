@@ -13,15 +13,15 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
   db:
-    image: postgres:12.0-alpine
+    image: mysql:8.0.16
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - pgsqldb:/var/lib/postgresql/data
+      - mysqldb:/var/lib/mysql
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
-  pgsqldb:
+  mysqldb:
     driver: local
   bundle:
     driver: local
