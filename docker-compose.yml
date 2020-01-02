@@ -13,7 +13,11 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
   db:
-    image: postgres:12.0-alpine
+    build:
+      context: .
+      dockerfile: ./dockerfiles/postgresql/Dockerfile
+      args:
+        - DB_LANG=ja_JP
     volumes:
       - pgsqldb:/var/lib/postgresql/data
     environment:
