@@ -13,8 +13,13 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
   db:
-    image: mysql:8.0.16
-    command: --default-authentication-plugin=mysql_native_password
+    build:
+      context: .
+      dockerfile: dockerfiles/mysql/Dockerfile
+      args:
+        - DB_LANG=ja_JP
+    command: --default-authentication-plugin=mysql_native_password --lc_messages_dir=/usr/share/mysql-8.0 --lc_messages=ja_JP
+    # command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysqldb:/var/lib/mysql
     environment:
