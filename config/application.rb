@@ -15,5 +15,11 @@ module App
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.filter_parameters << lambda do |key, value|
+      if key =~ /names/
+        value.replace('[FILTERED]') if value.respond_to?(:replace)
+      end
+    end
   end
 end
