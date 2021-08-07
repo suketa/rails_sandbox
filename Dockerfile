@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-alpine3.10
+FROM ruby:3.0.2-alpine3.14
 
 ENV LANG C.UTF-8
 # ENV ROOTPATH /app
@@ -22,7 +22,7 @@ RUN apk update && \
     apk add --update --no-cache \
       bash \
       nodejs \
-      nodejs-npm \
+      npm \
       git \
       openssh \
       postgresql-client \
@@ -30,7 +30,7 @@ RUN apk update && \
       tzdata \
       yaml && \
     gem install bundler && \
-    gem install rails -v 6.0.0
+    gem install rails -v 6.1.4
 
 # for rails webpacker
 RUN npm install -g yarn
