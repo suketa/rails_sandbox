@@ -9,19 +9,15 @@ services:
       - .:/app
       - bundle:/usr/local/bundle
     tty: true
-    environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
   db:
-    image: postgres:12.0-alpine
+    image: mysql:5.7.36
     volumes:
-      - pgsqldb:/var/lib/postgresql/data
+      - mysqldb:/var/lib/mysql
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - MYSQL_ROOT_PASSWORD
 
 volumes:
-  pgsqldb:
+  mysqldb:
     driver: local
   bundle:
     driver: local
