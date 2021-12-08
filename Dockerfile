@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.14
+FROM ruby:2.3.5-alpine3.4
 
 ENV LANG C.UTF-8
 # ENV ROOTPATH /app
@@ -15,6 +15,7 @@ RUN apk update && \
       libxml2-dev \
       libxslt-dev \
       postgresql-dev \
+      sqlite-dev \
       mysql-dev \
       ruby-dev \
       yaml-dev \
@@ -22,7 +23,6 @@ RUN apk update && \
     apk add --update --no-cache \
       bash \
       nodejs \
-      npm \
       git \
       openssh \
       postgresql-client \
@@ -30,9 +30,9 @@ RUN apk update && \
       tzdata \
       yaml && \
     gem install bundler && \
-    gem install rails -v 6.1.4
+    gem install rails -v 4.0.0
 
 # for rails webpacker
-RUN npm install -g yarn
+# RUN npm install -g yarn
 
 WORKDIR /app
