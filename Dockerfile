@@ -1,4 +1,4 @@
-FROM ruby:2.3.5-alpine3.4
+FROM ruby:2.5.9-alpine3.13
 
 ENV LANG C.UTF-8
 # ENV ROOTPATH /app
@@ -29,11 +29,8 @@ RUN apk update && \
       mysql-client \
       tzdata \
       yaml
-Run gem install bundler -v 1.17.3 && \
-    gem install racc -v 1.5.2 && \
-    gem install nokogiri -v 1.10.10 && \
-    gem install sprockets -v 3.7.2 && \
-    gem install rails -v 4.2.11.3
+Run gem install bundler && \
+    gem install rails -v 5.0.0
 
 # for rails webpacker
 # RUN npm install -g yarn
