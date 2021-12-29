@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    image: rails_sandbox:7.0.0-postgresql14.1
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle_rails7.0.0:/usr/local/bundle
+    tty: true
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+  db:
+    image: postgres:14.1-alpine3.15
+    volumes:
+      - pgsqldb14.1:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+
+volumes:
+  pgsqldb14.1:
+    driver: local
+  bundle_rails7.0.0:
+    driver: local
