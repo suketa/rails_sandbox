@@ -1,4 +1,4 @@
-FROM ruby:2.5.9-alpine3.13
+FROM ruby:2.7.5-alpine3.15
 
 ENV LANG C.UTF-8
 # ENV ROOTPATH /app
@@ -30,7 +30,7 @@ RUN apk update && \
       tzdata \
       yaml
 Run gem install bundler && \
-    gem install rails -v 5.0.0
+    gem install rails -v 5.2.6
 
 # for rails webpacker
 # RUN npm install -g yarn

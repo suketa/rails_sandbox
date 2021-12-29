@@ -1,3 +1,3 @@
 # README
 
-env MYSQL_ROOT_PASSWORD=xxxx docker-compose up -d
+env MYSQL_ROOT_PASSWORD=xxxxx docker-compose up -d

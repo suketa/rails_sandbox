@@ -3,11 +3,12 @@ version: '3'
 services:
   web:
     build: .
+    image: rails-sandbox:5.2.6-mysql5.7
     ports:
       - "3000:3000"
     volumes:
       - .:/app
-      - bundle_rails5.0.0mysql5.7:/usr/local/bundle
+      - bundle_rails5.2.6mysql5.7:/usr/local/bundle
     tty: true
   db:
     image: mysql:5.7.36
@@ -19,5 +20,5 @@ services:
 volumes:
   mysqldb:
     driver: local
-  bundle_rails5.0.0mysql5.7:
+  bundle_rails5.2.6mysql5.7:
     driver: local
