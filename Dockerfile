@@ -28,7 +28,9 @@ RUN apk update && \
       postgresql-client \
       mysql-client \
       tzdata \
-      yaml && \
+      yaml
+RUN npm install -g npm && \
+    npm install -g yarn && \
     gem install bundler && \
     gem install rails -v 7.0.0
 
