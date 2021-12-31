@@ -1,6 +1,6 @@
 # README
 
-try to use tailwindcss in Rails 7.0.0
+try tailwindcss in Rails 7.0.0
 
 ```shell
 env POSTGRES_USER=xxxx POSTGRES_PASSWORD=yyyy docker-compose up -d --build
