@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+try Rails7 bootstrap
 
-Things you may want to cover:
+## what I tried
 
-* Ruby version
+```
+rails new . --database=postgresql --css=bootstrap
+bin/rails g scaffold User name
+bin/rails db:create db:migrate
+foreman start -f Procfile.dev
+```
 
-* System dependencies
+## How to run
+```
+env POSTGRES_USER=xxx POSTGRES_PASSWORD=yyy docker-compose up -d
+docker-compose exec web bash
+bin/rails db:create db:migrate
+foreman start -f Procfile.dev
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+access http://localhost:3000/users
