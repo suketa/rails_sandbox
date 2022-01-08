@@ -1,3 +1,5 @@
 # README
 
-https://stevepolito.design/blog/rails-authentication-from-scratch/#step-6-create-current-model-and-authentication-concern
+https://stevepolito.design/blog/rails-authentication-from-scratch/#step-11-add-unconfirmed-email-column-to-users-table
+
+step11
