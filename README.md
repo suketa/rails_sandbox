@@ -1,6 +1,7 @@
 # Rails Sandbox
 
 This project is sandbox for trying new features of Rails
+check branches
 
 ## How to run
 
