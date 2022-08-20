@@ -1,18 +1,6 @@
 class DashboardController < ApplicationController
   def index
-    @users = users
-    @books = books
-  end
-
-  private
-
-  def users
-    sleep 5
-    User.all
-  end
-
-  def books
-    sleep 5
-    Book.all
+    @users = User.long_time_all
+    @books = Book.long_time_all
   end
 end
