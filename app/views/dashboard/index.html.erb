@@ -1,7 +1,13 @@
 <h1>Dashboard#index</h1>
-<p><%= Time.zone.now %></p>
+<p>index controller start at <%= @index_at %></p>
 
 <h2>Users</h2>
-<%= render partial: 'users'%>
+<%= turbo_frame_tag :users, src:'/dashboard/users' do %>
+  loading...
+<% end %>
 <h2>Books</h2>
-<%= render partial: 'books' %>
+<%= turbo_frame_tag :books, src:'/dashboard/books' do %>
+  loading...
+<% end %>
+
+<p>rendered index at <%= Time.zone.now %></p>
