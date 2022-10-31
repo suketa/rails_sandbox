@@ -12,16 +12,26 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+  # db:
+  #   image: postgres:12.0-alpine
+  #   volumes:
+  #     - pgsqldb:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_USER
+  #     - POSTGRES_PASSWORD
+
   db:
-    image: postgres:12.0-alpine
+    image: mysql:8.0.31
     volumes:
-      - pgsqldb:/var/lib/postgresql/data
+      - mysql8031db:/var/lib/mysql
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD='yes'
+    tty: true
 
 volumes:
   pgsqldb:
+    driver: local
+  mysql8031db:
     driver: local
   bundle:
     driver: local
