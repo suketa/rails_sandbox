@@ -28,7 +28,8 @@ RUN apk update && \
       postgresql-client \
       mysql-client \
       tzdata \
-      yaml && \
+      yaml \
+      vim && \
     gem install bundler && \
     gem install rails -v 6.1.7.2
 
