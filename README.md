@@ -54,3 +54,4 @@ $ bin/rails s -b 0.0.0.0
 - access http://localhost:3000/users
 
 Then you can see all values.
+`key_generator_hash_digest_rails7_rotator` branch includes `./config/initializers/cookie_rotator.rb`
