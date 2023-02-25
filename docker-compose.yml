@@ -12,6 +12,7 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+
   db:
     image: postgres:12.0-alpine
     volumes:
@@ -19,6 +20,9 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+
+  memcached:
+    image: memcached:1.6.18-alpine
 
 volumes:
   pgsqldb:
