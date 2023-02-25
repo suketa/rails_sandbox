@@ -3,6 +3,14 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
+    @pure_cookie = cookies[:pure_cookie]
+    @encrypted_cookie = cookies.encrypted[:encrypted_cookie]
+    @signed_cookie = cookies.signed[:signed_cookie]
+    @session_value = session[:session_value]
+    session[:session_value] = 'This is a session value' if @session_value.nil?
+    cookies[:pure_cookie] = 'This is a pure cookie' if @pure_cookie.nil?
+    cookies.encrypted[:encrypted_cookie] = 'This is an encrypted cookie' if @encrypted_cookie.nil?
+    cookies.signed[:signed_cookie] = 'This is a signed cookie' if @signed_cookie.nil?
     @users = User.all
   end
 

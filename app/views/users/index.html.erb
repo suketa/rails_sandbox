@@ -12,6 +12,10 @@
   </thead>
 
   <tbody>
+    session_value=<%= @session_value %><br>
+    pure_cookie=<%= @pure_cookie %><br>
+    signed_cookie=<%= @signed_cookie %><br>
+    encrypted_cookie=<%= @encrypted_cookie %><br>
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
