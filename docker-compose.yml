@@ -13,15 +13,15 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
   db:
-    image: postgres:12.0-alpine
+    image: postgres:15.2-alpine
     volumes:
-      - pgsqldb:/var/lib/postgresql/data
+      - pgsqldb15.2:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
 
 volumes:
-  pgsqldb:
+  pgsqldb15.2:
     driver: local
   bundle:
     driver: local
