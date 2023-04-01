@@ -6,3 +6,5 @@ cp dot.env .env
 docker compose build
 docker compose up -d
 ```
+
+https://www.akshaykhot.com/progressive-application-development-with-hotwire/
