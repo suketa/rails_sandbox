@@ -1,0 +1,7 @@
+<%= turbo_stream.replace 'habit-count' do %>
+  <div id="habit-count"><%= @habit.count %></div>
+<% end %>
+
+<%= turbo_stream.replace 'habit-markers' do %>
+  <%= render 'habit_markers', habit: @habit %>
+<% end %>
