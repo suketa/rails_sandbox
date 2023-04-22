@@ -9,19 +9,32 @@ services:
       - .:/app
       - bundle:/usr/local/bundle
     tty: true
+    # environment:
+    #   - POSTGRES_USER
+    #   - POSTGRES_PASSWORD
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+  # db:
+  #   image: postgres:15.2-alpine
+  #   volumes:
+  #     - pgsqldb15.2:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_USER
+  #     - POSTGRES_PASSWORD
   db:
-    image: postgres:15.2-alpine
+    image: mysql:8.0.33
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - pgsqldb15.2:/var/lib/postgresql/data
+      - mysqldb8.0:/var/lib/mysql
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
 
 volumes:
-  pgsqldb15.2:
+  # pgsqldb15.2:
+  #   driver: local
+  mysqldb8.0:
     driver: local
   bundle:
     driver: local
