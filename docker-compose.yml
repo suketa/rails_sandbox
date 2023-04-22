@@ -12,9 +12,6 @@ services:
     # environment:
     #   - POSTGRES_USER
     #   - POSTGRES_PASSWORD
-    environment:
-      - MYSQL_USER
-      - MYSQL_PASSWORD
   # db:
   #   image: postgres:15.2-alpine
   #   volumes:
@@ -28,8 +25,7 @@ services:
     volumes:
       - mysqldb8.0:/var/lib/mysql
     environment:
-      - MYSQL_USER
-      - MYSQL_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
   # pgsqldb15.2:
