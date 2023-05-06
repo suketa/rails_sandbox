@@ -1,0 +1,21 @@
+<% 
+boardClassName = "
+  bg-gradient-to-r from-violet-500 to-indigo-500 p-8
+  rounded aspect-square justify-center items-center
+  grid gap-6 grid-cols-#{@board_size} grid-rows-#{@board_size}
+"
+tileClassName = "shadow-sm hover:shadow-2xl rounded bg-white
+  justify-self-center w-24 max-w-36 aspect-square"
+%>
+
+<div id="board" class="<%= boardClassName %>" data-controller="board">
+  <% (@board_size * @board_size).times do |i| %>
+    <div id="tile_<%= i %> class="shadow-sm hover:shadow-2xl rounded bg-white justify-self-center w-24 max-w-36 aspect-square"
+             data-action="click->board#flip"
+             data-tile-index="<%= i %>"
+             data-tile-is-open="false"
+             >
+      <%= i %>
+    </div>
+  <% end %>
+</div>

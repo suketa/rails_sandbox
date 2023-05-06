@@ -8,4 +8,8 @@ RUN apt-get update -qq && \
     libpq-dev postgresql-client \
     default-libmysqlclient-dev default-mysql-client
 
+RUN npm install -g n
+RUN n 18.16.0
+RUN npm install -g yarn esbuild npm
+
 WORKDIR /app
