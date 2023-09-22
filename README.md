@@ -1,24 +1,15 @@
-# README
+# Rails Sandbox
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is sandbox for trying new features of Rails
 
-Things you may want to cover:
+## How to run
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+$ docker compose build
+$ env POSTGRES_USER=xxxx POSTGRES_PASSWORD=yyyy docker-compose up -d
+$ docker compose exec web bash
+# bundle
+# bin/rails db:create db:migrate
+# bin/rails c
+> Bug.bbb
+```
