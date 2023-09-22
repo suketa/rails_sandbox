@@ -20,6 +20,7 @@ RUN apk update && \
       yaml-dev \
       zlib-dev && \
     apk add --update --no-cache \
+      gcompat \
       bash \
       nodejs \
       npm \
