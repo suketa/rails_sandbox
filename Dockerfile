@@ -33,7 +33,7 @@ RUN apk update && \
 RUN npm install -g npm && \
     npm install -g yarn && \
     gem install bundler && \
-    gem install rails -v 7.0.0
+    gem install rails -v 7.0.8
 
 # for rails webpacker
 # RUN npm install -g yarn
