@@ -29,8 +29,7 @@ RUN apk update && \
       mysql-client \
       tzdata \
       yaml && \
-    gem install bundler && \
-    gem install rails -v 6.1.4
+    gem install bundler
 
 # for rails webpacker
 RUN npm install -g yarn
