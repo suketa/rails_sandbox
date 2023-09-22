@@ -3,11 +3,12 @@ version: '3'
 services:
   web:
     build: .
+    image: rails_sandbox:6.1.6-postgres12.0
     ports:
       - "3000:3000"
     volumes:
       - .:/app
-      - bundle:/usr/local/bundle
+      - bundle_rails6.1.6:/usr/local/bundle
     tty: true
     environment:
       - POSTGRES_USER
@@ -15,13 +16,13 @@ services:
   db:
     image: postgres:12.0-alpine
     volumes:
-      - pgsqldb:/var/lib/postgresql/data
+      - pgsqldb12:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
 
 volumes:
-  pgsqldb:
+  pgsqldb12:
     driver: local
-  bundle:
+  bundle_rails6.1.6:
     driver: local
