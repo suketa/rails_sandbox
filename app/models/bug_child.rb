@@ -4,6 +4,6 @@ class BugChild < ApplicationRecord
   after_destroy do
     p bug.object_id #1回目と2回目で異なるid
     bug.update!(id: bug.id)
-    bug.destroy! if bug.bug_children.empty?
+    bug.destroy! if bug.bug_children.size == 0
   end
 end

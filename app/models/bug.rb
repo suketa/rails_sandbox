@@ -16,6 +16,7 @@ class Bug < ApplicationRecord
     bug.bug_children.create!
     # BugChild.create!(bug: bug)
     # BugChild.create!(bug: bug)
+    p bug.object_id
     bug.destroy!
   end
 end
