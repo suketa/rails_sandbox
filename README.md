@@ -1,9 +1,9 @@
 # README
 
 ```
+git checkout rails7.1.1_postgres16.0_v1.0.0
 cp .env.example .env
-# edit .env file and set environment variables.
-# edit docker-compose.yml if you need.
+# edit .env file and set environment variables if you want to change default settings.
 docker compose build
 docker compose up -d
 ```
