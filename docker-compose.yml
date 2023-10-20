@@ -6,31 +6,31 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
-      - bundle:/usr/local/bundle
+      - ./sandbox:/app
+      - rails7.1.1:/usr/local/bundle
     tty: true
-    # environment:
-    #   - POSTGRES_USER
-    #   - POSTGRES_PASSWORD
-  # db:
-  #   image: postgres:15.2-alpine
-  #   volumes:
-  #     - pgsqldb15.2:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_USER
-  #     - POSTGRES_PASSWORD
-  db:
-    image: mysql:8.0.33
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - mysqldb8.0:/var/lib/mysql
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+  db:
+    image: postgres:16.0-alpine
+    volumes:
+      - pgsqldb16.0:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+  # db:
+  #   image: mysql:8.0.33
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   volumes:
+  #     - mysqldb8.0:/var/lib/mysql
+  #   environment:
+  #     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
-  # pgsqldb15.2:
-  #   driver: local
-  mysqldb8.0:
+  pgsqldb16.0:
     driver: local
-  bundle:
+  # mysqldb8.0:
+  #   driver: local
+  rails7.1.1:
     driver: local
