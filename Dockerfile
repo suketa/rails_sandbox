@@ -2,6 +2,7 @@ FROM ruby:3.3.2
 
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
+ENV RUBY_YJIT_ENABLE 1
 
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
