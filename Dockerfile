@@ -16,6 +16,6 @@ RUN apt-get update -qq && apt-get install -y \
 
 RUN npm install -g npm && \
     npm install -g yarn && \
-    gem install rails -v 7.2.0.beta.1 --prerelease
+    gem install rails -v 7.1.3
 
 WORKDIR /app
