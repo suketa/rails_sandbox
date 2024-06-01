@@ -11,16 +11,24 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-  db:
+  postgres:
     image: postgres:16.3-alpine3.20
     volumes:
       - pgsqldb16.3:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+  # mysql:
+  #   image: mysql:8.4.0
+  #   volumes:
+  #     - mysqldb8.4:/var/lib/mysql
+  #   environment:
+  #     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
   pgsqldb16.3:
     driver: local
   bundle_rails7.2.0b1:
     driver: local
+  # mysqldb8.4:
+  #   driver: local
