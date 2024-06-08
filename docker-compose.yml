@@ -1,12 +1,12 @@
 services:
   web:
     build: .
-    image: rails_sandbox:7.2.0.beta1
+    image: rails_sandbox:7.2.0.beta2
     ports:
       - "3000:3000"
     volumes:
       - .:/app
-      - bundle_rails7.2.0:/usr/local/bundle
+      - bundle_rails7.2.0b2:/usr/local/bundle
     tty: true
     environment:
       - POSTGRES_USER
@@ -28,7 +28,7 @@ services:
 volumes:
   pgsqldb16.3:
     driver: local
-  bundle_rails7.2.0:
+  bundle_rails7.2.0b2:
     driver: local
   # mysqldb8.4:
   #   driver: local

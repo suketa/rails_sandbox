@@ -19,6 +19,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
   npm install -g npm && \
   npm install -g yarn
 
-RUN gem install rails -v 7.2.0.beta.1 --prerelease
+RUN gem install rails -v 7.2.0.beta2 --prerelease
 
 WORKDIR /app
