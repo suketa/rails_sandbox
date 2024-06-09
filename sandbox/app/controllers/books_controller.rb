@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   # GET /books or /books.json
   def index
     Book.where(title: "foo").first
+    Book.where(title: "foo").first
     @books = Book.all
   end
 
