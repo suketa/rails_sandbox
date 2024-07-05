@@ -24,11 +24,19 @@ services:
   #     - mysqldb8.4:/var/lib/mysql
   #   environment:
   #     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  mariadb:
+    image: mariadb:11.4.2
+    volumes:
+      - mariadb11.4:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
   pgsqldb16.3:
     driver: local
   bundle_rails7.1.3:
+    driver: local
+  mariadb11.4:
     driver: local
   # mysqldb8.4:
   #   driver: local
