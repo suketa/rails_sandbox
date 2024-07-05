@@ -13,15 +13,23 @@
 # gem "pg"
 #
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV.fetch("DB_HOST", "postgres") %>
-  username: <%= ENV.fetch("POSTGRES_USER") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  # adapter: postgresql
+  # encoding: unicode
+  # # For details on connection pooling, see Rails configuration guide
+  # # https://guides.rubyonrails.org/configuring.html#database-pooling
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # host: <%= ENV.fetch("DB_HOST", "postgres") %>
+  # username: <%= ENV.fetch("POSTGRES_USER") %>
+  # password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
 
+  # --- setting for local docker Mysql ---
+  adapter: mysql2
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  encoding: utf8mb4
+  host: mariadb
+  username: root
+  # --- setting for local docker Mysql ---
 development:
   <<: *default
   database: sandbox_development
