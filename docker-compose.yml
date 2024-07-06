@@ -18,12 +18,12 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-  # mysql:
-  #   image: mysql:8.4.0
-  #   volumes:
-  #     - mysqldb8.4:/var/lib/mysql
-  #   environment:
-  #     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  mysql:
+    image: mysql:8.4.0
+    volumes:
+      - mysqldb8.4:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   mariadb:
     image: mariadb:11.4.2
     volumes:
@@ -38,5 +38,5 @@ volumes:
     driver: local
   mariadb11.4:
     driver: local
-  # mysqldb8.4:
-  #   driver: local
+  mysqldb8.4:
+    driver: local
