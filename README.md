@@ -1,5 +1,7 @@
 # memo
 
+https://www.hotrails.dev/turbo-rails
+
 config/database.yml
 
 ```yml
