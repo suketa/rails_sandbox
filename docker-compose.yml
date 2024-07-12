@@ -3,7 +3,7 @@ services:
     build: .
     image: rails_sandbox:7.1.3
     ports:
-      - "3000:3000"
+      - "3000"
     volumes:
       - .:/app
       - bundle_rails7.1.3:/usr/local/bundle
