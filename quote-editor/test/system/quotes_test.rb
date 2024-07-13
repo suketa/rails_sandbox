@@ -46,5 +46,4 @@ class QuotesTest < ApplicationSystemTestCase
     click_on 'Delete', match: :first
     assert_no_text @quote.name
   end
-  end
 end
