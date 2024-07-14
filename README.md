@@ -2,8 +2,7 @@
 
 https://www.hotrails.dev/turbo-rails
 
-https://www.hotrails.dev/turbo-rails/turbo-streams Real-Time Updates with Turbo Streams
-
+https://www.hotrails.dev/turbo-rails/turbo-streams-security
 
 config/database.yml
 
