@@ -2,7 +2,8 @@
 
 https://www.hotrails.dev/turbo-rails
 
-Next: https://www.hotrails.dev/turbo-rails/css-ruby-on-rails
+https://www.hotrails.dev/turbo-rails/turbo-frames-and-turbo-streams The Turbo Stream Format
+
 
 config/database.yml
 
