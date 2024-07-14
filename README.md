@@ -2,7 +2,7 @@
 
 https://www.hotrails.dev/turbo-rails
 
-https://www.hotrails.dev/turbo-rails/turbo-frames-and-turbo-streams The Turbo Stream Format
+https://www.hotrails.dev/turbo-rails/turbo-streams Real-Time Updates with Turbo Streams
 
 
 config/database.yml
