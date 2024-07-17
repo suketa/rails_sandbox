@@ -69,6 +69,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "simple_form"
-
+gem 'devise'
 gem "redis", "~> 5.2"
+gem "simple_form"

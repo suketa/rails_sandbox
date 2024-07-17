@@ -3,6 +3,7 @@
 https://www.hotrails.dev/turbo-rails
 
 https://www.hotrails.dev/turbo-rails/turbo-streams-security
+Adding a home page to our application
 
 config/database.yml
 
