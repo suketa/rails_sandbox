@@ -1,4 +1,4 @@
-FROM ruby:3.3.2
+FROM ruby:3.3.4
 
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
@@ -15,10 +15,10 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
   export NVM_DIR="$HOME/.nvm" && \
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
-  nvm install 20.14.0 && \
+  nvm install 20.16.0 && \
   npm install -g npm && \
   npm install -g yarn
 
-RUN gem install rails -v 7.2.0.beta3 --prerelease
+RUN gem install rails -v 7.2.0
 
 WORKDIR /app
