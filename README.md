@@ -17,6 +17,7 @@ docker compose up -d
 docker compose exec web bash
 cd sandbox
 bundle install
+bin/rails -v # => Rails 7.2.1
 ```
 
 ## config/database.yml
