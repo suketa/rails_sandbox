@@ -4,7 +4,9 @@
 
 You need to install Docker and Docker Compose.
 This branch is for Rails.
-There is a Rails sandbox app in this branch created by the following command.
+There is a Rails **EMPTY** app in this branch
+The app name is `sandbox`.
+The `sandbox` app is created by the following command.
 
 ```bash
 rails new sandbox --database postgresql
@@ -12,6 +14,7 @@ rails new sandbox --database postgresql
 You can create a new Rails app in this branch.
 
 ```bash
+git checkout base_rails7.2.1_sandbox_tag
 cp .env.local .env
 docker compose up -d
 docker compose exec web bash
