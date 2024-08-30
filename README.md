@@ -18,6 +18,8 @@ docker compose exec web bash
 cd sandbox
 bundle install
 bin/rails -v # => Rails 7.2.1
+bin/rails db:create
+bin/rails -p -b 0.0.0.0 # => access http://localhost:3000 from your browser.
 ```
 
 ## config/database.yml
