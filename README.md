@@ -3,15 +3,20 @@
 ## How to use
 
 You need to install Docker and Docker Compose.
-This branch is for Rails but there is no Rails app in this branch.
+This branch is for Rails.
+There is a Rails sandbox app in this branch created by the following command.
+
+```bash
+rails new sandbox --database postgresql
+```
 You can create a new Rails app in this branch.
 
 ```bash
 cp .env.local .env
 docker compose up -d
 docker compose exec web bash
-rails -v # => Rails 7.2.1
-node -v # => v20.17.0
+cd sandbox
+bundle install
 ```
 
 ## config/database.yml
