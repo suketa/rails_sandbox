@@ -1,20 +1,20 @@
 services:
   web:
     build: .
-    image: rails_sandbox:7.2.0
+    image: rails_sandbox:7.2.1
     ports:
       - "3000:3000"
     volumes:
       - .:/app
-      - bundle_rails7.2.0:/usr/local/bundle
+      - bundle_rails7.2.1:/usr/local/bundle
     tty: true
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
   postgres:
-    image: postgres:16.3-alpine3.20
+    image: postgres:16.4-alpine3.20
     volumes:
-      - pgsqldb16.3:/var/lib/postgresql/data
+      - pgsqldb16.4:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -26,9 +26,9 @@ services:
   #     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 volumes:
-  pgsqldb16.3:
+  pgsqldb16.4:
     driver: local
-  bundle_rails7.2.0:
+  bundle_rails7.2.1:
     driver: local
   # mysqldb8.4:
   #   driver: local

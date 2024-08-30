@@ -12,13 +12,13 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
   vim-tiny \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
   export NVM_DIR="$HOME/.nvm" && \
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
-  nvm install 20.16.0 && \
+  nvm install 20.17.0 && \
   npm install -g npm && \
   npm install -g yarn
 
-RUN gem install rails -v 7.2.0
+RUN gem install rails -v 7.2.1
 
 WORKDIR /app
