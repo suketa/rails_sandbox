@@ -19,6 +19,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
   npm install -g npm && \
   npm install -g yarn
 
-RUN gem install rails -v 7.2.1
+RUN gem install rails -v 8.0.0beta1 --prerelease --no-document
 
 WORKDIR /app
