@@ -1,5 +1,7 @@
 # README
 
+予測：8h
+実績：6h
 ```
 bin/rails g model Department name
 bin/rails g model Project name start_date:date
