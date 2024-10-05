@@ -67,5 +67,6 @@ Rails.application.configure do
 
   # N+1 を検知するための設定
   config.active_record.strict_loading_by_default = true
-  config.active_record.action_on_strict_loading_violation = :log
+  # config.active_record.action_on_strict_loading_violation = :log
+  config.active_record.action_on_strict_loading_violation = :raise
 end
