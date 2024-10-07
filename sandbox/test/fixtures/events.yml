@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account_id: 
+  kind: 1
+  occurred_at: 2024-10-07 11:08:14
+
+two:
+  account_id: 
+  kind: 1
+  occurred_at: 2024-10-07 11:08:14
