@@ -27,13 +27,42 @@ Assignment.create(employee: Employee.third, project: Project.second, role: 'SE')
 ```
 
 ```
+bin/rails c
 Employee.where(age: [30..])
+
 Employee.joins(assignments: [:project]).where(projects: {name: 'Project1'})
 # or `Employee.joins(:projects).where(projects: {name: 'Project1'})` when using `has_many :projects, through: :assignments` in Employee model.
+
 Employee.joins(:assignments).where(assignments: {role: 'PL'})
-Department.joins(:employees).select(:name,  "count(*)").group(:id)
-Employee.eager_load(:department, assignments:[:project]).
+
+Department.joins(:employees).select(:id, :name,  "count(*) as employee_nums").group(:id)
+# Department.left_joins(:employees).select(:id, :name,  "count(*) as employee_nums").group(:id) の方が良いかもしれない。
+
+Employee.eager_load(:department, assignments:[:project])
+# N + 1 が発生しているかどうかは、 `strict_loading` (と rspec) で確認した。
 ```
 
-
+```mermaid
+erDiagram
+  Department ||--o{ Employee : has_many
+  Employee ||--o{ Assignment : has_many
+  Project ||--o{ Assignment : has_many
+  Department {
+    string name
+  }
+  Employee {
+    string name
+    integer age
+    references department
+  }
+  Project {
+    string name
+    date start_date
+  }
+  Assignment {
+    references employee
+    references project
+    string role
+  }
+```
 
