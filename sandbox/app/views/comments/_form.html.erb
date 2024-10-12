@@ -1,0 +1,10 @@
+<p style="color: red"><%= alert %></p>
+<%= form_with(model: comment, url: post_comments_path(post.id), data: {turbo: false} ) do |form| %>
+  <p>
+    <%= form.label 'comment' %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
