@@ -5,6 +5,7 @@ RSpec.describe Department, type: :model do
     before do
       department1 = FactoryBot.create(:department, name: '部署名1')
       department2 = FactoryBot.create(:department, name: '部署名2')
+      department3 = FactoryBot.create(:department, name: '部署名3')
       FactoryBot.create(:employee, name: '社員名1', department: department1)
       FactoryBot.create(:employee, name: '社員名2', department: department2)
       FactoryBot.create(:employee, name: '社員名3', department: department1)
@@ -15,7 +16,7 @@ RSpec.describe Department, type: :model do
 
       result = result.order(:id).map { |department| [ department.id, department.name, department.employee_nums ] }
       ids = Department.order(:id).map(&:id)
-      expect(result).to eq [ [ ids.first, '部署名1', 2 ], [ ids.second, '部署名2', 1 ] ]
+      expect(result).to eq [ [ ids.first, '部署名1', 2 ], [ ids.second, '部署名2', 1 ], [ ids.third, '部署名3', 0 ] ]
     end
   end
 end
