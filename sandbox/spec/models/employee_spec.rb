@@ -99,5 +99,25 @@ RSpec.describe Employee, type: :model do
         [ '社員名4', '部署名2', [] ]
       ]
     end
+
+    describe '従業員を全て取得するテスト' do
+      context 'Assignment.all_infosを使う場合' do
+        it 'プロジェクトに所属していない社員は取得できない' do
+          assignments = Assignment.all_infos
+          employee_names = assignments.map(&:employee).uniq.map(&:name).sort
+          # expect(employee_names).to eq %w[社員名1 社員名2 社員名3 社員名4]
+          expect(employee_names).to eq %w[社員名1 社員名2 社員名3]
+        end
+      end
+
+      context 'Employee.all_with_department_and_projectを使う場合' do
+        it 'プロジェクトに所属していない社員も取得できる' do
+          employees = Employee.all_with_department_and_project
+          employee_names = employees.order(:name).map(&:name)
+          expect(employee_names).to eq %w[社員名1 社員名2 社員名3 社員名4]
+          # expect(employee_names).to eq %w[社員名1 社員名2 社員名3]
+        end
+      end
+    end
   end
 end
