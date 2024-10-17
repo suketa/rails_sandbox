@@ -36,7 +36,7 @@ Employee.joins(assignments: [:project]).where(projects: {name: 'Project1'})
 Employee.joins(:assignments).where(assignments: {role: 'PL'})
 
 Department.joins(:employees).select(:id, :name,  "count(*) as employee_nums").group(:id)
-# Department.left_joins(:employees).select(:id, :name,  "count(*) as employee_nums").group(:id) の方が良いかもしれない。
+# Department.left_joins(:employees).select(:id, :name,  "count(employees.id) as employee_nums").group(:id) の方が良いかもしれない。
 
 Employee.eager_load(:department, assignments:[:project])
 # N + 1 が発生しているかどうかは、 `strict_loading` (と rspec) で確認した。

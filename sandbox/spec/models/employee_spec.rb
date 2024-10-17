@@ -84,6 +84,7 @@ RSpec.describe Employee, type: :model do
 
     it '部署、プロジェクト情報を含めて全ての社員を取得する' do
       employees = Employee.all_with_department_and_project
+      # employees = Employee.all
       employees = employees.order(:name).map do |employee|
         [
           employee.name,

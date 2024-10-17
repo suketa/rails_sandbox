@@ -6,7 +6,7 @@ class Department < ApplicationRecord
     # 部署ID, 部署名, 部署に所属する社員数 の配列を取得する
     # Department.count_employees # => [[1, '部署名1', 3], [2, '部署名2', 5], [3, '部署名3', 2]]
     def count_employees
-      joins(:employees).select(:id, :name,  "count(*) as employee_nums").group(:id)
+      joins(:employees).select(:id, :name,  "count(employees.id) as employee_nums").group(:id)
     end
   end
 end
