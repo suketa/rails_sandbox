@@ -128,6 +128,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.1)
     msgpack (1.7.2)
@@ -261,6 +262,8 @@ GEM
     strscan (3.1.0)
     thor (1.3.2)
     timeout (0.4.1)
+    trace_location (0.12.2)
+      method_source
     turbo-rails (2.0.6)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -305,6 +308,7 @@ DEPENDENCIES
   selenium-webdriver
   sprockets-rails
   stimulus-rails
+  trace_location
   turbo-rails
   tzinfo-data
   web-console
