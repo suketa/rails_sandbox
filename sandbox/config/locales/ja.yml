@@ -1,4 +1,4 @@
-en:
+ja:
   hello: "Hello world"
   activerecord:
     models:
@@ -7,6 +7,7 @@ en:
       task:
         status: "Status"
       task/status:
-        not_unstarted: "Unstarted"
-        in_progress: "In Progress"
-        completed: "Completed"
+        not_started: "未着手"
+        in_progress: "進行中"
+        completed: "完了"
+

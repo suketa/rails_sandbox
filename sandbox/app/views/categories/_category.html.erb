@@ -3,5 +3,10 @@
     <strong>Name:</strong>
     <%= category.name %>
   </p>
-
+  <p>
+    <%if category.respond_to?(:task_nums) %>
+      <strong>Task count:</strong>
+      <%= category.task_nums %>
+    <% end %>
+  </p>
 </div>

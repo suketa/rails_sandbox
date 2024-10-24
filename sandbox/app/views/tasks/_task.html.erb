@@ -16,12 +16,12 @@
 
   <p>
     <strong>Status:</strong>
-    <%= task.status %>
+    <%= task_status_string(task.status) %>
   </p>
 
   <p>
     <strong>Category:</strong>
-    <%= task.category_id %>
+    <%= task&.category&.name %>
   </p>
 
 </div>

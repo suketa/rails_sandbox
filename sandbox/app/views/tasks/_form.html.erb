@@ -28,7 +28,7 @@
 
   <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.select :status, Task.statuses.keys %>
+    <%= form.select :status, task_status_options %>
   </div>
 
   <div>

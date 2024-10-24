@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_17_232218) do
 
   create_table "tasks", comment: "タスク", force: :cascade do |t|
     t.string "title", null: false, comment: "タイトル"
-    t.text "description", comment: "詳細"
+    t.text "description", null: false, comment: "詳細"
     t.date "due_date", comment: "締め切り"
     t.integer "status", default: 0, null: false, comment: "状態：未着手, 進行中, 完了"
     t.bigint "category_id"
