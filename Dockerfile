@@ -15,10 +15,10 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
   export NVM_DIR="$HOME/.nvm" && \
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
-  nvm install 20.17.0 && \
+  nvm install 20.18.0 && \
   npm install -g npm && \
   npm install -g yarn
 
-RUN gem install rails -v 8.0.0beta1 --prerelease --no-document
+RUN gem install rails -v 8.0.0rc1 --prerelease --no-document
 
 WORKDIR /app
