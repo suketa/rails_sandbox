@@ -16,10 +16,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_071555) do
 
   create_table "cart_items", force: :cascade do |t|
     t.bigint "product_id", null: false, comment: "商品ID"
-    t.integer "quantity", default: 1, null: false, comment: "数量"
+    t.integer "quantity", default: 0, null: false, comment: "数量"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_cart_items_on_product_id"
+    t.index ["product_id"], name: "index_cart_items_on_product_id", unique: true
   end
 
   create_table "products", comment: "商品", force: :cascade do |t|

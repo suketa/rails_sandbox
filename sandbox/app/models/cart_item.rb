@@ -6,12 +6,8 @@ class CartItem < ApplicationRecord
 
   class << self
     def build_to_append(params)
-      cart_item = find_by(product_id: params[:product_id])
-      if cart_item
-        cart_item.quantity += params[:quantity].to_i
-      else
-        cart_item = CartItem.new(params)
-      end
+      cart_item = find_or_initialize_by(product_id: params[:product_id])
+      cart_item.quantity += params[:quantity].to_i
       cart_item
     end
 
