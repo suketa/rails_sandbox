@@ -1,0 +1,16 @@
+<div id="<%= dom_id product %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price:</strong>
+    <%= product.price %>
+  </p>
+  <%= form_with scope: :cart_item, url: cart_items_path do |form| %>
+    <%= form.hidden_field :product_id, value: product.id %>
+    <%= form.number_field :quantity, min: 1, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= form.submit "Add to cart", class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <% end %>
+</div>

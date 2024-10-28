@@ -1,0 +1,23 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Cart items" %>
+
+  <div class="">
+    <h1 class="font-bold text-4xl">Cart items</h1>
+  </div>
+
+  <%= link_to '商品一覧へ', products_path, class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+
+  <p class="mt-3 text-2xl">
+  合計金額: <%= CartItem.total_price %> 円
+  </p>
+
+  <div id="cart_items" class="min-w-full">
+    <% @cart_items.each do |cart_item| %>
+      <%= render cart_item %>
+    <% end %>
+  </div>
+</div>

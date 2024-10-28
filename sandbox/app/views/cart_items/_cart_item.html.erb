@@ -1,0 +1,19 @@
+<div id="<%= dom_id cart_item %>" class="flex items-end">
+  <div class="flex-none w-20 text-lg">
+    <%= cart_item.product.name %>
+  </div>
+  <div class="flex-none">
+    <%= form_with model: cart_item, url: cart_item_path(cart_item) do |form| %>
+      <div class="flex items-end">
+        <%= form.number_field :quantity, min: 1, class: "w-24 h-10 rounded-lg py-2 px-3 bg-gray-100 inline-block font-medium text-right" %> 個
+        <div class="mr-2 flex-initial w-32 text-lg text-right">
+          <%= cart_item.total_item_price %> 円
+        </div>
+          <%= form.submit "数量を変更", class: "flex-none w-30 h-10 rounded-lg py-2 px-5 bg-blue-600 text-white inline-block" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="flex-none w-20">
+    <%= button_to "削除", cart_item, method: :delete, class: "mt-1 rounded-lg py-2 px-5 bg-gray-300 ml-1 font-medium" %>
+  </div>
+</div>
