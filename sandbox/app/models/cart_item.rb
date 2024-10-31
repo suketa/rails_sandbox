@@ -1,6 +1,7 @@
 class CartItem < ApplicationRecord
   belongs_to :product
-  validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :quantity, presence: true, numericality: { only_integer: true }
+  validate :validate_quantity
 
   scope :list, -> { includes(:product).order(:id) }
 
@@ -18,5 +19,14 @@ class CartItem < ApplicationRecord
 
   def total_item_price
     product.price * quantity
+  end
+
+  private
+
+  def validate_quantity
+    _current, new = self.quantity_change_to_be_saved
+    if new.nil? || new <= 0
+      errors.add(:quantity, "must be greater than 0")
+    end
   end
 end

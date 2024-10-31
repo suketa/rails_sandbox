@@ -28,9 +28,9 @@ class CartItemsController < ApplicationController
         format.html { redirect_to cart_items_path, notice: "Cart item was successfully created." }
         format.json { render :show, status: :created, location: @cart_item }
       else
-        Rails.logger.debug { "🍎 messages=#{@cart_item.errors.full_messages} #{@cart_item.quantity_in_database} => #{@cart_item.quantity}" }
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cart_item.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :error, status: :unprocessable_entity }
+        # format.html { render :new, status: :unprocessable_entity }
+        # format.json { render json: @cart_item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,8 +42,9 @@ class CartItemsController < ApplicationController
         format.html { redirect_to cart_items_path, notice: "Cart item was successfully updated." }
         format.json { render :show, status: :ok, location: @cart_item }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @cart_item.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :error, status: :unprocessable_entity }
+        # format.html { render :edit, status: :unprocessable_entity }
+        # format.json { render json: @cart_item.errors, status: :unprocessable_entity }
       end
     end
   end

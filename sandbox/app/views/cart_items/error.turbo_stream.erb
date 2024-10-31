@@ -1,0 +1,9 @@
+<%= turbo_stream.update "cart_item_error_#{dom_id(@cart_item.product)}" do %>
+  <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 w-80">
+    <ul>
+      <% @cart_item.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -1,16 +1,19 @@
 <div id="<%= dom_id product %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= product.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= product.price %>
-  </p>
-  <%= form_with scope: :cart_item, url: cart_items_path do |form| %>
-    <%= form.hidden_field :product_id, value: product.id %>
-    <%= form.number_field :quantity, min: 1, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= form.submit "Add to cart", class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <%=turbo_frame_tag "cart_item_error_#{dom_id(product)}" do %>
   <% end %>
+  <div class="flex items-end">
+    <div class="flex-none w-20 text-lg">
+      <%= product.name %>
+    </div>
+    <div class="mr-2 flex-initial w-20 text-lg text-right">
+      <%= product.price %> 円
+    </div>
+    <div class="flex-none">
+      <%= form_with scope: :cart_item, url: cart_items_path do |form| %>
+        <%= form.hidden_field :product_id, value: product.id %>
+        <%= form.number_field :quantity, min: 1, class: "w-24 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= form.submit "Add to cart", class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium" %>
+      <% end %>
+    </div>
+  </div>
 </div>

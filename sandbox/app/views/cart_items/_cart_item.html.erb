@@ -1,3 +1,5 @@
+<%=turbo_frame_tag "cart_item_error_#{dom_id(cart_item.product)}" do %>
+<% end %>
 <div id="<%= dom_id cart_item %>" class="flex items-end">
   <div class="flex-none w-20 text-lg">
     <%= cart_item.product.name %>
