@@ -12,7 +12,7 @@
   <%= link_to 'Go to Products', products_path, class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
 
   <p class="mt-3 text-2xl">
-  合計金額: <%= CartItem.total_price %> 円
+  合計金額: <%= turbo_frame_tag "cart_items_total_price" do %><%= CartItem.total_price %><% end %> 円
   </p>
 
   <div id="cart_items" class="min-w-full">

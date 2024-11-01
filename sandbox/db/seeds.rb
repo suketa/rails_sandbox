@@ -20,12 +20,11 @@ Product.create(
     { name: 'あんず', price: 80 },
     { name: 'みかん', price: 90 },
     { name: 'カリン', price: 100 },
-    { name: 'グレープフルーツ', price: 110 },
-    { name: 'すもも', price: 120 },
-    { name: '桃', price: 130 },
-    { name: '西洋梨', price: 140 },
-    { name: 'びわ', price: 150 },
-    { name: 'メロン', price: 160 },
-    { name: 'ライチ', price: 170 }
+    { name: 'すもも', price: 110 },
+    { name: '桃', price: 120 },
+    { name: '西洋梨', price: 130 },
+    { name: 'びわ', price: 140 },
+    { name: 'メロン', price: 150 },
+    { name: 'ライチ', price: 160 }
   ]
 )

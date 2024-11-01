@@ -25,6 +25,7 @@ class CartItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_item.save
+        flash[:cart_item_id] = @cart_item.id
         format.html { redirect_to cart_items_path, notice: "Cart item was successfully created." }
         format.json { render :show, status: :created, location: @cart_item }
       else
@@ -39,8 +40,9 @@ class CartItemsController < ApplicationController
   def update
     respond_to do |format|
       if @cart_item.update(cart_item_params)
-        format.html { redirect_to cart_items_path, notice: "Cart item was successfully updated." }
-        format.json { render :show, status: :ok, location: @cart_item }
+        format.turbo_stream { render :update, status: :ok }
+        # format.html { redirect_to cart_items_path, notice: "Cart item was successfully updated." }
+        # format.json { render :show, status: :ok, location: @cart_item }
       else
         format.turbo_stream { render :error, status: :unprocessable_entity }
         # format.html { render :edit, status: :unprocessable_entity }

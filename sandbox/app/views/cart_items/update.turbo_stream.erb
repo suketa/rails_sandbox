@@ -1,0 +1,10 @@
+<%= turbo_stream.update "cart_items_total_price" do %>
+  <%= CartItem.total_price %>
+<% end %>
+<%= turbo_stream.update "#{dom_id(@cart_item)}_total_item_price" do %>
+  <div class="mr-2 flex-initial w-32 text-lg text-right animate-fadeToOriginal">
+    <%= @cart_item.total_item_price %> 円
+  </div>
+<% end %>
+<%= turbo_stream.update "cart_item_error_#{dom_id(@cart_item.product)}" do %>
+<% end %>

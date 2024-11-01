@@ -1,17 +1,20 @@
 <%=turbo_frame_tag "cart_item_error_#{dom_id(cart_item.product)}" do %>
 <% end %>
+<% bgCSS = cart_item.id == flash[:cart_item_id] ? "animate-fadeToOriginal" : "" %>
 <div id="<%= dom_id cart_item %>" class="flex items-end">
   <div class="flex-none w-20 text-lg">
     <%= cart_item.product.name %>
   </div>
   <div class="flex-none">
-    <%= form_with model: cart_item, url: cart_item_path(cart_item) do |form| %>
+    <%= form_with model: cart_item, url: cart_item_path(cart_item), data: {turbo: true} do |form| %>
       <div class="flex items-end">
         <%= form.number_field :quantity, min: 1, class: "w-24 h-10 rounded-lg py-2 px-3 bg-gray-100 inline-block font-medium text-right" %> 個
-        <div class="mr-2 flex-initial w-32 text-lg text-right">
-          <%= cart_item.total_item_price %> 円
-        </div>
-          <%= form.submit "数量を変更", class: "flex-none w-30 h-10 rounded-lg py-2 px-5 bg-blue-600 text-white inline-block" %>
+        <%= turbo_frame_tag "#{dom_id(cart_item)}_total_item_price" do %>
+          <div class="mr-2 flex-initial w-32 text-lg text-right <%=bgCSS %>">
+            <%= cart_item.total_item_price %> 円
+          </div>
+        <% end %>
+        <%= form.submit "数量を変更", class: "flex-none w-30 h-10 rounded-lg py-2 px-5 bg-blue-600 text-white inline-block" %>
       </div>
     <% end %>
   </div>
