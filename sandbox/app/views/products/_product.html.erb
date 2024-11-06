@@ -11,7 +11,8 @@
     <div class="flex-none">
       <%= form_with scope: :cart_item, url: cart_items_path do |form| %>
         <%= form.hidden_field :product_id, value: product.id %>
-        <%= form.number_field :quantity, min: 1, class: "w-24 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= form.number_field :quantity, value: 1, required: true, min: 1, class: "text-right w-24 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <%# <%= form.number_field :quantity, class: "text-right w-24 rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
         <%= form.submit "Add to cart", class: "rounded-lg py-2 px-5 bg-blue-600 text-white inline-block font-medium" %>
       <% end %>
     </div>
