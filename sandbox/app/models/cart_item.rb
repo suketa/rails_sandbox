@@ -5,7 +5,7 @@ class CartItem < ApplicationRecord
 
   attribute :new_quantity, :integer, default: 0
 
-  scope :list, -> { includes(:product).order(:id) }
+  scope :list, -> { eager_load(:product).order(:id) }
 
   class << self
     def build_to_append(params)
@@ -16,7 +16,7 @@ class CartItem < ApplicationRecord
     end
 
     def total_price
-      all.sum(&:total_item_price)
+      list.sum(&:total_item_price)
     end
   end
 
