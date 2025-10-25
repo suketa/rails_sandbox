@@ -5,7 +5,7 @@ services:
       - "${RAILS_PORT:-3000}:3000"
     volumes:
       - ./sandbox:/app
-      - rails8.0:/usr/local/bundle
+      - rails8.1:/usr/local/bundle
     tty: true
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
@@ -30,5 +30,5 @@ volumes:
     driver: local
   # mysqldb8.0:
   #   driver: local
-  rails8.0:
+  rails8.1:
     driver: local

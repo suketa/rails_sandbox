@@ -1,4 +1,4 @@
-FROM ruby:3.4.6
+FROM ruby:3.4.7
 
 ENV LANG C.UTF-8
 
@@ -8,5 +8,7 @@ RUN apt-get update -qq && \
     git libvips pkg-config \
     curl libsqlite3-0 \
     libpq-dev postgresql-client \
-    default-libmysqlclient-dev default-mysql-client
+    default-libmysqlclient-dev default-mysql-client \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
