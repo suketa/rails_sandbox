@@ -1,5 +1,6 @@
 services:
   web:
+    image: rails_sandbox:8.1
     build: .
     ports:
       - "${RAILS_PORT:-3000}:3000"
@@ -10,7 +11,7 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
-  db:
+  postgres:
     image: postgres:18.0-alpine
     volumes:
       - pgsqldb18.0:/var/lib/postgresql/data
