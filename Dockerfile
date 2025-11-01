@@ -7,7 +7,7 @@ RUN apt-get update -qq && \
     build-essential nodejs npm vim \
     git libvips pkg-config \
     curl libsqlite3-0 \
-    libpq-dev postgresql-client \
+    libpq-dev postgresql-client libvips \
     default-libmysqlclient-dev default-mysql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
