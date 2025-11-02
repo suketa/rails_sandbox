@@ -4,7 +4,7 @@
 
 <h1>Users</h1>
 
-<%= form_with url: users_path,  method: :get, local: true do |form| %>
+<%= form_with url: users_path,  method: :get, data: {turbo_frame: "users"} do |form| %>
   <div>
     <%= form.label :search, "Name:" %>
     <%= form.text_field :name, value: params[:name] %>
@@ -12,13 +12,15 @@
   </div>
 <% end %>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
+<turbo-frame id="users">
+  <div id="users">
+    <% @users.each do |user| %>
+      <%= render user %>
+      <p>
       <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
-</div>
+      </p>
+    <% end %>
+  </div>
+</turbo-frame>
 
 <%= link_to "New user", new_user_path %>
