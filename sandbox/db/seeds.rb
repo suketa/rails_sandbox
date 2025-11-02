@@ -9,7 +9,7 @@
 #   end
 
 30.times do |i|
-  User.find_or_create_by!(name: 'Yamada#{i}', email: "yamada#{i}@example.com") if i < 20
-  User.find_or_create_by!(name: 'Suzuki#{i}', email: "suzuki#{i}@example.com") if i < 10
+  User.find_or_create_by!(name: "Yamada#{i}", email: "yamada#{i}@example.com") if i < 20
+  User.find_or_create_by!(name: "Suzuki#{i}", email: "suzuki#{i}@example.com") if i < 10
   Project.find_or_create_by!(name: "Project #{i}")
 end
