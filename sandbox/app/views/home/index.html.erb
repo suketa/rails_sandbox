@@ -1,0 +1,20 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+<click-counter>
+  <button>Clicked <span>0</span> times</button>
+</click-counter>
+
+<h2>Optimistic Form</h2>
+<div id="messages">
+  <%= render @messages %>
+</div>
+<optimistic-form>
+  <form action="<%= messages_path %>" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= text_area_tag "message[content]", "", placeholder: "Write a message...", required: true %>
+    <%= submit_tag "Send Message" %>
+  </form>
+  <template response>
+    <%= render Message.new(content: "", created_at: Time.current) %>
+  </template>
+</optimistic-form>
