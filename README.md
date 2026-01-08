@@ -1,0 +1,1 @@
+- custom confirm dialog in Rails -
