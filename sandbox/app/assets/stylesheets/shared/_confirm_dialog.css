@@ -1,0 +1,28 @@
+.confirm-dialog footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.confirm-dialog {
+  border-radius: 8px;
+  border: 2px solid #444;
+  box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.5);
+
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 0.2s ease-out,
+    scale 0.2s ease-out,
+    overlay 0.2s ease-out allow-discrete,
+    display 0.2s ease-out allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+.confirm-dialog:not([open]) {
+  opacity: 0;
+  scale: 0.95;
+}
