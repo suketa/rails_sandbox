@@ -1,1 +1,2 @@
-- custom confirm dialog in Rails -
+- custom confirm dialog in Rails. branch:custom_turbo_confirm
+  - https://techracho.bpsinc.jp/hachi8833/2026_01_05/155712
