@@ -1,2 +1,4 @@
 - custom confirm dialog in Rails. branch:custom_turbo_confirm
   - https://techracho.bpsinc.jp/hachi8833/2026_01_05/155712
+- github-markdown-editor
+  - https://blog.appsignal.com/2025/12/10/create-a-markdown-editor-in-ruby-on-rails.html
