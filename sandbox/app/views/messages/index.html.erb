@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, @count.positive? ? "#{@count} - Messages" : "Messages" %>
+
+<h1>Messages</h1>
+
+<%= form_with(model: @message) do |form| %>
+  <div>
+    <%= form.submit "Create Message" %>
+  </div>
+<% end %>
+
+<div id="messages">
+  <% @messages.each do |message| %>
+    <%= render message %>
+  <% end %>
+</div>
