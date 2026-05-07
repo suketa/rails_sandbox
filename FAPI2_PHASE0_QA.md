@@ -65,8 +65,17 @@
 **参照ヒント**: RFC 7523 §3, OIDC Core 1.0 §9 (private_key_jwt)
 
 **答え**:
+- 認証サーバーがトークンを発行した場合のトークンエンドポイントを含めるため。
+- ~トークンが確かに認証サーバーのトークンエンドポイントにより生成されたことを保証する（改竄されていないことを確認する）ため。認証サーバーが確認のために使用する。~ => NG
 
 **補足**:
+- client_assertion JWT は「クライアント → AS」方向の認証 (クライアントが作成)
+- 値: AS の token endpoint URL (OIDC Core §9) または issuer URL (RFC 7523 §3)
+- 役割: cross-AS replay 攻撃の防止 ("この assertion はこの AS 専用" を宣言)
+- 改竄検知は JWS 署名の役割。aud は audience-binding のための別レイヤ
+- 関連 claim: iss=sub=client_id, jti で同一 AS 内の replay 防止, exp で時間制限
+- DPoP の ath が「proof と access token を bind」するのと同様、aud は
+  「assertion と AS を bind」する位置づけ — JWT 系で頻出のパターン
 
 ---
 
