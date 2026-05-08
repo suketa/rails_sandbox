@@ -84,8 +84,13 @@
 **参照ヒント**: OIDC Core 1.0 §16.7, RFC 7516 §11 / 一般的に外側の処理を先に解く理由を考える
 
 **答え**:
+署名が改竄されているリスクがあるため。
 
 **補足**:
+- 内側 JWS は外側 JWE の plaintext として埋め込まれている。復号して初めて JWS structure が露出する
+- 「外側を先に解く」は JOSE の一般原則 (RFC 7516 §11, OIDC Core §16.7)。ネスト JWT でも、Russian doll を外から開けるのと同じ
+- 改竄検知は JWE 自体が AEAD (例: A256GCM) で integrityを持っているので、復号成功時点で外側の改竄は検出済み
+- 順序を逆にしようとしても、検証する対象 (署名値) が暗号化されていて見えないので、そもそも操作が始められない — 「危険」というより「不可能」
 
 ---
 
@@ -94,16 +99,36 @@
 **参照ヒント**: RFC 9449 §10.1, §10.2, FAPI 2.0 final の対応箇所
 
 **答え**:
+トークンが盗まれて悪意あるクライアントから送信されたときにそのリクエストを無視することができる。
 
 **補足**:
-
+1. 正規クライアント C が AS に authorization request を投げる (PAR で dpop_jkt = SHA-256(C の公開鍵) を送付、または DPoP proof を添付)
+2. AS は authorization code を発行し、内部で code ↔ jkt の紐付けを記憶
+3. 何らかの経路で attacker が code を入手 (Referer leak / ログ漏洩 / redirect_uri の取り違え / プロキシ経由 / open redirect 経由 …)
+4. attacker が自分の DPoP key で proof を作って token endpoint に redeem を試みる
+5. AS: 「この code に bind された jkt と、proof の jkt が一致しない」→ token 発行を拒否
+6. → attacker は code を持っていても token に交換できない
 ---
-
 ## Q6. RFC 9207 (`iss` パラメータ) はどんな攻撃を防ぐか? `state` だけで十分でない理由は?
 
 **参照ヒント**: RFC 9207 §1 (Introduction), §2.4 (Validation), draft-ietf-oauth-security-topics の mix-up attack の節
 
 **答え**:
+Mix-Up攻撃を防ぐ。クライアントが iss パラメータで設定されているコード発行元と実際に通信している認可サーバーが同一かどうかを判定して異なればリクエストを中断する。
+
+
+Mix-Up 攻撃 (クライアントが複数の AS をサポートしているとき、攻撃者が「どの AS が
+response を返したか」をすり替える攻撃) を防ぐ。
+
+state だけで不十分な理由:
+- state は「リクエストとレスポンスの 1 対 1 対応」を守る CSRF 対策であり、
+  正規ユーザーが正規に開始したフローでは state は一致してしまう
+- state は **どの AS が応答したか** をエンコードしていない
+- → クライアントが期待した AS と実際の発行 AS が異なっていても検出できない
+
+iss パラメータは authorization response に発行 AS の issuer URL を埋め込み、
+クライアントが「自分が認可リクエストを送った AS の issuer」と strict equal で
+比較できるようにすることで、AS identity レイヤの検証を追加する。
 
 **補足**:
 
@@ -115,11 +140,36 @@
 
 **答え**:
 
-- 許可:
-- 禁止:
-- 理由:
+- 許可: PS256, ES256, EdDSA(Ed25519使用)
+- 禁止: それ以外
+- 理由: 弱点が見つかった場合、なりすましができてしまうため。
+
+
+- 許可: PS256, ES256, EdDSA (Ed25519)
+- 禁止: 上記以外。特に
+  - `none` (署名なし)
+  - HS256/HS384/HS512 (HMAC: 対称鍵)
+  - RS256/RS384/RS512 (RSA + PKCS#1 v1.5 padding)
+  - ES384/ES512 (P-256 以外の ECDSA)
+- 理由: アルゴリズムごとに異なる
+  - `none`: そもそも署名がない → 検証ライブラリの実装次第で無検証通過
+      (古典的 JWT 脆弱性)
+  - HS*: ① 対称鍵共有が高セキュリティ profile に合わない
+         ② alg confusion 攻撃 (公開鍵を HMAC 鍵として使われる) の歴史的事故
+  - RS*: PKCS#1 v1.5 padding は Bleichenbacher 系の歴史的脆弱性 →
+         RSA を使うなら PSS (PS256) を使う
+  - ES384/ES512: 機能的問題ではなく、実装多様性を削って相互運用と実装ミスの余地を減らすため (allow-list 主義)
 
 **補足**:
+- 設計思想: "small allow-list" 主義。"禁止リスト" ではなく "許可リスト" を
+    小さく保つことで実装の選択肢を狭め、実装側の脆弱性混入余地を削る
+- RFC 8725 (JWT BCP) §3.1 と整合: alg=none, weak alg を avoid
+- 関連: アルゴリズム選択の実装ミス (alg confusion) は OIDC/OAuth で繰り返し起きてきた領域 — Q4 (JWE 順序) と並ぶ JOSE 実装ミスの定番ジャンル
+- EdDSA で Ed448 ではなく Ed25519 限定なのは相互運用性の観点 (ライブラリ実装のカバレッジが Ed25519 の方が圧倒的に広い)
+
+  ポイントは 「FAPI 2.0 は allow-list アプローチ」 で、blocklist 主義 (危ないやつを拒否) ではなく
+  「これだけ使え」 という設計思想だと押さえること。Q3 (aud)・Q6 (iss) と同じく、FAPI 2.0
+  の各仕様は「攻撃シナリオ → 必要な binding/制約」という対応関係で読むと一気通貫します。
 
 ---
 
