@@ -1,5 +1,6 @@
-# README
+# learning FAPI2.0 with Keycloak
 
+FAPI 2.0 learning
 ```
 git checkout rails7.1.1_postgres16.0
 cp .env.example .env
