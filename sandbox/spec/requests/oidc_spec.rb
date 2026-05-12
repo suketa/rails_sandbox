@@ -34,13 +34,13 @@ RSpec.describe "Oidc" do
       )
     end
 
-    it "redirects to the authorization endpoint" do
+    it "authorization endpoint にリダイレクトする" do
       get "/oidc/start"
       expect(response).to have_http_status(:found)
       expect(response.location).to start_with(authorization_endpoint)
     end
 
-    it "includes the required OIDC parameters in the redirect URL" do
+    it "authorization endpoint にリダイレクトする際に必要なURLパラメータが設定されている" do
       get "/oidc/start"
       uri = URI.parse(response.location)
       params = URI.decode_www_form(uri.query).to_h
@@ -50,6 +50,14 @@ RSpec.describe "Oidc" do
         "redirect_uri" => "http://localhost:3000/oidc/callback",
         "scope" => "openid",
       )
+    end
+
+    it "authorization endpoint にリダイレクトする際にURLに code challenge と code challenge_method=S256が設定されている" do
+      get "/oidc/start"
+      uri = URI.parse(response.location)
+      params = URI.decode_www_form(uri.query).to_h
+      expect(params).to include("code_challenge_method" => "S256")
+      expect(params["code_challenge"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
     end
   end
 end
