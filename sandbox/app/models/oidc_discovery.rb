@@ -3,7 +3,41 @@
 class OidcDiscovery
   class << self
     def config
-      OpenIDConnect::Discovery::Provider::Config.discover!(Settings.oidc_issuer)
+      Rails.cache.fetch("oidc:discovery:#{Settings.oidc_issuer}", expires_in: 1.hour) do
+        result = OpenIDConnect::Discovery::Provider::Config.discover!(Settings.oidc_issuer)
+        {
+          authorization_endpoint: result.authorization_endpoint,
+          token_endpoint: result.token_endpoint,
+          userinfo_endpoint: result.userinfo_endpoint,
+          jwks_uri: result.jwks_uri,
+          issuer: result.issuer,
+          pushed_authorization_request_endpoint: result.raw["pushed_authorization_request_endpoint"]
+        }
+      end
+    end
+
+    def authorization_endpoint
+      config[:authorization_endpoint]
+    end
+
+    def token_endpoint
+      config[:token_endpoint]
+    end
+
+    def userinfo_endpoint
+      config[:userinfo_endpoint]
+    end
+
+    def jwks_uri
+      config[:jwks_uri]
+    end
+
+    def issuer
+      config[:issuer]
+    end
+
+    def pushed_authorization_request_endpoint
+      config[:pushed_authorization_request_endpoint]
     end
   end
 end
