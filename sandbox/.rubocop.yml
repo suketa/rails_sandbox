@@ -20,3 +20,10 @@ AllCops:
 Rails/Exit:
   Exclude:
     - spec/rails_helper.rb
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - spec/**/*
+
+RSpec/ExampleLength:
+  Enabled: false
