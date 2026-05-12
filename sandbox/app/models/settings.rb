@@ -3,7 +3,7 @@
 class Settings
   class << self
     def oidc_issuer
-      ENV.fetch("OIDC__ISSUER") do
+      ENV.fetch('OIDC__ISSUER') do
         Rails.application.credentials.dig(:oidc, :issuer)
       end
     end

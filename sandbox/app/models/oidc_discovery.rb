@@ -11,7 +11,7 @@ class OidcDiscovery
           userinfo_endpoint: result.userinfo_endpoint,
           jwks_uri: result.jwks_uri,
           issuer: result.issuer,
-          pushed_authorization_request_endpoint: result.raw["pushed_authorization_request_endpoint"]
+          pushed_authorization_request_endpoint: result.raw['pushed_authorization_request_endpoint'],
         }
       end
     end
