@@ -72,4 +72,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include(FactoryBot::Syntax::Methods)
+
+  require "webmock/rspec"
+
+  WebMock.disable_net_connect!(allow_localhost: true)
+
+  config.before do
+    Rails.cache.clear
+  end
 end
