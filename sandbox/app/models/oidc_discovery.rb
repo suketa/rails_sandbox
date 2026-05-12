@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OidcDiscovery
+  include OidcDiscovery::UrlBuilder
+
   def initialize(issuer:)
     @issuer = issuer
   end
