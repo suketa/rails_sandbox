@@ -15,12 +15,7 @@ plugins:
   - rubocop-rspec_rails
 AllCops:
   TargetRubyVersion: 3.4
-  Exclude:
-    - 'db/**/*'
   NewCops: enable
-
-Style/StringLiterals:
-  EnforcedStyle: single_quotes
 
 Rails/Exit:
   Exclude:
