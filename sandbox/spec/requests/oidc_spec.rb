@@ -59,5 +59,11 @@ RSpec.describe "Oidc" do
       expect(params).to include("code_challenge_method" => "S256")
       expect(params["code_challenge"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
     end
+
+    it "PKCE の code_verifier を sessiton に保存する" do
+      get "/oidc/start"
+      expect(session[:oidc_code_verifier]).to be_present
+      expect(session[:oidc_code_verifier]).to match(/\A[A-Za-z0-9_-]+\z/)
+    end
   end
 end
