@@ -65,7 +65,7 @@ RSpec.describe "Oidc" do
       get "/oidc/start"
       uri = URI.parse(response.location)
       params = URI.decode_www_form(uri.query).to_h
-      expect(params["state"]).to match(/\A[0-9a-f]+\z/)
+      expect(params["state"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
       expect(params["state"]).to eq(session[:oidc_state])
     end
   end
