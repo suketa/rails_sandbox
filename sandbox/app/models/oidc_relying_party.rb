@@ -11,7 +11,7 @@ class OidcRelyingParty
     @redirect_uri = redirect_uri
   end
 
-  def authorization_url(code_challenge:, state:)
+  def authorization_url(code_challenge:, state:, nonce:)
     OidcAuthorizationRequest.new(
       discovery: discovery,
       client_id: @client_id,
@@ -19,6 +19,7 @@ class OidcRelyingParty
       code_challenge_method: "S256",
       code_challenge:,
       state:,
+      nonce:,
     ).to_url
   end
 
@@ -29,6 +30,10 @@ class OidcRelyingParty
   end
 
   def generate_state
+    SecureRandom.urlsafe_base64(32)
+  end
+
+  def generate_nonce
     SecureRandom.urlsafe_base64(32)
   end
 

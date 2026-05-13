@@ -61,12 +61,20 @@ RSpec.describe "Oidc" do
       expect(session[:oidc_code_verifier]).to match(/\A[A-Za-z0-9_-]+\z/)
     end
 
-    it "authorization endpoint にリダイレクトする際にURLに state が設定し、session に保存" do
+    it "authorization endpoint にリダイレクトする際にURLに state を設定し、session に保存" do
       get "/oidc/start"
       uri = URI.parse(response.location)
       params = URI.decode_www_form(uri.query).to_h
       expect(params["state"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
       expect(params["state"]).to eq(session[:oidc_state])
+    end
+
+    it "authorization endpoint にリダイレクトする際にURLに nonce を設定し、session に保存" do
+      get "/oidc/start"
+      uri = URI.parse(response.location)
+      params = URI.decode_www_form(uri.query).to_h
+      expect(params["nonce"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
+      expect(params["nonce"]).to eq(session[:oidc_nonce])
     end
   end
 end

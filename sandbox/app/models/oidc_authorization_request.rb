@@ -8,6 +8,7 @@ class OidcAuthorizationRequest
     code_challenge:,
     code_challenge_method:,
     state:,
+    nonce:,
     scope: "openid"
   )
     @discovery = discovery
@@ -15,8 +16,9 @@ class OidcAuthorizationRequest
     @redirect_uri = redirect_uri
     @code_challenge = code_challenge
     @code_challenge_method = code_challenge_method
-    @scope = scope
     @state = state
+    @nonce = nonce
+    @scope = scope
   end
 
   def to_url
@@ -29,6 +31,7 @@ class OidcAuthorizationRequest
       code_challenge_method: @code_challenge_method,
       scope: @scope,
       state: @state,
+      nonce: @nonce,
     )
     uri.to_s
   end
