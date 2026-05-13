@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Settings
-  PASSWORD='p@ssw0rd1!'
   class << self
     def oidc_issuer
       ENV.fetch("OIDC__ISSUER") do
