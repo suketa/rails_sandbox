@@ -1,13 +1,22 @@
 # frozen_string_literal: true
 
 class OidcAuthorizationRequest
-  def initialize(discovery:, client_id:, redirect_uri:, code_challenge:, code_challenge_method:, scope: "openid")
+  def initialize(
+    discovery:,
+    client_id:,
+    redirect_uri:,
+    code_challenge:,
+    code_challenge_method:,
+    state:,
+    scope: "openid"
+  )
     @discovery = discovery
     @client_id = client_id
     @redirect_uri = redirect_uri
     @code_challenge = code_challenge
     @code_challenge_method = code_challenge_method
     @scope = scope
+    @state = state
   end
 
   def to_url
@@ -19,6 +28,7 @@ class OidcAuthorizationRequest
       code_challenge: @code_challenge,
       code_challenge_method: @code_challenge_method,
       scope: @scope,
+      state: @state,
     )
     uri.to_s
   end

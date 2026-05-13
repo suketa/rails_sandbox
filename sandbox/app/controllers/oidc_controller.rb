@@ -4,8 +4,10 @@ class OidcController < ApplicationController
   def start
     rp = OidcRelyingParty.new
     pkce = rp.generate_pkce
+    state = rp.generate_state
     session[:oidc_code_verifier] = pkce[:verifier]
-    redirect_to(rp.authorization_url(code_challenge: pkce[:challenge]), allow_other_host: true)
+    session[:oidc_state] = state
+    redirect_to(rp.authorization_url(code_challenge: pkce[:challenge], state:), allow_other_host: true)
   end
 
   def callback

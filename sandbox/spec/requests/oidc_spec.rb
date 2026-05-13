@@ -52,18 +52,21 @@ RSpec.describe "Oidc" do
       )
     end
 
-    it "authorization endpoint にリダイレクトする際にURLに code challenge と code challenge_method=S256が設定されている" do
+    it "authorization endpoint にリダイレクトする際にURLに code challengeを設定し、sessionにverifierを保存" do
       get "/oidc/start"
       uri = URI.parse(response.location)
       params = URI.decode_www_form(uri.query).to_h
       expect(params).to include("code_challenge_method" => "S256")
       expect(params["code_challenge"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
+      expect(session[:oidc_code_verifier]).to match(/\A[A-Za-z0-9_-]+\z/)
     end
 
-    it "PKCE の code_verifier を sessiton に保存する" do
+    it "authorization endpoint にリダイレクトする際にURLに state が設定し、session に保存" do
       get "/oidc/start"
-      expect(session[:oidc_code_verifier]).to be_present
-      expect(session[:oidc_code_verifier]).to match(/\A[A-Za-z0-9_-]+\z/)
+      uri = URI.parse(response.location)
+      params = URI.decode_www_form(uri.query).to_h
+      expect(params["state"]).to match(/\A[0-9a-f]+\z/)
+      expect(params["state"]).to eq(session[:oidc_state])
     end
   end
 end
