@@ -29,7 +29,7 @@ class OidcRelyingParty
   end
 
   def generate_state
-    SecureRandom.hex(16)
+    SecureRandom.urlsafe_base64(32)
   end
 
   private
