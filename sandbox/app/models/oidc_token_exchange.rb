@@ -28,6 +28,7 @@ class OidcTokenExchange
       grant_type: "authorization_code",
       redirect_uri: @redirect_uri,
     }
+    req.basic_auth(@client_id, @client_secret)
     res = http.request(req)
     case res
     when Net::HTTPSuccess

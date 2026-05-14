@@ -8,6 +8,7 @@ RSpec.describe OidcTokenExchange do
 
   it "token endpointにパラメータを指定して呼び出し結果が2XXの場合 tokenを返す" do
     stub = stub_request(:post, token_endpoint).with(
+      headers: { "Authorization" => "Basic #{Base64.strict_encode64("cid:secret")}" },
       body: hash_including(
         "grant_type" => "authorization_code",
         "code" => "the-code",
