@@ -20,7 +20,7 @@ class OidcTokenExchange
   def tokens
     uri = URI.parse(@discovery.token_endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = (uri.scheme = "https")
+    http.use_ssl = (uri.scheme == "https")
     req = Net::HTTP::Post.new(uri.path)
     req.form_data = {
       code: @code,
