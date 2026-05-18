@@ -59,5 +59,14 @@ RSpec.describe OidcIdTokenVerifier do
         expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /nonce/)
       end
     end
+
+    context "exp が切れているとき" do
+      let(:claims) { base_claims.merge(exp: now - 60) }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /exp/)
+      end
+    end
   end
 end

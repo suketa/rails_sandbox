@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OidcIdTokenVerifier
+  CLOCK_SKEW_SECONDS = 10
+
   class VerificationError < StandardError; end
 
   def initialize(id_token:, discovery:, client_id:, nonce:)
@@ -17,6 +19,7 @@ class OidcIdTokenVerifier
     verify_iss!(claims)
     verify_aud!(claims)
     verify_nonce!(claims)
+    verify_exp!(claims)
 
     claims
   end
@@ -33,6 +36,11 @@ class OidcIdTokenVerifier
 
   def verify_nonce!(claims)
     raise VerificationError, "nonce mismatch" if claims[:nonce] != @nonce
+  end
+
+  def verify_exp!(claims)
+    exp = claims[:exp]
+    raise VerificationError, "exp expired" if exp.nil? || exp < Time.now.to_i - CLOCK_SKEW_SECONDS
   end
 
   def fetch_jwk_json
