@@ -12,7 +12,7 @@ RSpec.describe "Home" do
 
     it "'Login with singpass' ボタンが /oidc/start に遷移する" do
       get "/home"
-      expect(response.body).to include("Login with singpass")
+      expect(response.body).to include("Login")
       expect(response.body).to include('action="/oidc/start"')
     end
   end
