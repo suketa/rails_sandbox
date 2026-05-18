@@ -19,6 +19,7 @@ class OidcIdTokenVerifier
     verify_aud!(claims)
     verify_nonce!(claims)
     verify_exp!(claims)
+    verify_iat!(claims)
 
     claims
   end
@@ -46,7 +47,14 @@ class OidcIdTokenVerifier
 
   def verify_exp!(claims)
     exp = claims[:exp]
-    raise VerificationError, "exp expired" if exp.nil? || exp < Time.now.to_i - CLOCK_SKEW_SECONDS
+    raise VerificationError, "exp missing" if exp.nil?
+    raise VerificationError, "exp expired" if exp < Time.now.to_i - CLOCK_SKEW_SECONDS
+  end
+
+  def verify_iat!(claims)
+    iat = claims[:iat]
+    raise VerificationError, "iat missing" if iat.nil?
+    raise VerificationError, "iat in future" if iat > Time.now.to_i + CLOCK_SKEW_SECONDS
   end
 
   def fetch_jwk_json

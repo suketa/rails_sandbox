@@ -21,6 +21,7 @@ RSpec.describe OidcIdTokenVerifier do
         body: JSON::JWK::Set.new(jwk).to_json,
         headers: { "Content-Type" => "application/json" },
       )
+      freeze_time
     end
 
     context "正しく検証できるレスポンスのとき" do
@@ -79,7 +80,7 @@ RSpec.describe OidcIdTokenVerifier do
       end
     end
 
-    context "kid がJWKSにないとき" do
+    context "kid が JWKS にないとき" do
       let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = "" }.sign(jwk, :RS256).to_s }
 
       it "検証に失敗する" do
@@ -94,6 +95,27 @@ RSpec.describe OidcIdTokenVerifier do
       it "検証に失敗する" do
         verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
         expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /signature.*:.*InvalidFormat/)
+      end
+    end
+
+    context "iat が未来のとき" do
+      let(:claims) { base_claims.merge(iat: now + described_class::CLOCK_SKEW_SECONDS + 5) }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /iat/)
+      end
+    end
+
+    context "iat が境界内のとき" do
+      let(:claims) { base_claims.merge(iat: now + described_class::CLOCK_SKEW_SECONDS - 5) }
+
+      it "検証に成功する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect(verifier.verify!).to include({
+          sub: "user-1",
+          iss: issuer,
+        })
       end
     end
   end
