@@ -38,7 +38,25 @@ RSpec.describe OidcIdTokenVerifier do
 
       it "検証に失敗する" do
         verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
-        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError)
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /iss/)
+      end
+    end
+
+    context "aud が不一致のとき" do
+      let(:claims) { base_claims.merge(aud: "invalid-cid") }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /aud/)
+      end
+    end
+
+    context "nonce が不一致のとき" do
+      let(:claims) { base_claims.merge(nonce: "invalid-nonce") }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /nonce/)
       end
     end
   end

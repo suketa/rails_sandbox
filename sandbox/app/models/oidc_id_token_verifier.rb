@@ -15,6 +15,8 @@ class OidcIdTokenVerifier
     claims = JSON::JWT.decode(@id_token, jwk_set).to_h.symbolize_keys
 
     verify_iss!(claims)
+    verify_aud!(claims)
+    verify_nonce!(claims)
 
     claims
   end
@@ -23,6 +25,14 @@ class OidcIdTokenVerifier
 
   def verify_iss!(claims)
     raise VerificationError, "iss mismatch" if claims[:iss] != @discovery.issuer
+  end
+
+  def verify_aud!(claims)
+    raise VerificationError, "aud mismatch" if Array(claims[:aud]).exclude?(@client_id)
+  end
+
+  def verify_nonce!(claims)
+    raise VerificationError, "nonce mismatch" if claims[:nonce] != @nonce
   end
 
   def fetch_jwk_json
