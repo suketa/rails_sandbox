@@ -4,7 +4,8 @@ class OidcRelyingParty
   def initialize(
     issuer: Settings.oidc_issuer,
     client_id: Settings.oidc_client_id,
-    redirect_uri: Settings.oidc_redirect_uri
+    redirect_uri: Settings.oidc_redirect_uri,
+    client_secret: Settings.oidc_client_secret
   )
     @issuer = issuer
     @client_id = client_id
@@ -35,6 +36,26 @@ class OidcRelyingParty
 
   def generate_nonce
     SecureRandom.urlsafe_base64(32)
+  end
+
+  def callback(code:, state:, expected_state:, expected_nonce:, code_verifier:)
+    raise StateMismatchError unless state == expected_state
+
+    tokens = OidcTokenExchange.new(
+      discovery:,
+      client_id: @client_id,
+      client_secret: @client_secret,
+      redirect_uri: @redirect_uri,
+      code:,
+      code_verifier:,
+    ).tokens
+
+    OidcIdTokenVerifier.new(
+      id_token: tokens[:id_token],
+      discovery:,
+      client_id: @client_id,
+      nonce: expected_nonce,
+    ).verify!
   end
 
   private

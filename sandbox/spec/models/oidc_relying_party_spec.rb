@@ -1,0 +1,59 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe OidcRelyingParty do
+  describe "#callback" do
+    let(:issuer) { "https://issuer.example.com" }
+    let(:token_endpoint) { "#{issuer}/token" }
+    let(:jwks_uri) { "#{issuer}/jwks" }
+    let(:discovery_url) { "#{issuer}/.well-known/openid-configuration" }
+    let(:discovery_response) do
+      {
+        issuer:,
+        token_endpoint:,
+        jwks_uri:,
+        authorization_endpoint: "#{issuer}/auth",
+        userinfo_endpoint: "#{issuer}/user_info",
+      }
+    end
+    let(:jwk) { JSON::JWK.new(OpenSSL::PKey::RSA.generate(2048)) }
+    let(:now) { Time.current.to_i }
+    let(:claims) do
+      { iss: issuer, aud: "cid", nonce: "nonce", sub: "user-1", iat: now, exp: now + 60 }
+    end
+    let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(jwk, :RS256).to_s }
+
+    before do
+      allow(Settings).to receive_messages(
+        oidc_issuer: issuer,
+        oidc_client_id: "cid",
+        oidc_client_secret: "secret",
+        oidc_redirect_uri: "http://localhost:3000/oidc/callback",
+      )
+      stub_request(:get, discovery_url).to_return(body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
+      stub_request(:post, token_endpoint).to_return(
+        body: { access_token: "AT", id_token: id_token }.to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
+      stub_request(:get, jwks_uri).to_return(
+        body: JSON::JWK::Set.new(jwk).to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
+    end
+
+    context "happy path" do
+      it "claims を返す" do
+        rp = described_class.new
+        result = rp.callback(
+          code: "the-code",
+          state: "the-state",
+          expected_state: "the-state",
+          expected_nonce: "nonce",
+          code_verifier: "the-verifier",
+        )
+        expect(result).to include(sub: "user-1", iss: issuer)
+      end
+    end
+  end
+end

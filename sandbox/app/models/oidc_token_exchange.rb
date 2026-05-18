@@ -18,6 +18,7 @@ class OidcTokenExchange
   end
 
   def tokens
+    debugger
     uri = URI.parse(@discovery.token_endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -28,6 +29,7 @@ class OidcTokenExchange
       grant_type: "authorization_code",
       redirect_uri: @redirect_uri,
     }
+    debugger
     req.basic_auth(@client_id, @client_secret)
     res = http.request(req)
     case res
