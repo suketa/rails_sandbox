@@ -32,5 +32,14 @@ RSpec.describe OidcIdTokenVerifier do
         })
       end
     end
+
+    context "iss が discovery.issuer と一致しないとき" do
+      let(:claims) { base_claims.merge(iss: "https://invalid.example.com") }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError)
+      end
+    end
   end
 end
