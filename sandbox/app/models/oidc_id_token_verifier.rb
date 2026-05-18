@@ -13,8 +13,7 @@ class OidcIdTokenVerifier
   end
 
   def verify!
-    jwk_set = JSON::JWK::Set.new(fetch_jwk_json)
-    claims = JSON::JWT.decode(@id_token, jwk_set).to_h.symbolize_keys
+    claims = decode_and_verify_signature!.to_h.symbolize_keys
 
     verify_iss!(claims)
     verify_aud!(claims)
@@ -25,6 +24,13 @@ class OidcIdTokenVerifier
   end
 
   private
+
+  def decode_and_verify_signature!
+    jwk_set = JSON::JWK::Set.new(fetch_jwk_json)
+    JSON::JWT.decode(@id_token, jwk_set)
+  rescue JSON::JWT::Exception => e
+    raise VerificationError, "signature invalid: #{e.class}"
+  end
 
   def verify_iss!(claims)
     raise VerificationError, "iss mismatch" if claims[:iss] != @discovery.issuer

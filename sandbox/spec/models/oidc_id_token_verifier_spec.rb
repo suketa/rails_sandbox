@@ -68,5 +68,33 @@ RSpec.describe OidcIdTokenVerifier do
         expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /exp/)
       end
     end
+
+    context "別鍵で署名されているとき" do
+      let(:other_jwk) { JSON::JWK.new(OpenSSL::PKey::RSA.generate(2048)) }
+      let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(other_jwk, :RS256).to_s }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /signature.*:.*VerificationFailed/)
+      end
+    end
+
+    context "kid がJWKSにないとき" do
+      let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = "" }.sign(jwk, :RS256).to_s }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /signature.*:.*KidNotFound/)
+      end
+    end
+
+    context "id_token が Invalid format のとき" do
+      let(:id_token) { "invalid format" }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /signature.*:.*InvalidFormat/)
+      end
+    end
   end
 end
