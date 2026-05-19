@@ -25,7 +25,7 @@ RSpec.describe OidcRelyingParty do
     let(:claims) do
       { iss: issuer, aud: "cid", nonce: "nonce", sub: "user-1", iat: now, exp: now + 60 }
     end
-    let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(jwk, :RS256).to_s }
+    let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(jwk, :PS256).to_s }
 
     before do
       allow(Settings).to receive_messages(
@@ -58,6 +58,23 @@ RSpec.describe OidcRelyingParty do
           code_verifier: "the-verifier",
         )
         expect(result).to include(sub: "user-1", iss: issuer)
+      end
+    end
+
+    context "id_token の alg が discovery の宣言に含まれないとき" do
+      let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(jwk, :RS512).to_s }
+
+      it "VerificationError になる" do
+        rp = described_class.new
+        expect do
+          rp.callback(
+            code: "the-code",
+            state: "the-state",
+            expected_state: "the-state",
+            expected_nonce: "nonce",
+            code_verifier: "the-verifier",
+          )
+        end.to raise_error(OidcIdTokenVerifier::VerificationError, /alg/)
       end
     end
   end

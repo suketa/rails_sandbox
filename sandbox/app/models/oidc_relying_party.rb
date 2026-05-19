@@ -56,6 +56,7 @@ class OidcRelyingParty
       discovery:,
       client_id: @client_id,
       nonce: expected_nonce,
+      allowed_algs: discovery.id_token_signing_alg_values_supported,
     ).verify!
   end
 
