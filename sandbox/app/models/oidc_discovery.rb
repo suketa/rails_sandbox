@@ -15,6 +15,7 @@ class OidcDiscovery
         jwks_uri: result.jwks_uri,
         issuer: result.issuer,
         pushed_authorization_request_endpoint: result.raw["pushed_authorization_request_endpoint"],
+        id_token_signing_alg_values_supported: result.raw["id_token_signing_alg_values_supported"],
       }
     end
   end
@@ -41,5 +42,9 @@ class OidcDiscovery
 
   def pushed_authorization_request_endpoint
     config[:pushed_authorization_request_endpoint]
+  end
+
+  def id_token_signing_alg_values_supported
+    config[:id_token_signing_alg_values_supported]
   end
 end

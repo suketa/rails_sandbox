@@ -38,6 +38,7 @@ RSpec.describe OidcDiscovery do
         :userinfo_endpoint,
         :jwks_uri,
         :pushed_authorization_request_endpoint,
+        :id_token_signing_alg_values_supported,
       )
       expect(discovery.config).to eq(expected)
     end
@@ -82,6 +83,13 @@ RSpec.describe OidcDiscovery do
     it "returns pushed authorization request endpoint" do
       discovery = described_class.new(issuer:)
       expect(discovery.pushed_authorization_request_endpoint).to eq(discovery_response[:pushed_authorization_request_endpoint])
+    end
+  end
+
+  describe "#id_token_signing_alg_values_supported" do
+    it "returns id token signing alg values supported" do
+      discovery = described_class.new(issuer:)
+      expect(discovery.id_token_signing_alg_values_supported).to eq(discovery_response[:id_token_signing_alg_values_supported])
     end
   end
 end
