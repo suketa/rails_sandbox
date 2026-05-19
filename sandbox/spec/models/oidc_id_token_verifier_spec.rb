@@ -118,5 +118,18 @@ RSpec.describe OidcIdTokenVerifier do
         })
       end
     end
+
+    context "alg: none で署名されているとき" do
+      let(:id_token) do
+        header = Base64.urlsafe_encode64({ alg: "none", type: "JWT" }.to_json, padding:  false)
+        payload = Base64.urlsafe_encode64(claims.to_json, padding: false)
+        "#{header}.#{payload}."
+      end
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError)
+      end
+    end
   end
 end
