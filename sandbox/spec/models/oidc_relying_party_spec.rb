@@ -15,6 +15,9 @@ RSpec.describe OidcRelyingParty do
         jwks_uri:,
         authorization_endpoint: "#{issuer}/auth",
         userinfo_endpoint: "#{issuer}/user_info",
+        response_types_supported: ["code"],
+        subject_types_supported: ["public"],
+        id_token_signing_alg_values_supported: ["PS256", "ES256"],
       }
     end
     let(:jwk) { JSON::JWK.new(OpenSSL::PKey::RSA.generate(2048)) }
@@ -31,7 +34,7 @@ RSpec.describe OidcRelyingParty do
         oidc_client_secret: "secret",
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
-      stub_request(:get, discovery_url).to_return(body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
+      stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
       stub_request(:post, token_endpoint).to_return(
         body: { access_token: "AT", id_token: id_token }.to_json,
         headers: { "Content-Type" => "application/json" },
