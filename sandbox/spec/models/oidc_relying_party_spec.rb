@@ -35,10 +35,12 @@ RSpec.describe OidcRelyingParty do
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
       stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
-      stub_request(:post, token_endpoint).to_return(
-        body: { access_token: "AT", id_token: id_token }.to_json,
-        headers: { "Content-Type" => "application/json" },
-      )
+      stub_request(:post, token_endpoint)
+        .with(basic_auth: ["cid", "secret"])
+        .to_return(
+          body: { access_token: "AT", id_token: id_token }.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
       stub_request(:get, jwks_uri).to_return(
         body: JSON::JWK::Set.new(jwk).to_json,
         headers: { "Content-Type" => "application/json" },
