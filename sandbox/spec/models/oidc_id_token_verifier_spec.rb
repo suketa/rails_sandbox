@@ -121,7 +121,7 @@ RSpec.describe OidcIdTokenVerifier do
 
     context "alg: none で署名されているとき" do
       let(:id_token) do
-        header = Base64.urlsafe_encode64({ alg: "none", type: "JWT" }.to_json, padding:  false)
+        header = Base64.urlsafe_encode64({ alg: "none", type: "JWT" }.to_json, padding: false)
         payload = Base64.urlsafe_encode64(claims.to_json, padding: false)
         "#{header}.#{payload}."
       end
@@ -129,6 +129,15 @@ RSpec.describe OidcIdTokenVerifier do
       it "検証に失敗する" do
         verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
         expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError)
+      end
+    end
+
+    context "alg が allowed_algs に含まれないとき" do
+      let(:allowed_algs) { ["PS256", "ES256"] }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce", allowed_algs:)
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /alg/)
       end
     end
   end

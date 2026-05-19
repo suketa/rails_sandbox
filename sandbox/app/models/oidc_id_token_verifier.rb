@@ -5,15 +5,20 @@ class OidcIdTokenVerifier
 
   class VerificationError < StandardError; end
 
-  def initialize(id_token:, discovery:, client_id:, nonce:)
+  # allowed_algs は FAPI 2.0 では必須。 OIDCでは入れた方が良いが任意。
+  def initialize(id_token:, discovery:, client_id:, nonce:, allowed_algs: [])
     @id_token = id_token
     @discovery = discovery
     @client_id = client_id
     @nonce = nonce
+    @allowed_algs = Array(allowed_algs).compact
   end
 
   def verify!
-    claims = decode_and_verify_signature!.to_h.symbolize_keys
+    signature = decode_and_verify_signature!
+    verify_algs!(signature)
+
+    claims = signature.to_h.symbolize_keys
 
     verify_iss!(claims)
     verify_aud!(claims)
@@ -55,6 +60,12 @@ class OidcIdTokenVerifier
     iat = claims[:iat]
     raise VerificationError, "iat missing" if iat.nil?
     raise VerificationError, "iat in future" if iat > Time.now.to_i + CLOCK_SKEW_SECONDS
+  end
+
+  def verify_algs!(jws)
+    return if @allowed_algs.empty?
+
+    raise VerificationError, "alg mismatch" if @allowed_algs.exclude?(jws.alg.to_s)
   end
 
   def fetch_jwk_json
