@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OidcRelyingParty
+  class StateMismatchError < StandardError; end
+
   def initialize(
     issuer: Settings.oidc_issuer,
     client_id: Settings.oidc_client_id,

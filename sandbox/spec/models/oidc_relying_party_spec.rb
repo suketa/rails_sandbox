@@ -77,5 +77,20 @@ RSpec.describe OidcRelyingParty do
         end.to raise_error(OidcIdTokenVerifier::VerificationError, /alg/)
       end
     end
+
+    context "state が expected state と一致しないとき" do
+      it "StateMismatchError になる" do
+        rp = described_class.new
+        expect do
+          rp.callback(
+            code: "the-code",
+            state: "tampered-state",
+            expected_state: "the-state",
+            expected_nonce: "nonce",
+            code_verifier: "the-verifier",
+          )
+        end.to raise_error(OidcRelyingParty::StateMismatchError)
+      end
+    end
   end
 end
