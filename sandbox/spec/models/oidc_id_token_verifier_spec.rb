@@ -140,5 +140,17 @@ RSpec.describe OidcIdTokenVerifier do
         expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /alg/)
       end
     end
+
+    context "alg confusion (RSA 公開鍵を HS256 共有秘密として使った偽造) のとき" do
+      let(:public_key_pem) { jwk.to_key.public_key.to_pem }
+      let(:id_token) do
+        JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(public_key_pem, :HS256).to_s
+      end
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce", allowed_algs: ["PS256", "ES256"])
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError)
+      end
+    end
   end
 end
