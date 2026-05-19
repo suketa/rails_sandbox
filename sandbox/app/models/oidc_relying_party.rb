@@ -2,6 +2,7 @@
 
 class OidcRelyingParty
   class StateMismatchError < StandardError; end
+  class IssMismatchError < StandardError; end
 
   def initialize(
     issuer: Settings.oidc_issuer,
@@ -41,8 +42,9 @@ class OidcRelyingParty
     SecureRandom.urlsafe_base64(32)
   end
 
-  def callback(code:, state:, expected_state:, expected_nonce:, code_verifier:)
+  def callback(code:, iss:, state:, expected_state:, expected_nonce:, code_verifier:)
     raise StateMismatchError unless state == expected_state
+    raise IssMismatchError unless iss == discovery.issuer
 
     tokens = OidcTokenExchange.new(
       discovery:,

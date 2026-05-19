@@ -52,6 +52,7 @@ RSpec.describe OidcRelyingParty do
         rp = described_class.new
         result = rp.callback(
           code: "the-code",
+          iss: issuer,
           state: "the-state",
           expected_state: "the-state",
           expected_nonce: "nonce",
@@ -69,6 +70,7 @@ RSpec.describe OidcRelyingParty do
         expect do
           rp.callback(
             code: "the-code",
+            iss: issuer,
             state: "the-state",
             expected_state: "the-state",
             expected_nonce: "nonce",
@@ -84,7 +86,56 @@ RSpec.describe OidcRelyingParty do
         expect do
           rp.callback(
             code: "the-code",
+            iss: issuer,
             state: "tampered-state",
+            expected_state: "the-state",
+            expected_nonce: "nonce",
+            code_verifier: "the-verifier",
+          )
+        end.to raise_error(OidcRelyingParty::StateMismatchError)
+      end
+    end
+
+    context "iss が discovery.issuer と一致しないとき" do
+      it "IssMismatchError になる" do
+        rp = described_class.new
+        expect do
+          rp.callback(
+            code: "the-code",
+            iss: "https://attacker.example.com",
+            state: "the-state",
+            expected_state: "the-state",
+            expected_nonce: "nonce",
+            code_verifier: "the-verifier",
+          )
+        end.to raise_error(OidcRelyingParty::IssMismatchError)
+      end
+    end
+
+    context "iss が nil のとき" do
+      it "IssMismatchError になる" do
+        rp = described_class.new
+        expect do
+          rp.callback(
+            code: "the-code",
+            iss: nil,
+            state: "the-state",
+            expected_state: "the-state",
+            expected_nonce: "nonce",
+            code_verifier: "the-verifier",
+          )
+        end.to raise_error(OidcRelyingParty::IssMismatchError)
+      end
+    end
+
+    context "state と iss 両方が nil のとき" do
+      it "StateMismatchError になる" do
+        rp = described_class.new
+        expect do
+          rp.callback(
+            code: "the-code",
+            iss: nil,
+            state: nil,
             expected_state: "the-state",
             expected_nonce: "nonce",
             code_verifier: "the-verifier",
