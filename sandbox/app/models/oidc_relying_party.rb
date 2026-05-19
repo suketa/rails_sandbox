@@ -4,6 +4,22 @@ class OidcRelyingParty
   class StateMismatchError < StandardError; end
   class IssMismatchError < StandardError; end
 
+  class << self
+    def generate_pkce
+      verifier = SecureRandom.urlsafe_base64(64)
+      challenge = Base64.urlsafe_encode64(Digest::SHA256.digest(verifier), padding: false)
+      { verifier:, challenge: }
+    end
+
+    def generate_state
+      SecureRandom.urlsafe_base64(32)
+    end
+
+    def generate_nonce
+      SecureRandom.urlsafe_base64(32)
+    end
+  end
+
   def initialize(
     issuer: Settings.oidc_issuer,
     client_id: Settings.oidc_client_id,
@@ -26,20 +42,6 @@ class OidcRelyingParty
       state:,
       nonce:,
     ).to_url
-  end
-
-  def generate_pkce
-    verifier = SecureRandom.urlsafe_base64(64)
-    challenge = Base64.urlsafe_encode64(Digest::SHA256.digest(verifier), padding: false)
-    { verifier:, challenge: }
-  end
-
-  def generate_state
-    SecureRandom.urlsafe_base64(32)
-  end
-
-  def generate_nonce
-    SecureRandom.urlsafe_base64(32)
   end
 
   def callback(code:, iss:, state:, expected_state:, expected_nonce:, code_verifier:)

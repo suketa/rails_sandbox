@@ -3,9 +3,9 @@
 class OidcController < ApplicationController
   def start
     rp = OidcRelyingParty.new
-    pkce = rp.generate_pkce
-    state = rp.generate_state
-    nonce = rp.generate_nonce
+    pkce = OidcRelyingParty.generate_pkce
+    state = OidcRelyingParty.generate_state
+    nonce = OidcRelyingParty.generate_nonce
     session[:oidc_code_verifier] = pkce[:verifier]
     session[:oidc_state] = state
     session[:oidc_nonce] = nonce
