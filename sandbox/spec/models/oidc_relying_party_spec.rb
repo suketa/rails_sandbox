@@ -146,10 +146,32 @@ RSpec.describe OidcRelyingParty do
   end
 
   describe "#userinfo" do
-    let(:userinfo_endpoint) { "https://issuer.example.com/realms/test/protocol/openid-connect/userinfo" }
-    let(:discovery) { instance_double(OidcDiscovery, userinfo_endpoint:) }
+    let(:issuer) { "https://issuer.example.com" }
+    let(:token_endpoint) { "#{issuer}/token" }
+    let(:jwks_uri) { "#{issuer}/jwks" }
+    let(:discovery_url) { "#{issuer}/.well-known/openid-configuration" }
+    let(:discovery_response) do
+      {
+        issuer:,
+        token_endpoint:,
+        jwks_uri:,
+        authorization_endpoint: "#{issuer}/auth",
+        userinfo_endpoint: "#{issuer}/user_info",
+        response_types_supported: ["code"],
+        subject_types_supported: ["public"],
+        id_token_signing_alg_values_supported: ["PS256", "ES256"],
+      }
+    end
+
     before do
-      stub_request(:get, userinfo_endpoint)
+      allow(Settings).to receive_messages(
+        oidc_issuer: issuer,
+        oidc_client_id: "cid",
+        oidc_client_secret: "secret",
+        oidc_redirect_uri: "http://localhost:3000/oidc/callback",
+      )
+      stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
+      stub_request(:get, discovery_response[:userinfo_endpoint])
         .with(headers: { "Authorization" => "Bearer AT" })
         .to_return(
           status: 200,
