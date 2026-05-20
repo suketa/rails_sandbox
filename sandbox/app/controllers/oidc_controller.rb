@@ -31,5 +31,7 @@ class OidcController < ApplicationController
   end
 
   def userinfo
+    rp = OidcRelyingParty.new
+    @userinfo = rp.userinfo(access_token: session[:oidc_access_token])
   end
 end
