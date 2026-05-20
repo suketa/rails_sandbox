@@ -13,14 +13,21 @@ class OidcController < ApplicationController
   end
 
   def callback
-    # TODO: remove render(plain: ...)
-    # currently, this render is to verify keycloak integration works fine.
-    render(plain: {
-      params: params.to_unsafe_h,
-      session_state: session[:oidc_state],
-      session_nonce: session[:oidc_nonce],
-      session_verifier_present: session[:oidc_code_verifier].present?,
-    })
+    rp = OidcRelyingParty.new
+    result = rp.callback(
+      code: params[:code],
+      iss: params[:iss],
+      state: params[:state],
+      expected_state: session[:oidc_state],
+      expected_nonce: session[:oidc_nonce],
+      code_verifier: session[:oidc_code_verifier],
+    )
+    session.delete(:oidc_state)
+    session.delete(:oidc_nonce)
+    session.delete(:oidc_code_verifier)
+    session[:oidc_access_token] = result[:access_token]
+
+    redirect_to(oidc_userinfo_path)
   end
 
   def userinfo

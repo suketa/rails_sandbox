@@ -48,7 +48,7 @@ RSpec.describe OidcRelyingParty do
     end
 
     context "happy path" do
-      it "claims を返す" do
+      it "claims と access_token を返す" do
         rp = described_class.new
         result = rp.callback(
           code: "the-code",
@@ -58,7 +58,7 @@ RSpec.describe OidcRelyingParty do
           expected_nonce: "nonce",
           code_verifier: "the-verifier",
         )
-        expect(result).to include(sub: "user-1", iss: issuer)
+        expect(result).to include(access_token: "AT", claims: include(sub: "user-1", iss: issuer))
       end
     end
 

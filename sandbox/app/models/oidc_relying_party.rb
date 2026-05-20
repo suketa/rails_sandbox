@@ -57,13 +57,15 @@ class OidcRelyingParty
       code_verifier:,
     ).tokens
 
-    OidcIdTokenVerifier.new(
+    claims = OidcIdTokenVerifier.new(
       id_token: tokens[:id_token],
       discovery:,
       client_id: @client_id,
       nonce: expected_nonce,
       allowed_algs: discovery.id_token_signing_alg_values_supported,
     ).verify!
+
+    { access_token: tokens[:access_token], claims: }
   end
 
   private
