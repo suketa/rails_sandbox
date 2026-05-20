@@ -3,7 +3,7 @@
 class OidcIdTokenVerifier
   CLOCK_SKEW_SECONDS = 10
 
-  class VerificationError < StandardError; end
+  class VerificationError < OidcError; end
 
   # allowed_algs は FAPI 2.0 では必須。 OIDCでは入れた方が良いが任意。
   def initialize(id_token:, discovery:, client_id:, nonce:, allowed_algs: [])

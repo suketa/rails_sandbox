@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class OidcRelyingParty
-  class StateMismatchError < StandardError; end
-  class IssMismatchError < StandardError; end
+  class StateMismatchError < OidcError; end
+  class IssMismatchError < OidcError; end
 
   class << self
     def generate_pkce
