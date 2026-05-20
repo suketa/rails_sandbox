@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class OidcTokenExchange
+  class TokenEndpointError < OidcError; end
+  class TokenResponseParseError < OidcError; end
+
   def initialize(
     discovery:,
     client_id:,
@@ -18,6 +21,16 @@ class OidcTokenExchange
   end
 
   def tokens
+    body = fetch_token_response
+    json = JSON.parse(body)
+    { access_token: json["access_token"], id_token: json["id_token"] }
+  rescue JSON::ParserError
+    raise TokenResponseParseError, "failed to parse response body"
+  end
+
+  private
+
+  def fetch_token_response
     uri = URI.parse(@discovery.token_endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
@@ -32,11 +45,9 @@ class OidcTokenExchange
     res = http.request(req)
     case res
     when Net::HTTPSuccess
-      json = JSON.parse(res.body)
-      { access_token: json["access_token"], id_token: json["id_token"] }
+      res.body
     else
-      # TODO: We should define appropriate error class
-      raise "TODO: fix error handling when response is not Net::HTTPSuccess"
+      raise TokenEndpointError, "status=#{res.code}"
     end
   end
 end
