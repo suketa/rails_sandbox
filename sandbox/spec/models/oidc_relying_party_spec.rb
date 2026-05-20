@@ -144,4 +144,25 @@ RSpec.describe OidcRelyingParty do
       end
     end
   end
+
+  describe "#userinfo" do
+    let(:userinfo_endpoint) { "https://issuer.example.com/realms/test/protocol/openid-connect/userinfo" }
+    let(:discovery) { instance_double(OidcDiscovery, userinfo_endpoint:) }
+    before do
+      stub_request(:get, userinfo_endpoint)
+        .with(headers: { "Authorization" => "Bearer AT" })
+        .to_return(
+          status: 200,
+          body: { sub: "user-1" }.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
+    end
+
+    context "happy path" do
+      it "UserInfo の claims を取得できる" do
+        rp = described_class.new
+        expect(rp.userinfo(access_token: "AT")).to include(sub: "user-1")
+      end
+    end
+  end
 end
