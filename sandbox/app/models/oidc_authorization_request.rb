@@ -21,6 +21,17 @@ class OidcAuthorizationRequest
     @scope = scope
   end
 
+  def authorization_redirect_url(request_uri)
+    uri = URI(@discovery.authorization_endpoint)
+    uri.query = URI.encode_www_form(
+      {
+        client_id: @client_id,
+        request_uri:,
+      },
+    )
+    uri.to_s
+  end
+
   def to_params
     {
       response_type: "code",
