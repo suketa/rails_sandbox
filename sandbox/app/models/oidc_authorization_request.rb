@@ -21,9 +21,8 @@ class OidcAuthorizationRequest
     @scope = scope
   end
 
-  def to_url
-    uri = URI(@discovery.authorization_endpoint)
-    uri.query = URI.encode_www_form(
+  def to_params
+    {
       response_type: "code",
       client_id: @client_id,
       redirect_uri: @redirect_uri,
@@ -32,7 +31,13 @@ class OidcAuthorizationRequest
       scope: @scope,
       state: @state,
       nonce: @nonce,
-    )
+    }
+  end
+
+  # OIDC 用。FAPI2.0 では使用しない。
+  def to_url
+    uri = URI(@discovery.authorization_endpoint)
+    uri.query = URI.encode_www_form(to_params)
     uri.to_s
   end
 end
