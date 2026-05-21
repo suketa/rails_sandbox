@@ -33,7 +33,7 @@ class OidcRelyingParty
   end
 
   def authorization_url(code_challenge:, state:, nonce:)
-    OidcAuthorizationRequest.new(
+    auth = OidcAuthorizationRequest.new(
       discovery: discovery,
       client_id: @client_id,
       redirect_uri: @redirect_uri,
@@ -41,7 +41,14 @@ class OidcRelyingParty
       code_challenge:,
       state:,
       nonce:,
-    ).to_url
+    )
+    request_uri = OidcPushedAuthorizationRequest.new(
+      discovery:,
+      client_id: @client_id,
+      client_secret: @client_secret,
+      params: auth.to_params,
+    ).request_uri
+    auth.authorization_redirect_url(request_uri)
   end
 
   def callback(code:, iss:, state:, expected_state:, expected_nonce:, code_verifier:)

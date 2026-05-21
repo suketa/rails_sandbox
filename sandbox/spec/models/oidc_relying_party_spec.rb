@@ -187,4 +187,55 @@ RSpec.describe OidcRelyingParty do
       end
     end
   end
+
+  describe "#authorization_url" do
+    let(:issuer) { "https://issuer.example.com" }
+    let(:authorization_endpoint) { "#{issuer}/auth" }
+    let(:par_endpoint) { "#{issuer}/par" }
+    let(:discovery_url) { "#{issuer}/.well-known/openid-configuration" }
+    let(:discovery_response) do
+      {
+        issuer:,
+        authorization_endpoint:,
+        pushed_authorization_request_endpoint: par_endpoint,
+        token_endpoint: "#{issuer}/token",
+        jwks_uri: "#{issuer}/jwks",
+        userinfo_endpoint: "#{issuer}/user_info",
+        response_types_supported: ["code"],
+        subject_types_supported: ["public"],
+        id_token_signing_alg_values_supported: ["PS256", "ES256"],
+      }
+    end
+
+    before do
+      allow(Settings).to receive_messages(
+        oidc_issuer: issuer,
+        oidc_client_id: "cid",
+        oidc_client_secret: "secret",
+        oidc_redirect_uri: "http://localhost:3000/oidc/callback",
+      )
+      stub_request(:get, discovery_url)
+        .to_return(
+          status: 200,
+          body: discovery_response.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
+    end
+
+    it "PAR に push し、client_id と request_uri だけの authorize URL を返す" do
+      par_stub = stub_request(:post, par_endpoint)
+        .with(
+          basic_auth: ["cid", "secret"],
+          body: hash_including("response_type" => "code", "code_challenge" => "the-challenge"),
+        ).to_return(
+          status: 201,
+          body: { request_uri: "urn:ietf:params:oauth:request_uri:abc123", expires_in: 60 }.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
+      rp = described_class.new
+      url = rp.authorization_url(code_challenge: "the-challenge", state: "the-state", nonce: "the-nonce")
+      expect(url).to eq("#{authorization_endpoint}?client_id=cid&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Aabc123")
+      expect(par_stub).to have_been_requested
+    end
+  end
 end

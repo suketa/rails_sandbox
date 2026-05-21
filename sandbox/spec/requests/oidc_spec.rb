@@ -7,10 +7,12 @@ RSpec.describe "Oidc" do
     let(:issuer) { "https://issuer.example.com/realms/test" }
     let(:discovery_url) { "#{issuer}/.well-known/openid-configuration" }
     let(:authorization_endpoint) { "#{issuer}/protocol/openid-connect/auth" }
+    let(:pushed_authorization_request_endpoint) { "#{issuer}/protocol/openid-connect/par" }
     let(:discovery_response) do
       {
         issuer: issuer,
         authorization_endpoint: authorization_endpoint,
+        pushed_authorization_request_endpoint: pushed_authorization_request_endpoint,
         token_endpoint: "#{issuer}/protocol/openid-connect/token",
         userinfo_endpoint: "#{issuer}/protocol/openid-connect/userinfo",
         jwks_uri: "#{issuer}/protocol/openid-connect/certs",
@@ -21,17 +23,29 @@ RSpec.describe "Oidc" do
     end
 
     before do
+      allow(OidcRelyingParty).to receive_messages(
+        generate_state: "the-state",
+        generate_nonce: "the-nonce",
+        generate_pkce: { verifier: "the-verifier", challenge: "the-challenge" },
+      )
+      allow(Settings).to receive_messages(
+        oidc_issuer: issuer,
+        oidc_client_id: "rails-sandbox-rp",
+        oidc_redirect_uri: "http://localhost:3000/oidc/callback",
+        oidc_client_secret: "secret",
+      )
       stub_request(:get, discovery_url)
         .to_return(
           status: 200,
           body: discovery_response.to_json,
           headers: { "Content-Type" => "application/json" },
         )
-      allow(Settings).to receive_messages(
-        oidc_issuer: issuer,
-        oidc_client_id: "rails-sandbox-rp",
-        oidc_redirect_uri: "http://localhost:3000/oidc/callback",
-      )
+      stub_request(:post, pushed_authorization_request_endpoint)
+        .to_return(
+          status: 201,
+          body: { request_uri: "urn:ietf:params:oauth:request_uri:abc123", expires_in: 60 }.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
     end
 
     it "authorization endpoint にリダイレクトする" do
@@ -40,41 +54,41 @@ RSpec.describe "Oidc" do
       expect(response.location).to start_with(authorization_endpoint)
     end
 
-    it "authorization endpoint にリダイレクトする際に必要なURLパラメータが設定されている" do
+    it "authorization endpoint にリダイレクトする際に必要なパラメータが設定されている" do
       get "/oidc/start"
       uri = URI.parse(response.location)
       params = URI.decode_www_form(uri.query).to_h
       expect(params).to include(
-        "response_type" => "code",
         "client_id" => "rails-sandbox-rp",
-        "redirect_uri" => "http://localhost:3000/oidc/callback",
-        "scope" => "openid",
+        "request_uri" => "urn:ietf:params:oauth:request_uri:abc123",
       )
+      expect(
+        a_request(:post, pushed_authorization_request_endpoint)
+        .with(
+          body: hash_including(
+            "response_type" => "code",
+            "client_id" => "rails-sandbox-rp",
+            "code_challenge" => "the-challenge",
+            "state" => "the-state",
+            "nonce" => "the-nonce",
+          ),
+        ),
+      ).to have_been_made
     end
 
-    it "authorization endpoint にリダイレクトする際にURLに code challengeを設定し、sessionにverifierを保存" do
+    it "session に verifier を保存" do
       get "/oidc/start"
-      uri = URI.parse(response.location)
-      params = URI.decode_www_form(uri.query).to_h
-      expect(params).to include("code_challenge_method" => "S256")
-      expect(params["code_challenge"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
       expect(session[:oidc_code_verifier]).to match(/\A[A-Za-z0-9_-]+\z/)
     end
 
-    it "authorization endpoint にリダイレクトする際にURLに state を設定し、session に保存" do
+    it "session に state を保存" do
       get "/oidc/start"
-      uri = URI.parse(response.location)
-      params = URI.decode_www_form(uri.query).to_h
-      expect(params["state"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
-      expect(params["state"]).to eq(session[:oidc_state])
+      expect(session[:oidc_state]).to eq("the-state")
     end
 
-    it "authorization endpoint にリダイレクトする際にURLに nonce を設定し、session に保存" do
+    it "session に nonce を保存" do
       get "/oidc/start"
-      uri = URI.parse(response.location)
-      params = URI.decode_www_form(uri.query).to_h
-      expect(params["nonce"]).to match(/\A[A-Za-z0-9_-]+\z/) # URL-safe base64
-      expect(params["nonce"]).to eq(session[:oidc_nonce])
+      expect(session[:oidc_nonce]).to eq("the-nonce")
     end
   end
 
@@ -82,9 +96,11 @@ RSpec.describe "Oidc" do
     let(:issuer) { "https://issuer.example.com/realms/test" }
     let(:discovery_url) { "#{issuer}/.well-known/openid-configuration" }
     let(:authorization_endpoint) { "#{issuer}/protocol/openid-connect/auth" }
+    let(:pushed_authorization_request_endpoint) { "#{issuer}/protocol/openid-connect/par" }
     let(:discovery_response) do
       {
         issuer: issuer,
+        pushed_authorization_request_endpoint: pushed_authorization_request_endpoint,
         authorization_endpoint: authorization_endpoint,
         token_endpoint: "#{issuer}/protocol/openid-connect/token",
         userinfo_endpoint: "#{issuer}/protocol/openid-connect/userinfo",
@@ -138,6 +154,12 @@ RSpec.describe "Oidc" do
         body: JSON::JWK::Set.new(jwk).to_json,
         headers: { "Content-Type" => "application/json" },
       )
+      stub_request(:post, pushed_authorization_request_endpoint)
+        .to_return(
+          status: 201,
+          body: { request_uri: "urn:ietf:params:oauth:request_uri:abc123", expires_in: 60 }.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
     end
 
     it "oidc/userinfo へリダイレクト" do
@@ -165,10 +187,12 @@ RSpec.describe "Oidc" do
     let(:issuer) { "https://issuer.example.com/realms/test" }
     let(:discovery_url) { "#{issuer}/.well-known/openid-configuration" }
     let(:authorization_endpoint) { "#{issuer}/protocol/openid-connect/auth" }
+    let(:pushed_authorization_request_endpoint) { "#{issuer}/protocol/openid-connect/par" }
     let(:discovery_response) do
       {
         issuer: issuer,
         authorization_endpoint: authorization_endpoint,
+        pushed_authorization_request_endpoint: pushed_authorization_request_endpoint,
         token_endpoint: "#{issuer}/protocol/openid-connect/token",
         userinfo_endpoint: "#{issuer}/protocol/openid-connect/userinfo",
         jwks_uri: "#{issuer}/protocol/openid-connect/certs",
@@ -226,6 +250,12 @@ RSpec.describe "Oidc" do
         .to_return(
           status: 200,
           body: { sub: "user-1" }.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
+      stub_request(:post, pushed_authorization_request_endpoint)
+        .to_return(
+          status: 201,
+          body: { request_uri: "urn:ietf:params:oauth:request_uri:abc123", expires_in: 60 }.to_json,
           headers: { "Content-Type" => "application/json" },
         )
     end
