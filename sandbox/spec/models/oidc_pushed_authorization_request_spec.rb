@@ -17,12 +17,20 @@ RSpec.describe OidcPushedAuthorizationRequest do
       nonce: "the-nonce",
     }
   end
+  let(:client_assertion) do
+    instance_double(
+      OidcClientAssertion,
+      to_params: {
+        client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+        client_assertion: "the-assertion",
+      },
+    )
+  end
 
   describe "#request_uri" do
     context "結果が2XXの場合" do
-      it "PAR endpoint に Basic 認証 + 認可パラメータを POST して request_uri を返す" do
+      it "PAR endpoint に client_assertion + 認可パラメータを POST して request_uri を返す" do
         stub = stub_request(:post, par_endpoint).with(
-          headers: { "Authorization" => "Basic #{Base64.strict_encode64("cid:secret")}" },
           body: hash_including(
             "response_type" => "code",
             "client_id" => "cid",
@@ -32,6 +40,8 @@ RSpec.describe OidcPushedAuthorizationRequest do
             "scope" => "openid",
             "state" => "the-state",
             "nonce" => "the-nonce",
+            "client_assertion_type" => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+            "client_assertion" => "the-assertion",
           ),
         ).to_return(
           status: 201,
@@ -42,7 +52,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
         par = described_class.new(
           discovery:,
           client_id: "cid",
-          client_secret: "secret",
+          client_assertion:,
           params:,
         )
 
@@ -53,28 +63,17 @@ RSpec.describe OidcPushedAuthorizationRequest do
 
     context "結果が2XXではない場合" do
       it "ParEndpointError が発生する" do
-        stub_request(:post, par_endpoint).with(
-          headers: { "Authorization" => "Basic #{Base64.strict_encode64("cid:secret")}" },
-          body: hash_including(
-            "response_type" => "code",
-            "client_id" => "cid",
-            "redirect_uri" => "http://localhost:3000/oidc/callback",
-            "code_challenge" => "the-challenge",
-            "code_challenge_method" => "S256",
-            "scope" => "openid",
-            "state" => "the-state",
-            "nonce" => "the-nonce",
-          ),
-        ).to_return(
-          status: 400,
-          body: { error: "invalid_request" }.to_json,
-          headers: { "Content-Type" => "application/json" },
-        )
+        stub_request(:post, par_endpoint)
+          .to_return(
+            status: 400,
+            body: { error: "invalid_request" }.to_json,
+            headers: { "Content-Type" => "application/json" },
+          )
 
         par = described_class.new(
           discovery:,
           client_id: "cid",
-          client_secret: "secret",
+          client_assertion:,
           params:,
         )
 
@@ -84,19 +83,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
 
     context "結果が2XXだがbodyがJSONではない場合" do
       it "ParResponseParseErrorが発生する" do
-        stub_request(:post, par_endpoint).with(
-          headers: { "Authorization" => "Basic #{Base64.strict_encode64("cid:secret")}" },
-          body: hash_including(
-            "response_type" => "code",
-            "client_id" => "cid",
-            "redirect_uri" => "http://localhost:3000/oidc/callback",
-            "code_challenge" => "the-challenge",
-            "code_challenge_method" => "S256",
-            "scope" => "openid",
-            "state" => "the-state",
-            "nonce" => "the-nonce",
-          ),
-        ).to_return(
+        stub_request(:post, par_endpoint).to_return(
           status: 200,
           body: "<html><body>html</body></html>",
           headers: { "Content-Type" => "application/json" },
@@ -105,7 +92,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
         par = described_class.new(
           discovery:,
           client_id: "cid",
-          client_secret: "secret",
+          client_assertion:,
           params:,
         )
 

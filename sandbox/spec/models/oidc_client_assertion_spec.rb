@@ -38,4 +38,15 @@ RSpec.describe OidcClientAssertion do
       expect(decoded1[:jti]).not_to eq(decoded2[:jti])
     end
   end
+
+  describe "#to_params" do
+    let(:issuer) { "https://issuer.example.com" }
+    let(:signing_jwk) { JSON::JWK.new(OpenSSL::PKey::EC.generate("prime256v1")) }
+
+    it "client_assertion_type と client_assertion を返す" do
+      params = described_class.new(client_id: "cid", audience: issuer, signing_jwk:).to_params
+      expect(params[:client_assertion_type]).to eq("urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+      expect(params[:client_assertion]).to be_a(String).and be_present
+    end
+  end
 end

@@ -7,14 +7,14 @@ class OidcTokenExchange
   def initialize(
     discovery:,
     client_id:,
-    client_secret:,
+    client_assertion:,
     redirect_uri:,
     code:,
     code_verifier:
   )
     @discovery = discovery
     @client_id = client_id
-    @client_secret = client_secret
+    @client_assertion = client_assertion
     @redirect_uri = redirect_uri
     @code = code
     @code_verifier = code_verifier
@@ -40,8 +40,7 @@ class OidcTokenExchange
       code_verifier: @code_verifier,
       grant_type: "authorization_code",
       redirect_uri: @redirect_uri,
-    }
-    req.basic_auth(@client_id, @client_secret)
+    }.merge(@client_assertion.to_params)
     res = http.request(req)
     case res
     when Net::HTTPSuccess
