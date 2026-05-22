@@ -29,5 +29,13 @@ RSpec.describe OidcClientAssertion do
       expect(decoded.kid).to eq(signing_jwk[:kid])
       expect(decoded.alg.to_s).to eq("ES256")
     end
+
+    it "jti は毎回異なる" do
+      jwt1 = described_class.new(client_id: "cid", audience: issuer, signing_jwk:).to_jwt
+      jwt2 = described_class.new(client_id: "cid", audience: issuer, signing_jwk:).to_jwt
+      decoded1 = JSON::JWT.decode(jwt1, signing_jwk).to_h.symbolize_keys
+      decoded2 = JSON::JWT.decode(jwt2, signing_jwk).to_h.symbolize_keys
+      expect(decoded1[:jti]).not_to eq(decoded2[:jti])
+    end
   end
 end
