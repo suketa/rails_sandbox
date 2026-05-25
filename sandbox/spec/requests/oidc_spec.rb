@@ -21,6 +21,8 @@ RSpec.describe "Oidc" do
         id_token_signing_alg_values_supported: ["PS256", "ES256"],
       }
     end
+    let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:pem) { pkey.to_pem }
 
     before do
       allow(OidcRelyingParty).to receive_messages(
@@ -32,7 +34,7 @@ RSpec.describe "Oidc" do
         oidc_issuer: issuer,
         oidc_client_id: "rails-sandbox-rp",
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
-        oidc_client_secret: "secret",
+        oidc_signing_key: pem,
       )
       stub_request(:get, discovery_url)
         .to_return(
@@ -125,6 +127,8 @@ RSpec.describe "Oidc" do
         code: "the-code",
       }
     end
+    let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:pem) { pkey.to_pem }
 
     before do
       allow(OidcRelyingParty).to receive_messages(
@@ -135,7 +139,7 @@ RSpec.describe "Oidc" do
       allow(Settings).to receive_messages(
         oidc_issuer: issuer,
         oidc_client_id: "rails-sandbox-rp",
-        oidc_client_secret: "secret",
+        oidc_signing_key: pem,
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
       stub_request(:get, discovery_url)
@@ -145,7 +149,6 @@ RSpec.describe "Oidc" do
           headers: { "Content-Type" => "application/json" },
         )
       stub_request(:post, discovery_response[:token_endpoint])
-        .with(basic_auth: ["rails-sandbox-rp", "secret"])
         .to_return(
           body: { access_token: "AT", id_token: id_token }.to_json,
           headers: { "Content-Type" => "application/json" },
@@ -208,6 +211,8 @@ RSpec.describe "Oidc" do
       { iss: issuer, aud: "rails-sandbox-rp", nonce: "the-nonce", sub: "user-1", iat: now, exp: now + 60 }
     end
     let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(jwk, :PS256).to_s }
+    let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:pem) { pkey.to_pem }
 
     let(:callback_params) do
       {
@@ -226,7 +231,7 @@ RSpec.describe "Oidc" do
       allow(Settings).to receive_messages(
         oidc_issuer: issuer,
         oidc_client_id: "rails-sandbox-rp",
-        oidc_client_secret: "secret",
+        oidc_signing_key: pem,
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
       stub_request(:get, discovery_url)
@@ -236,7 +241,6 @@ RSpec.describe "Oidc" do
           headers: { "Content-Type" => "application/json" },
         )
       stub_request(:post, discovery_response[:token_endpoint])
-        .with(basic_auth: ["rails-sandbox-rp", "secret"])
         .to_return(
           body: { access_token: "AT", id_token: id_token }.to_json,
           headers: { "Content-Type" => "application/json" },

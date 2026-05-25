@@ -21,6 +21,8 @@ RSpec.describe OidcRelyingParty do
       }
     end
     let(:jwk) { JSON::JWK.new(OpenSSL::PKey::RSA.generate(2048)) }
+    let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:pem) { pkey.to_pem }
     let(:now) { Time.current.to_i }
     let(:claims) do
       { iss: issuer, aud: "cid", nonce: "nonce", sub: "user-1", iat: now, exp: now + 60 }
@@ -31,12 +33,11 @@ RSpec.describe OidcRelyingParty do
       allow(Settings).to receive_messages(
         oidc_issuer: issuer,
         oidc_client_id: "cid",
-        oidc_client_secret: "secret",
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
+        oidc_signing_key: pem,
       )
       stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
       stub_request(:post, token_endpoint)
-        .with(basic_auth: ["cid", "secret"])
         .to_return(
           body: { access_token: "AT", id_token: id_token }.to_json,
           headers: { "Content-Type" => "application/json" },
@@ -162,12 +163,14 @@ RSpec.describe OidcRelyingParty do
         id_token_signing_alg_values_supported: ["PS256", "ES256"],
       }
     end
+    let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:pem) { pkey.to_pem }
 
     before do
       allow(Settings).to receive_messages(
         oidc_issuer: issuer,
         oidc_client_id: "cid",
-        oidc_client_secret: "secret",
+        oidc_signing_key: pem,
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
       stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
@@ -206,12 +209,14 @@ RSpec.describe OidcRelyingParty do
         id_token_signing_alg_values_supported: ["PS256", "ES256"],
       }
     end
+    let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
+    let(:pem) { pkey.to_pem }
 
     before do
       allow(Settings).to receive_messages(
         oidc_issuer: issuer,
         oidc_client_id: "cid",
-        oidc_client_secret: "secret",
+        oidc_signing_key: pem,
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
       stub_request(:get, discovery_url)
@@ -225,8 +230,11 @@ RSpec.describe OidcRelyingParty do
     it "PAR に push し、client_id と request_uri だけの authorize URL を返す" do
       par_stub = stub_request(:post, par_endpoint)
         .with(
-          basic_auth: ["cid", "secret"],
-          body: hash_including("response_type" => "code", "code_challenge" => "the-challenge"),
+          body: hash_including(
+            "response_type" => "code",
+            "code_challenge" => "the-challenge",
+            "client_assertion_type" => OidcClientAssertion::JWT_BEARER,
+          ),
         ).to_return(
           status: 201,
           body: { request_uri: "urn:ietf:params:oauth:request_uri:abc123", expires_in: 60 }.to_json,
@@ -236,6 +244,13 @@ RSpec.describe OidcRelyingParty do
       url = rp.authorization_url(code_challenge: "the-challenge", state: "the-state", nonce: "the-nonce")
       expect(url).to eq("#{authorization_endpoint}?client_id=cid&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Aabc123")
       expect(par_stub).to have_been_requested
+      expect(
+        a_request(:post, par_endpoint).with do |req|
+          assertion = URI.decode_www_form(req.body).to_h["client_assertion"]
+          decode = JSON::JWT.decode(assertion, JSON::JWK.new(pkey))
+          decode[:aud] == issuer && decode[:iss] == "cid" && decode[:sub] == "cid"
+        end,
+      ).to have_been_made
     end
   end
 end

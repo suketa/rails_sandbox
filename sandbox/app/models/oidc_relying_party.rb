@@ -24,12 +24,12 @@ class OidcRelyingParty
     issuer: Settings.oidc_issuer,
     client_id: Settings.oidc_client_id,
     redirect_uri: Settings.oidc_redirect_uri,
-    client_secret: Settings.oidc_client_secret
+    pem_assertion: Settings.oidc_signing_key
   )
     @issuer = issuer
     @client_id = client_id
     @redirect_uri = redirect_uri
-    @client_secret = client_secret
+    @jwk_assertion = jwk(pem_assertion)
   end
 
   def authorization_url(code_challenge:, state:, nonce:)
@@ -45,7 +45,7 @@ class OidcRelyingParty
     request_uri = OidcPushedAuthorizationRequest.new(
       discovery:,
       client_id: @client_id,
-      client_secret: @client_secret,
+      client_assertion:,
       params: auth.to_params,
     ).request_uri
     auth.authorization_redirect_url(request_uri)
@@ -58,7 +58,7 @@ class OidcRelyingParty
     tokens = OidcTokenExchange.new(
       discovery:,
       client_id: @client_id,
-      client_secret: @client_secret,
+      client_assertion:,
       redirect_uri: @redirect_uri,
       code:,
       code_verifier:,
@@ -83,5 +83,17 @@ class OidcRelyingParty
 
   def discovery
     @discovery ||= OidcDiscovery.new(issuer: @issuer)
+  end
+
+  def jwk(pem)
+    JSON::JWK.new(OpenSSL::PKey::EC.new(pem))
+  end
+
+  def client_assertion
+    OidcClientAssertion.new(
+      client_id: @client_id,
+      audience: @issuer,
+      signing_jwk: @jwk_assertion,
+    )
   end
 end

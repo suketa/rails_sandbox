@@ -25,5 +25,12 @@ class Settings
         Rails.application.credentials.dig(:oidc, :client_secret)
       end
     end
+
+    def oidc_signing_key
+      raw = ENV.fetch("OIDC__SIGNING_KEY") do
+        Rails.application.credentials.dig(:oidc, :signing_key)
+      end
+      Base64.strict_decode64(raw)
+    end
   end
 end
