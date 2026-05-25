@@ -6,14 +6,12 @@ class OidcTokenExchange
 
   def initialize(
     discovery:,
-    client_id:,
     client_assertion:,
     redirect_uri:,
     code:,
     code_verifier:
   )
     @discovery = discovery
-    @client_id = client_id
     @client_assertion = client_assertion
     @redirect_uri = redirect_uri
     @code = code

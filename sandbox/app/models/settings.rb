@@ -20,12 +20,6 @@ class Settings
       end
     end
 
-    def oidc_client_secret
-      ENV.fetch("OIDC__CLIENT_SECRET") do
-        Rails.application.credentials.dig(:oidc, :client_secret)
-      end
-    end
-
     def oidc_signing_key
       raw = ENV.fetch("OIDC__SIGNING_KEY") do
         Rails.application.credentials.dig(:oidc, :signing_key)

@@ -6,12 +6,10 @@ class OidcPushedAuthorizationRequest
 
   def initialize(
     discovery:,
-    client_id:,
     client_assertion:,
     params:
   )
     @discovery = discovery
-    @client_id = client_id
     @client_assertion = client_assertion
     @params = params
   end

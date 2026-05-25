@@ -44,7 +44,6 @@ class OidcRelyingParty
     )
     request_uri = OidcPushedAuthorizationRequest.new(
       discovery:,
-      client_id: @client_id,
       client_assertion:,
       params: auth.to_params,
     ).request_uri
@@ -57,7 +56,6 @@ class OidcRelyingParty
 
     tokens = OidcTokenExchange.new(
       discovery:,
-      client_id: @client_id,
       client_assertion:,
       redirect_uri: @redirect_uri,
       code:,

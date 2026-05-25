@@ -36,7 +36,6 @@ RSpec.describe OidcTokenExchange do
 
         exchange = described_class.new(
           discovery:,
-          client_id: "cid",
           client_assertion:,
           redirect_uri: "http://localhost:3000/oidc/callback",
           code: "the-code",
@@ -60,7 +59,6 @@ RSpec.describe OidcTokenExchange do
       it "OidcTokenExchange::TokenEndpointErrorが発生する" do
         exchange = described_class.new(
           discovery:,
-          client_id: "cid",
           client_assertion:,
           redirect_uri: "http://localhost:3000/oidc/callback",
           code: "the-code",
@@ -82,7 +80,6 @@ RSpec.describe OidcTokenExchange do
       it "OidcTokenExchange::TokenResponseParseErrorが発生する" do
         exchange = described_class.new(
           discovery:,
-          client_id: "cid",
           client_assertion:,
           redirect_uri: "http://localhost:3000/oidc/callback",
           code: "the-code",

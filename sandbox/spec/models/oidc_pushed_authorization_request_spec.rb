@@ -51,7 +51,6 @@ RSpec.describe OidcPushedAuthorizationRequest do
 
         par = described_class.new(
           discovery:,
-          client_id: "cid",
           client_assertion:,
           params:,
         )
@@ -72,7 +71,6 @@ RSpec.describe OidcPushedAuthorizationRequest do
 
         par = described_class.new(
           discovery:,
-          client_id: "cid",
           client_assertion:,
           params:,
         )
@@ -91,7 +89,6 @@ RSpec.describe OidcPushedAuthorizationRequest do
 
         par = described_class.new(
           discovery:,
-          client_id: "cid",
           client_assertion:,
           params:,
         )
