@@ -241,7 +241,7 @@ RSpec.describe OidcRelyingParty do
           headers: { "Content-Type" => "application/json" },
         )
       rp = described_class.new
-      url = rp.authorization_url(code_challenge: "the-challenge", state: "the-state", nonce: "the-nonce")
+      url = rp.authorization_url(code_challenge: "the-challenge", dpop_jkt: "the-dpop-jkt", state: "the-state", nonce: "the-nonce")
       expect(url).to eq("#{authorization_endpoint}?client_id=cid&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Aabc123")
       expect(par_stub).to have_been_requested
       expect(

@@ -7,10 +7,12 @@ class OidcPushedAuthorizationRequest
   def initialize(
     discovery:,
     client_assertion:,
+    dpop_jkt:,
     params:
   )
     @discovery = discovery
     @client_assertion = client_assertion
+    @dpop_jkt = dpop_jkt
     @params = params
   end
 
@@ -29,7 +31,7 @@ class OidcPushedAuthorizationRequest
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
     req = Net::HTTP::Post.new(uri.path)
-    req.form_data = @params.merge(@client_assertion.to_params)
+    req.form_data = @params.merge(@client_assertion.to_params).merge(dpop_jkt: @dpop_jkt)
     res = http.request(req)
     case res
     when Net::HTTPSuccess

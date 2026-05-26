@@ -32,7 +32,7 @@ class OidcRelyingParty
     @signing_jwk = build_jwk(signing_key_pem)
   end
 
-  def authorization_url(code_challenge:, state:, nonce:)
+  def authorization_url(code_challenge:, dpop_jkt:, state:, nonce:)
     auth = OidcAuthorizationRequest.new(
       discovery: discovery,
       client_id: @client_id,
@@ -45,6 +45,7 @@ class OidcRelyingParty
     request_uri = OidcPushedAuthorizationRequest.new(
       discovery:,
       client_assertion:,
+      dpop_jkt:,
       params: auth.to_params,
     ).request_uri
     auth.authorization_redirect_url(request_uri)

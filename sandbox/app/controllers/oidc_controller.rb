@@ -6,10 +6,12 @@ class OidcController < ApplicationController
     pkce = OidcRelyingParty.generate_pkce
     state = OidcRelyingParty.generate_state
     nonce = OidcRelyingParty.generate_nonce
+    dpop_key = OidcDpopKey.generate
     session[:oidc_code_verifier] = pkce[:verifier]
     session[:oidc_state] = state
     session[:oidc_nonce] = nonce
-    redirect_to(rp.authorization_url(code_challenge: pkce[:challenge], state:, nonce:), allow_other_host: true)
+    session[:oidc_dpop_key_pem] = dpop_key.to_pem
+    redirect_to(rp.authorization_url(code_challenge: pkce[:challenge], dpop_jkt: dpop_key.thumbprint, state:, nonce:), allow_other_host: true)
   end
 
   def callback

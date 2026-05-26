@@ -26,6 +26,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
       },
     )
   end
+  let(:dpop_jkt) { "the-jkt" }
 
   describe "#request_uri" do
     context "結果が2XXの場合" do
@@ -42,6 +43,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
             "nonce" => "the-nonce",
             "client_assertion_type" => "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
             "client_assertion" => "the-assertion",
+            "dpop_jkt" => "the-jkt",
           ),
         ).to_return(
           status: 201,
@@ -52,6 +54,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
         par = described_class.new(
           discovery:,
           client_assertion:,
+          dpop_jkt:,
           params:,
         )
 
@@ -72,6 +75,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
         par = described_class.new(
           discovery:,
           client_assertion:,
+          dpop_jkt:,
           params:,
         )
 
@@ -90,6 +94,7 @@ RSpec.describe OidcPushedAuthorizationRequest do
         par = described_class.new(
           discovery:,
           client_assertion:,
+          dpop_jkt:,
           params:,
         )
 

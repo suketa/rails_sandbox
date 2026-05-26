@@ -73,6 +73,7 @@ RSpec.describe "Oidc" do
             "code_challenge" => "the-challenge",
             "state" => "the-state",
             "nonce" => "the-nonce",
+            "dpop_jkt" => an_instance_of(String),
           ),
         ),
       ).to have_been_made
@@ -91,6 +92,11 @@ RSpec.describe "Oidc" do
     it "session に nonce を保存" do
       get "/oidc/start"
       expect(session[:oidc_nonce]).to eq("the-nonce")
+    end
+
+    it "session に DpopKey の pem を保存" do
+      get "/oidc/start"
+      expect(session[:oidc_dpop_key_pem]).to be_a(String).and be_present
     end
   end
 
