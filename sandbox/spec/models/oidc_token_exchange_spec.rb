@@ -5,6 +5,13 @@ require "rails_helper"
 RSpec.describe OidcTokenExchange do
   let(:token_endpoint) { "https://issuer.example.com/realms/test/protocol/openid-connect/token" }
   let(:discovery) { instance_double(OidcDiscovery, token_endpoint:) }
+  let(:dpop_key) { instance_double(OidcDpopKey) }
+
+  before do
+    allow(dpop_key).to receive(:proof)
+      .with(htm: "POST", htu: token_endpoint)
+      .and_return("the-proof")
+  end
 
   describe "#tokens" do
     let(:client_assertion) do
@@ -20,6 +27,7 @@ RSpec.describe OidcTokenExchange do
     context "結果が2XXの場合" do
       it "tokenを返す" do
         stub = stub_request(:post, token_endpoint).with(
+          headers: { "DPoP" => "the-proof" },
           body: hash_including(
             "grant_type" => "authorization_code",
             "code" => "the-code",
@@ -37,12 +45,13 @@ RSpec.describe OidcTokenExchange do
         exchange = described_class.new(
           discovery:,
           client_assertion:,
+          dpop_key:,
           redirect_uri: "http://localhost:3000/oidc/callback",
           code: "the-code",
           code_verifier: "the-verifier",
         )
 
-        expect(exchange.tokens).to include(access_token: "AT", id_token: "IDT")
+        expect(exchange.tokens).to include(access_token: "AT", id_token: "IDT", token_type: "Bearer")
         expect(stub).to have_been_requested
       end
     end
@@ -60,6 +69,7 @@ RSpec.describe OidcTokenExchange do
         exchange = described_class.new(
           discovery:,
           client_assertion:,
+          dpop_key:,
           redirect_uri: "http://localhost:3000/oidc/callback",
           code: "the-code",
           code_verifier: "the-verifier",
@@ -81,6 +91,7 @@ RSpec.describe OidcTokenExchange do
         exchange = described_class.new(
           discovery:,
           client_assertion:,
+          dpop_key:,
           redirect_uri: "http://localhost:3000/oidc/callback",
           code: "the-code",
           code_verifier: "the-verifier",

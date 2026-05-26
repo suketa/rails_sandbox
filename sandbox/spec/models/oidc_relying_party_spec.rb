@@ -28,6 +28,7 @@ RSpec.describe OidcRelyingParty do
       { iss: issuer, aud: "cid", nonce: "nonce", sub: "user-1", iat: now, exp: now + 60 }
     end
     let(:id_token) { JSON::JWT.new(claims).tap { |j| j.kid = jwk[:kid] }.sign(jwk, :PS256).to_s }
+    let(:dpop_key) { instance_double(OidcDpopKey) }
 
     before do
       allow(Settings).to receive_messages(
@@ -36,6 +37,9 @@ RSpec.describe OidcRelyingParty do
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
         oidc_signing_key: pem,
       )
+      allow(dpop_key).to receive(:proof)
+        .with(htm: "POST", htu: token_endpoint)
+        .and_return("the-proof")
       stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
       stub_request(:post, token_endpoint)
         .to_return(
@@ -58,6 +62,7 @@ RSpec.describe OidcRelyingParty do
           expected_state: "the-state",
           expected_nonce: "nonce",
           code_verifier: "the-verifier",
+          dpop_key:,
         )
         expect(result).to include(access_token: "AT", claims: include(sub: "user-1", iss: issuer))
       end
@@ -76,6 +81,7 @@ RSpec.describe OidcRelyingParty do
             expected_state: "the-state",
             expected_nonce: "nonce",
             code_verifier: "the-verifier",
+            dpop_key:,
           )
         end.to raise_error(OidcIdTokenVerifier::VerificationError, /alg/)
       end
@@ -92,6 +98,7 @@ RSpec.describe OidcRelyingParty do
             expected_state: "the-state",
             expected_nonce: "nonce",
             code_verifier: "the-verifier",
+            dpop_key:,
           )
         end.to raise_error(OidcRelyingParty::StateMismatchError)
       end
@@ -108,6 +115,7 @@ RSpec.describe OidcRelyingParty do
             expected_state: "the-state",
             expected_nonce: "nonce",
             code_verifier: "the-verifier",
+            dpop_key:,
           )
         end.to raise_error(OidcRelyingParty::IssMismatchError)
       end
@@ -124,6 +132,7 @@ RSpec.describe OidcRelyingParty do
             expected_state: "the-state",
             expected_nonce: "nonce",
             code_verifier: "the-verifier",
+            dpop_key:,
           )
         end.to raise_error(OidcRelyingParty::IssMismatchError)
       end
@@ -140,6 +149,7 @@ RSpec.describe OidcRelyingParty do
             expected_state: "the-state",
             expected_nonce: "nonce",
             code_verifier: "the-verifier",
+            dpop_key:,
           )
         end.to raise_error(OidcRelyingParty::StateMismatchError)
       end

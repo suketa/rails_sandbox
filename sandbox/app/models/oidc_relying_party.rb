@@ -51,13 +51,14 @@ class OidcRelyingParty
     auth.authorization_redirect_url(request_uri)
   end
 
-  def callback(code:, iss:, state:, expected_state:, expected_nonce:, code_verifier:)
+  def callback(code:, iss:, state:, expected_state:, expected_nonce:, code_verifier:, dpop_key:)
     raise StateMismatchError unless state == expected_state
     raise IssMismatchError unless iss == discovery.issuer
 
     tokens = OidcTokenExchange.new(
       discovery:,
       client_assertion:,
+      dpop_key:,
       redirect_uri: @redirect_uri,
       code:,
       code_verifier:,

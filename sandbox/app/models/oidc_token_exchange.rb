@@ -7,12 +7,14 @@ class OidcTokenExchange
   def initialize(
     discovery:,
     client_assertion:,
+    dpop_key:,
     redirect_uri:,
     code:,
     code_verifier:
   )
     @discovery = discovery
     @client_assertion = client_assertion
+    @dpop_key = dpop_key
     @redirect_uri = redirect_uri
     @code = code
     @code_verifier = code_verifier
@@ -21,7 +23,7 @@ class OidcTokenExchange
   def tokens
     body = fetch_token_response
     json = JSON.parse(body)
-    { access_token: json["access_token"], id_token: json["id_token"] }
+    { access_token: json["access_token"], id_token: json["id_token"], token_type: json["token_type"] }
   rescue JSON::ParserError
     raise TokenResponseParseError, "failed to parse response body"
   end
@@ -33,6 +35,7 @@ class OidcTokenExchange
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
     req = Net::HTTP::Post.new(uri.path)
+    req["DPoP"] = @dpop_key.proof(htm: "POST", htu: @discovery.token_endpoint)
     req.form_data = {
       code: @code,
       code_verifier: @code_verifier,

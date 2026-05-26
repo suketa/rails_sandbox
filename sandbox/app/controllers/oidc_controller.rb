@@ -16,6 +16,8 @@ class OidcController < ApplicationController
 
   def callback
     rp = OidcRelyingParty.new
+    dpop_key = OidcDpopKey.from_pem(session[:oidc_dpop_key_pem])
+
     result = rp.callback(
       code: params[:code],
       iss: params[:iss],
@@ -23,6 +25,7 @@ class OidcController < ApplicationController
       expected_state: session[:oidc_state],
       expected_nonce: session[:oidc_nonce],
       code_verifier: session[:oidc_code_verifier],
+      dpop_key:,
     )
     session.delete(:oidc_state)
     session.delete(:oidc_nonce)
