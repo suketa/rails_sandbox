@@ -37,5 +37,11 @@ RSpec.describe OidcDpopKey do
       other_key = JSON::JWK.new(OpenSSL::PKey::EC.generate("prime256v1"))
       expect { JSON::JWT.decode(jwt, other_key) }.to raise_error(JSON::JWS::VerificationFailed)
     end
+
+    it "ath を渡すと proof の payload に乗る" do
+      key = described_class.generate
+      decoded = JSON::JWT.decode(key.proof(htm: "GET", htu: "http://e", ath: "the-ath"), :skip_verification)
+      expect(decoded["ath"]).to eq("the-ath")
+    end
   end
 end

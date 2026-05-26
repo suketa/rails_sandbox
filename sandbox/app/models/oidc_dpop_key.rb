@@ -18,8 +18,8 @@ class OidcDpopKey
     @ec = ec
   end
 
-  def proof(htm:, htu:)
-    OidcDpopProof.new(signing_jwk: jwk, htm:, htu:).to_jwt
+  def proof(htm:, htu:, ath: nil)
+    OidcDpopProof.new(signing_jwk: jwk, htm:, htu:, ath:).to_jwt
   end
 
   private
