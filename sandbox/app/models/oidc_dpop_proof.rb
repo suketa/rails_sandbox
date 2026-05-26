@@ -24,7 +24,6 @@ class OidcDpopProof
     JSON::JWT.new(payload).tap do |j|
       j.header[:typ] = "dpop+jwt"
       j.header[:jwk] = @signing_jwk.normalize
-      j.kid = @signing_jwk[:kid]
     end.sign(@signing_jwk, ALG).to_s
   end
 end

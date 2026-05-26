@@ -72,5 +72,17 @@ RSpec.describe OidcDpopProof do
       decoded = JSON::JWT.decode(jwt, signing_jwk)
       expect(decoded.key?(:nonce)).to be(false)
     end
+
+    it "header に埋め込んだ公開鍵でのみ検証できる" do
+      proof = described_class.new(signing_jwk:, htm: "POST", htu: "http://example.com", nonce: "the-nonce")
+      jwt = proof.to_jwt
+      decoded = JSON::JWT.decode(jwt, signing_jwk)
+      embedded_key = JSON::JWK.new(decoded.header[:jwk])
+
+      expect { JSON::JWT.decode(jwt, embedded_key) }.not_to raise_error
+
+      other_key = JSON::JWK.new(OpenSSL::PKey::EC.generate("prime256v1"))
+      expect { JSON::JWT.decode(jwt, other_key) }.to raise_error(JSON::JWS::VerificationFailed)
+    end
   end
 end
