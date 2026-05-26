@@ -17,5 +17,25 @@ RSpec.describe OidcDpopKey do
       key = described_class.generate
       expect(described_class.from_pem(key.to_pem).thumbprint).to eq(key.thumbprint)
     end
+
+    it "43文字 (base64url)になる" do
+      expect(described_class.generate.thumbprint).to match(/\A[A-Za-z0-9_-]{43}\z/)
+    end
+  end
+
+  describe "#proof" do
+    it "鍵で署名されているjwk の thumbprint が一致する" do
+      key = described_class.generate
+      jwt = key.proof(htm: "POST", htu: "http://example.com")
+      decoded = JSON::JWT.decode(jwt, :skip_verification)
+
+      # この鍵で署名されている＝埋め込み jwk の thumbprint が一致
+      expect(JSON::JWK.new(decoded.header[:jwk]).thumbprint).to eq(key.thumbprint)
+      expect { JSON::JWT.decode(jwt, JSON::JWK.new(decoded.header[:jwk])) }.not_to raise_error
+
+      # 別鍵では失敗
+      other_key = JSON::JWK.new(OpenSSL::PKey::EC.generate("prime256v1"))
+      expect { JSON::JWT.decode(jwt, other_key) }.to raise_error(JSON::JWS::VerificationFailed)
+    end
   end
 end
