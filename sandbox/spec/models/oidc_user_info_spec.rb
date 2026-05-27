@@ -57,5 +57,29 @@ RSpec.describe OidcUserInfo do
         expect { user_info.fetch }.to raise_error(OidcUserInfo::UserInfoResponseParseError)
       end
     end
+
+    context "use_dpop_nonce で 401 が返った場合" do
+      it "nonce 付き proof で単回リトライして claims を返す" do
+        allow(dpop_key).to receive(:proof)
+          .with(htm: "GET", htu: userinfo_endpoint, ath: expected_ath, nonce: "the-nonce")
+          .and_return("proof2")
+
+        stub = stub_request(:get, userinfo_endpoint)
+          .to_return(
+            status: 401,
+            headers: { "WWW-Authenticate" => 'DPoP error="use_dpop_nonce"', "DPoP-Nonce" => "the-nonce" },
+          )
+          .to_return(
+            status: 200,
+            body: { sub: "user-1" }.to_json,
+            headers: { "Content-Type" => "application/json" },
+          )
+
+        user_info = described_class.new(discovery:, access_token: "AT", dpop_key:)
+        expect(user_info.fetch).to include(sub: "user-1")
+        expect(a_request(:get, userinfo_endpoint).with(headers: { "DPoP" => "proof2" })).to have_been_made
+        expect(stub).to have_been_requested.twice
+      end
+    end
   end
 end
