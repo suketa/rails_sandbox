@@ -11,6 +11,10 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - OIDC__ISSUER=${OIDC__ISSUER}
+      - OIDC__REDIRECT_URI=${OIDC__REDIRECT_URI}
+      - OIDC__SIGNING_KEY=${OIDC__SIGNING_KEY}
+      - OIDC__CLIENT_ID=${OIDC__CLIENT_ID}
   keycloak:
     image: quay.io/keycloak/keycloak:26.6.1
     volumes:
