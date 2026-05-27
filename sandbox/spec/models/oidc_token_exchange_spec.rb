@@ -99,5 +99,39 @@ RSpec.describe OidcTokenExchange do
         expect { exchange.tokens }.to raise_error(OidcTokenExchange::TokenResponseParseError)
       end
     end
+
+    context "use_dpop_nonce で 400 が返った場合" do
+      it "nonce 付き proof で単回リトライして token を返す" do
+        allow(dpop_key).to receive(:proof)
+          .with(htm: "POST", htu: token_endpoint).and_return("proof1") # 1回目（nonce 無し）
+        allow(dpop_key).to receive(:proof)
+          .with(htm: "POST", htu: token_endpoint, nonce: "the-nonce").and_return("proof2") # 再送
+
+        stub = stub_request(:post, token_endpoint)
+          .to_return(
+            status: 400,
+            body: { error: "use_dpop_nonce" }.to_json,
+            headers: { "Content-Type" => "application/json", "DPoP-Nonce" => "the-nonce" },
+          )
+          .to_return(
+            status: 200,
+            body: { access_token: "AT", id_token: "IDT", token_type: "DPoP" }.to_json,
+            headers: { "Content-Type" => "application/json" },
+          )
+
+        exchange = described_class.new(
+          discovery:,
+          client_assertion:,
+          dpop_key:,
+          redirect_uri: "http://localhost:3000/oidc/callback",
+          code: "the-code",
+          code_verifier: "the-verifier",
+        )
+
+        expect(exchange.tokens).to include(access_token: "AT")
+        expect(a_request(:post, token_endpoint).with(headers: { "DPoP" => "proof2" })).to have_been_made
+        expect(stub).to have_been_requested.twice
+      end
+    end
   end
 end

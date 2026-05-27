@@ -31,23 +31,39 @@ class OidcTokenExchange
   private
 
   def fetch_token_response
+    res = post_token
+    res = post_token(nonce: res["DPoP-Nonce"]) if use_dpop_nonce?(res)
+    case res
+    when Net::HTTPSuccess then res.body
+    else raise TokenEndpointError, "status=#{res.code}"
+    end
+  end
+
+  def post_token(nonce: nil)
     uri = URI.parse(@discovery.token_endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == "https")
     req = Net::HTTP::Post.new(uri.path)
-    req["DPoP"] = @dpop_key.proof(htm: "POST", htu: @discovery.token_endpoint)
+    req["DPoP"] = dpop_proof(nonce:)
     req.form_data = {
       code: @code,
       code_verifier: @code_verifier,
       grant_type: "authorization_code",
       redirect_uri: @redirect_uri,
     }.merge(@client_assertion.to_params)
-    res = http.request(req)
-    case res
-    when Net::HTTPSuccess
-      res.body
-    else
-      raise TokenEndpointError, "status=#{res.code}"
-    end
+    http.request(req)
+  end
+
+  def dpop_proof(nonce:)
+    ep = @discovery.token_endpoint
+    nonce ? @dpop_key.proof(htm: "POST", htu: ep, nonce:) : @dpop_key.proof(htm: "POST", htu: ep)
+  end
+
+  def use_dpop_nonce?(res)
+    return false unless res.code == "400" && res["DPoP-Nonce"]
+
+    JSON.parse(res.body)["error"] == "use_dpop_nonce"
+  rescue JSON::ParserError
+    false
   end
 end
