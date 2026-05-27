@@ -43,5 +43,12 @@ RSpec.describe OidcDpopKey do
       decoded = JSON::JWT.decode(key.proof(htm: "GET", htu: "http://e", ath: "the-ath"), :skip_verification)
       expect(decoded["ath"]).to eq("the-ath")
     end
+
+    it "nonce を渡すと proof の payload に乗る" do
+      key = described_class.generate
+      decoded = JSON::JWT.decode(key.proof(htm: "GET", htu: "http://e", ath: "the-ath", nonce: "the-nonce"), :skip_verification)
+      expect(decoded["ath"]).to eq("the-ath")
+      expect(decoded["nonce"]).to eq("the-nonce")
+    end
   end
 end
