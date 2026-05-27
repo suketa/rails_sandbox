@@ -33,3 +33,7 @@
 
 # Working/learning notes for Claude (per global CLAUDE.md)
 /agents/
+
+# Conformance Suite CA is environment-specific (extracted from the local suite); see
+# docker-compose.conformance.yml for the extraction command.
+/tls/

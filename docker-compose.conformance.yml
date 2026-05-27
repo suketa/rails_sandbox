@@ -1,0 +1,24 @@
+# Opt-in overlay for OIDF Conformance Suite testing (Phase 4.5). dev only — keeps the base
+# docker-compose.yml production-faithful (no suite-specific wiring leaks into normal dev/prod).
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.conformance.yml up
+#
+# Prerequisite: the suite's self-signed CA is environment-specific (regenerated whenever the
+# suite nginx image is rebuilt), so it is gitignored under /tls and must be extracted from your
+# running local suite first:
+#   mkdir -p tls
+#   echo | openssl s_client -connect localhost.emobix.co.uk:8443 \
+#     -servername localhost.emobix.co.uk 2>/dev/null | openssl x509 > tls/conformance-suite-ca.crt
+services:
+  web:
+    # The suite issuer host (localhost.emobix.co.uk) resolves to the host gateway, where the
+    # suite's published 8443 lives, so the RP back-channel (discovery/PAR/token/userinfo) reaches it.
+    extra_hosts:
+      - "localhost.emobix.co.uk:host-gateway"
+    volumes:
+      # Mount the suite's self-signed CA for the startup trust step below.
+      - ./tls/conformance-suite-ca.crt:/usr/local/share/ca-certificates/conformance-suite.crt:ro
+    # Install the mounted CA into the system trust store so RP TLS verification (VERIFY_PEER +
+    # hostname) passes against the suite — without weakening any RP application code.
+    command: ["bash", "-lc", "update-ca-certificates && exec irb"]
