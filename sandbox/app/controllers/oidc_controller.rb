@@ -7,6 +7,7 @@ class OidcController < ApplicationController
     state = OidcRelyingParty.generate_state
     nonce = OidcRelyingParty.generate_nonce
     dpop_key = OidcDpopKey.generate
+    session.delete(:oidc_access_token) # 新規ログイン開始時に前回のaccess_token をクリア
     session[:oidc_code_verifier] = pkce[:verifier]
     session[:oidc_state] = state
     session[:oidc_nonce] = nonce

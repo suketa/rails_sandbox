@@ -276,5 +276,15 @@ RSpec.describe "Oidc" do
       get "/oidc/userinfo"
       expect(response.body).to include("sub: user-1")
     end
+
+    it "userinfo取得後、新規にログインフローを開始するとき access_token を持ち越さない" do
+      get "/oidc/start"
+      get "/oidc/callback", params: callback_params
+      get "/oidc/userinfo"
+      expect(session[:oidc_access_token]).to eq("AT")
+
+      get "/oidc/start"
+      expect(session[:oidc_access_token]).to be_nil
+    end
   end
 end
