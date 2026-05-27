@@ -256,7 +256,7 @@ RSpec.describe "Oidc" do
         headers: { "Content-Type" => "application/json" },
       )
       stub_request(:get, discovery_response[:userinfo_endpoint])
-        .with(headers: { "Authorization" => "Bearer AT" })
+        .with(headers: { "Authorization" => "DPoP AT" })
         .to_return(
           status: 200,
           body: { sub: "user-1" }.to_json,

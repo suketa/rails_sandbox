@@ -37,6 +37,7 @@ class OidcController < ApplicationController
 
   def userinfo
     rp = OidcRelyingParty.new
-    @userinfo = rp.userinfo(access_token: session[:oidc_access_token])
+    dpop_key = OidcDpopKey.from_pem(session[:oidc_dpop_key_pem])
+    @userinfo = rp.userinfo(access_token: session[:oidc_access_token], dpop_key:)
   end
 end

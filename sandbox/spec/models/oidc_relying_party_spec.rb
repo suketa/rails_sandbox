@@ -175,6 +175,8 @@ RSpec.describe OidcRelyingParty do
     end
     let(:pkey) { OpenSSL::PKey::EC.generate("prime256v1") }
     let(:pem) { pkey.to_pem }
+    let(:dpop_key) { instance_double(OidcDpopKey) }
+    let(:ath) { Base64.urlsafe_encode64(Digest::SHA256.digest("AT"), padding: false) }
 
     before do
       allow(Settings).to receive_messages(
@@ -183,9 +185,12 @@ RSpec.describe OidcRelyingParty do
         oidc_signing_key: pem,
         oidc_redirect_uri: "http://localhost:3000/oidc/callback",
       )
+      allow(dpop_key).to receive(:proof)
+        .with(htm: "GET", htu: discovery_response[:userinfo_endpoint], ath:)
+        .and_return("the-proof")
       stub_request(:get, discovery_url).to_return(status: 200, body: discovery_response.to_json, headers: { "Content-Type" => "application/json" })
       stub_request(:get, discovery_response[:userinfo_endpoint])
-        .with(headers: { "Authorization" => "Bearer AT" })
+        .with(headers: { "Authorization" => "DPoP AT", "DPoP" => "the-proof" })
         .to_return(
           status: 200,
           body: { sub: "user-1" }.to_json,
@@ -193,10 +198,10 @@ RSpec.describe OidcRelyingParty do
         )
     end
 
-    context "happy path" do
+    context "正常系" do
       it "UserInfo の claims を取得できる" do
         rp = described_class.new
-        expect(rp.userinfo(access_token: "AT")).to include(sub: "user-1")
+        expect(rp.userinfo(access_token: "AT", dpop_key:)).to include(sub: "user-1")
       end
     end
   end

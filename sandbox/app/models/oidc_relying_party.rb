@@ -75,8 +75,8 @@ class OidcRelyingParty
     { access_token: tokens[:access_token], claims: }
   end
 
-  def userinfo(access_token:)
-    OidcUserInfo.new(discovery:, access_token:).fetch
+  def userinfo(access_token:, dpop_key:)
+    OidcUserInfo.new(discovery:, access_token:, dpop_key:).fetch
   end
 
   private
