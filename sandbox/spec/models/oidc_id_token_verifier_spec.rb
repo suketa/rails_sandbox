@@ -52,6 +52,15 @@ RSpec.describe OidcIdTokenVerifier do
       end
     end
 
+    context "aud が複数のとき" do
+      let(:claims) { base_claims.merge(aud: ["cid", "cid2"]) }
+
+      it "検証に失敗する" do
+        verifier = described_class.new(id_token:, discovery:, client_id: "cid", nonce: "nonce")
+        expect { verifier.verify! }.to raise_error(OidcIdTokenVerifier::VerificationError, /aud/)
+      end
+    end
+
     context "nonce が不一致のとき" do
       let(:claims) { base_claims.merge(nonce: "invalid-nonce") }
 

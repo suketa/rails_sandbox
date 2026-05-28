@@ -43,7 +43,9 @@ class OidcIdTokenVerifier
   end
 
   def verify_aud!(claims)
-    raise VerificationError, "aud mismatch" if Array(claims[:aud]).exclude?(@client_id)
+    aud = Array(claims[:aud])
+    raise VerificationError, "aud missing client_id" if aud.exclude?(@client_id)
+    raise VerificationError, "aud has untrusted audience" if aud.size > 1
   end
 
   def verify_nonce!(claims)
