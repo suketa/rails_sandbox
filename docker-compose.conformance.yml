@@ -12,6 +12,10 @@
 #     -servername localhost.emobix.co.uk 2>/dev/null | openssl x509 > tls/conformance-suite-ca.crt
 services:
   web:
+    # Point the RP at the suite's per-alias issuer instead of Keycloak. The alias (rails-sandbox-rp)
+    # is fixed in the suite test config, so this issuer URL is stable across test modules.
+    environment:
+      - OIDC__ISSUER=https://localhost.emobix.co.uk:8443/test/a/rails-sandbox-rp/
     # The suite issuer host (localhost.emobix.co.uk) resolves to the host gateway, where the
     # suite's published 8443 lives, so the RP back-channel (discovery/PAR/token/userinfo) reaches it.
     extra_hosts:
